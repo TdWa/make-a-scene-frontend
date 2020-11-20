@@ -8,10 +8,12 @@ import MyScenesListPage from "./pages/MyScenesListPage";
 import MySceneEditPage from "./pages/MySceneEditPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/scenes" component={PublicScenesListPage} />
