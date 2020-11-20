@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
-  },
+    "jsx": "react" // changed from "react-jsx" to "react" because of bug https://github.com/facebook/create-react-app/issues/9868
+  }, //  Also changed frontend-story/node_modules/react-scripts/scripts/utils/verifyTypeScriptSetup.js on line 151: Jsx -> JSX    &&&&& on line 238 added: && option !== "jsx"
   "include": ["src"]
 }
