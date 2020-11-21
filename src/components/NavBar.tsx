@@ -15,6 +15,8 @@ export default function NavBar() {
       <br></br>
       <NavLink to="/scene/1">Scene 1</NavLink>
       <br></br>
+      <NavLink to="/author/1">Author 1</NavLink>
+      <br></br>
       <br></br>
       Personal:
       <br></br>
