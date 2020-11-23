@@ -11,10 +11,25 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 
+import styled from "styled-components";
+
+type TitleProps = {
+  primary?: boolean;
+};
+
+const Title = styled.h1<TitleProps>`
+  color: red;
+  background-color: ${(props: TitleProps) =>
+    props.primary ? "yellow" : "pink"};
+  background-color: ${({ primary }) => (primary ? "yellow" : "pink")};
+`;
+
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <Title primary={true}>Welcome primary</Title>
+      <Title>Welcome non-primary</Title>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/scenes" component={PublicScenesListPage} />
