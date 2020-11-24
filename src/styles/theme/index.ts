@@ -3,10 +3,13 @@ export const theme = {
     main: "tomato",
     accent: "teal",
   },
+  fontFamilies: {
+    arial: "Arial, Helvetica, sans-serif",
+  },
   fontSizes: {
-    small: "0.5rem",
+    small: "0.75rem",
     medium: "1rem",
-    large: "2rem",
+    large: "1.5rem",
   },
   mediaQueries: {},
 };

@@ -1,19 +1,23 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  background-color: red;
+  min-width: 70px;
+  height: 35px;
+  font-size: 1rem;
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #404040;
+
+  &:hover {
+    background-color: #01135c;
+    cursor: pointer;
+    transform: scale(1.03);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
 `;
-
-// type TitleProps = {
-//   primary?: boolean;
-// };
-
-// const Title = styled.h1<TitleProps>`
-//   color: red;
-//   background-color: ${(props: TitleProps) =>
-//     props.primary ? "yellow" : "pink"};
-//   background-color: ${({ primary }) => (primary ? "yellow" : "pink")};
-// `;
-
-// <Title primary={true}>Welcome primary</Title>
-// <Title>Welcome non-primary</Title>
