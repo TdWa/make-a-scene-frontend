@@ -11,13 +11,13 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 
-import { Main } from "./styles/styledElements";
+import { MainWrapper } from "./styles/styledElements";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Main>
+      <MainWrapper>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/scenes" component={PublicScenesListPage} />
@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
         </Switch>
-      </Main>
+      </MainWrapper>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Button } from "./Button";
 import { Form } from "./Form";
 import { StyledLink } from "./StyledLink";
-import { Main } from "./Main";
+import { MainWrapper } from "./MainWrapper";
 
-export { Button, Form, StyledLink, Main };
+export { Button, Form, StyledLink, MainWrapper };
