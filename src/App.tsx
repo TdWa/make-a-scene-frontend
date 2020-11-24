@@ -11,37 +11,24 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 
-import styled from "styled-components";
-
-type TitleProps = {
-  primary?: boolean;
-};
-
-const Title = styled.h1<TitleProps>`
-  color: red;
-  background-color: ${(props: TitleProps) =>
-    props.primary ? "yellow" : "pink"};
-  background-color: ${({ primary }) => (primary ? "yellow" : "pink")};
-`;
-
-// test login-system branch
+import { Main } from "./styles/styledElements";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Title primary={true}>Welcome primary</Title>
-      <Title>Welcome non-primary</Title>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/scenes" component={PublicScenesListPage} />
-        <Route path="/scene/:id" component={PublicSceneViewPage} />
-        <Route path="/author/:id" component={PublicAuthorViewPage} />
-        <Route path="/myScenes" component={MyScenesListPage} />
-        <Route path="/myScene/:id" component={MySceneEditPage} />
-        <Route path="/signup" component={SignupPage} />
-        <Route path="/login" component={LoginPage} />
-      </Switch>
+      <Main>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/scenes" component={PublicScenesListPage} />
+          <Route path="/scene/:id" component={PublicSceneViewPage} />
+          <Route path="/author/:id" component={PublicAuthorViewPage} />
+          <Route path="/myScenes" component={MyScenesListPage} />
+          <Route path="/myScene/:id" component={MySceneEditPage} />
+          <Route path="/signup" component={SignupPage} />
+          <Route path="/login" component={LoginPage} />
+        </Switch>
+      </Main>
     </div>
   );
 }
