@@ -16,7 +16,7 @@ const initialState: UserState = {
   email: null,
 };
 
-export default (state = initialState, action: UserActionTypes) => {
+const userReducer = (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
     case LOADING_USER:
       return { ...state, loading: true, error: null };
@@ -39,3 +39,5 @@ export default (state = initialState, action: UserActionTypes) => {
       return state;
   }
 };
+
+export default userReducer;
