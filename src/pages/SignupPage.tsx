@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { signUp } from "../../store/user/actions";
-// import { selectToken } from "../../store/user/selectors";
-// import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { signUp } from "../store/user/actions";
+import { selectToken } from "../store/user/selectors";
 
 import { Button, Form, StyledLink, PageTitle } from "../styles/styledElements";
 
@@ -10,13 +10,21 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const dispatch = useDispatch();
-  // const token = useSelector(selectToken);
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (token !== null) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("hey hey test");
-    // dispatch(signUp(name, email, password));
+
+    dispatch(signUp(name, email, password));
+
     setEmail("");
     setPassword("");
     setName("");

@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { login } from "../store/user/actions";
+import { selectToken } from "../store/user/selectors";
 import { Button, Form, StyledLink, PageTitle } from "../styles/styledElements";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (token !== null) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // dispatch(login(email, password....));
+
+    dispatch(login(email, password));
+
     setEmail("");
     setPassword("");
   }
