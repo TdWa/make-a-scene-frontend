@@ -32,7 +32,7 @@ const tokenStillValid = (
   payload: userWithoutToken,
 });
 
-const logOut = (): UserActionTypes => ({ type: LOG_OUT });
+export const logOut = (): UserActionTypes => ({ type: LOG_OUT });
 
 export const signUp = (
   name: string,
