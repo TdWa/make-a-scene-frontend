@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/actions";
 // import { selectUserLoading } from "./store/user/selectors";
 // import Loading from "./components/Loading";
-// import MessageBox from "./components/MessageBox";
+import MessageBox from "./components/MessageBox";
 
 import HomePage from "./pages/HomePage";
 import PublicScenesListPage from "./pages/PublicScenesListPage";
@@ -31,7 +31,7 @@ function App() {
     <div className="App">
       <NavBar />
       <MainWrapper>
-        {/* <MessageBox /> */}
+        <MessageBox />
         {/* {isLoading ? <p>Loading...</p> : null} */}
         <Switch>
           <Route exact path="/" component={HomePage} />
