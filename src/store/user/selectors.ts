@@ -1,6 +1,6 @@
 import { RootState } from "../types";
 
-export const selectLoadingUser = (state: RootState) => state.user.loading;
+export const selectUserLoading = (state: RootState) => state.user.loading;
 
 export const selectUserRequestError = (state: RootState) => state.user.error;
 
