@@ -1,5 +1,10 @@
 import React from "react";
+import { PageTitle } from "../styles/styledElements";
 
 export default function HomePage() {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <PageTitle>Homepage</PageTitle>
+    </div>
+  );
 }
