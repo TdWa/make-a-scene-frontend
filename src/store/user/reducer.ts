@@ -2,7 +2,8 @@ import {
   UserState,
   UserActionTypes,
   LOADING_USER,
-  USER_REQUEST_ERROR,
+  USER_FEEDBACK_MESSAGE,
+  CLEAR_USER_FEEDBACK_MESSAGE,
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
   LOG_OUT,
@@ -10,7 +11,7 @@ import {
 
 const initialState: UserState = {
   loading: false,
-  error: null,
+  message: null,
   token: localStorage.getItem("token"),
   name: null,
   email: null,
@@ -19,17 +20,20 @@ const initialState: UserState = {
 const userReducer = (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
     case LOADING_USER:
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true };
 
-    case USER_REQUEST_ERROR:
-      return { ...state, loading: false, error: action.payload };
+    case USER_FEEDBACK_MESSAGE:
+      return { ...state, loading: false, message: action.payload };
+
+    case CLEAR_USER_FEEDBACK_MESSAGE:
+      return { ...state, message: null };
 
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
-      return { ...state, loading: false, error: null, ...action.payload };
+      return { ...state, loading: false, ...action.payload };
 
     case TOKEN_STILL_VALID:
-      return { ...state, loading: false, error: null, ...action.payload };
+      return { ...state, loading: false, ...action.payload };
 
     case LOG_OUT:
       localStorage.removeItem("token");

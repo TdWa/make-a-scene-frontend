@@ -1,7 +1,7 @@
 // state type
 export type UserState = {
   loading: boolean;
-  error: string | null;
+  message: string | null;
   token: string | null;
   name: string | null;
   email: string | null;
@@ -19,7 +19,8 @@ export type UserWithToken = UserWithoutToken & { token: string };
 
 // action types
 export const LOADING_USER = "LOADING_USER";
-export const USER_REQUEST_ERROR = "USER_REQUEST_ERROR";
+export const USER_FEEDBACK_MESSAGE = "USER_FEEDBACK_MESSAGE";
+export const CLEAR_USER_FEEDBACK_MESSAGE = "CLEAR_USER_FEEDBACK_MESSAGE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
@@ -28,9 +29,13 @@ export type SetLoadingUser = {
   type: typeof LOADING_USER;
 };
 
-export type SetUserRequestError = {
-  type: typeof USER_REQUEST_ERROR;
+export type SetUserFeedbackMessage = {
+  type: typeof USER_FEEDBACK_MESSAGE;
   payload: string;
+};
+
+export type ClearUserFeedbackMessage = {
+  type: typeof CLEAR_USER_FEEDBACK_MESSAGE;
 };
 
 export type ManualLogin = {
@@ -49,7 +54,8 @@ export type Logout = {
 
 export type UserActionTypes =
   | SetLoadingUser
-  | SetUserRequestError
+  | SetUserFeedbackMessage
+  | ClearUserFeedbackMessage
   | ManualLogin
   | TokenLogin
   | Logout;

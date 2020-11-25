@@ -1,9 +1,10 @@
-import { apiUrl } from "../../config/constants";
+import { apiUrl, feedbackMessageDuration } from "../../config/constants";
 import axios from "axios";
 import { selectToken } from "./selectors";
 import {
   LOADING_USER,
-  USER_REQUEST_ERROR,
+  USER_FEEDBACK_MESSAGE,
+  CLEAR_USER_FEEDBACK_MESSAGE,
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
   LOG_OUT,
@@ -15,9 +16,13 @@ import { AppThunk } from "../types";
 
 const loadingUser = (): UserActionTypes => ({ type: LOADING_USER });
 
-const setUserRequestError = (error: string): UserActionTypes => ({
-  type: USER_REQUEST_ERROR,
-  payload: error,
+const setUserFeedbackMessage = (message: string): UserActionTypes => ({
+  type: USER_FEEDBACK_MESSAGE,
+  payload: message,
+});
+
+export const clearUserFeedbackMessage = (): UserActionTypes => ({
+  type: CLEAR_USER_FEEDBACK_MESSAGE,
 });
 
 const loginSuccess = (userWithToken: UserWithToken): UserActionTypes => ({
@@ -49,13 +54,18 @@ export const signUp = (
       });
 
       dispatch(loginSuccess(response.data));
+      dispatch(setUserFeedbackMessage("Account created!"));
+      setTimeout(
+        () => dispatch(clearUserFeedbackMessage()),
+        feedbackMessageDuration
+      );
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(setUserRequestError(error.response.data.message));
+        dispatch(setUserFeedbackMessage(error.response.data.message));
       } else {
         console.log(error.message);
-        dispatch(setUserRequestError(error.message));
+        dispatch(setUserFeedbackMessage(error.message));
       }
     }
   };
@@ -71,13 +81,18 @@ export const login = (email: string, password: string): AppThunk => {
       });
 
       dispatch(loginSuccess(response.data));
+      dispatch(setUserFeedbackMessage("Welcome back!"));
+      setTimeout(
+        () => dispatch(clearUserFeedbackMessage()),
+        feedbackMessageDuration
+      );
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(setUserRequestError(error.response.data.message));
+        dispatch(setUserFeedbackMessage(error.response.data.message));
       } else {
         console.log(error.message);
-        dispatch(setUserRequestError(error.message));
+        dispatch(setUserFeedbackMessage(error.message));
       }
     }
   };
@@ -98,10 +113,8 @@ export const getUserWithStoredToken = (): AppThunk => {
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(setUserRequestError(error.response.data.message));
       } else {
         console.log(error.message);
-        dispatch(setUserRequestError(error.message));
       }
       dispatch(logOut());
     }
