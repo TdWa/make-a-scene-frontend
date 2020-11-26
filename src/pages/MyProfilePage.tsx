@@ -10,6 +10,7 @@ export default function MyProfilePage() {
   const [edit, setEdit] = useState(false);
   const user = useSelector(selectUser);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textBeforeEdit = useRef("");
 
   // still need to fix not logged in situation, jwt expired etc
 
@@ -45,7 +46,14 @@ export default function MyProfilePage() {
               ref={textareaRef}
             ></textarea>
             <Button onClick={handleSave}>Save</Button>
-            {/* maybe add a cancel feature later */}
+            <Button
+              onClick={() => {
+                setAbout(textBeforeEdit.current);
+                setEdit(false);
+              }}
+            >
+              Cancel
+            </Button>
           </div>
         ) : (
           <div>
@@ -53,6 +61,7 @@ export default function MyProfilePage() {
             <Button
               onClick={() => {
                 setEdit(true);
+                textBeforeEdit.current = about;
               }}
             >
               Edit
