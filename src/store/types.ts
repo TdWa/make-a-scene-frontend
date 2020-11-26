@@ -10,3 +10,23 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+// work in progress..
+export type Phrase = {
+  id: number;
+  actorId: number;
+  index: number;
+  text: string;
+};
+
+export type ActorType = {
+  id?: number;
+  sceneId?: number;
+  type: "male" | "female";
+  name: string;
+  backgroundColor: string;
+  color: string;
+  phrases?: Phrase[];
+};
+
+export type Scene = Phrase[];

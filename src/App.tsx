@@ -10,6 +10,7 @@ import PublicScenesListPage from "./pages/PublicScenesListPage";
 import PublicSceneViewPage from "./pages/PublicSceneViewPage";
 import PublicAuthorViewPage from "./pages/PublicAuthorViewPage";
 import MyProfilePage from "./pages/MyProfilePage";
+import MyNewScenePage from "./pages/MyNewScenePage";
 import MySceneEditPage from "./pages/MySceneEditPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
@@ -34,8 +35,9 @@ function App() {
           <Route path="/scenes" component={PublicScenesListPage} />
           <Route path="/scene/:id" component={PublicSceneViewPage} />
           <Route path="/author/:id" component={PublicAuthorViewPage} />
-          <Route path="/myScenes" component={MyProfilePage} />
-          <Route path="/myScene/:id" component={MySceneEditPage} />
+          <Route exact path="/myScenes" component={MyProfilePage} />
+          <Route exact path="/myScenes/new" component={MyNewScenePage} />
+          <Route path="/myScenes/:id" component={MySceneEditPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
         </Switch>

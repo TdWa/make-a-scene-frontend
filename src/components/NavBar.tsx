@@ -18,12 +18,13 @@ export default function NavBar() {
       </div>
       <div className="navColumn">
         <NavLink to="/scenes">Public Scenes</NavLink>
-        <NavLink to="/scene/1">Scene 1</NavLink>
-        <NavLink to="/author/1">Author 1</NavLink>
+        {/* <NavLink to="/scene/1">Scene 1</NavLink>
+        <NavLink to="/author/1">Author 1</NavLink> */}
       </div>
       <div className="navColumn">
         <NavLink to="/myScenes">My Scenes</NavLink>
-        <NavLink to="/myScene/1">MyScene 1</NavLink>
+        {/* <NavLink to="/myScenes/1">MyScene 1</NavLink>
+        <NavLink to="/myScenes/new">New Scene</NavLink> */}
       </div>
       <div className="navColumn">
         {user.name ? (
