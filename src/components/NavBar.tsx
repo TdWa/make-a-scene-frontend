@@ -11,33 +11,30 @@ export default function NavBar() {
 
   return (
     <Header>
-      {user.name ? (
-        <div>
-          <p>Welcome back {user.name}</p>
-          <Button onClick={() => dispatch(logOut())}>Logout</Button>
-        </div>
-      ) : (
-        <NavLink to="/login">Login</NavLink>
-      )}
-      <NavLink to="/" exact={true}>
-        Home
-      </NavLink>
-      <br></br>
-      <br></br>
-      Public:
-      <br></br>
-      <NavLink to="/scenes">Public Scenes</NavLink>
-      <br></br>
-      <NavLink to="/scene/1">Scene 1</NavLink>
-      <br></br>
-      <NavLink to="/author/1">Author 1</NavLink>
-      <br></br>
-      <br></br>
-      Personal:
-      <br></br>
-      <NavLink to="/myScenes">My Scenes</NavLink>
-      <br></br>
-      <NavLink to="/myScene/1">MyScene 1</NavLink>
+      <div className="navColumn">
+        <NavLink to="/" exact={true}>
+          Home
+        </NavLink>
+      </div>
+      <div className="navColumn">
+        <NavLink to="/scenes">Public Scenes</NavLink>
+        <NavLink to="/scene/1">Scene 1</NavLink>
+        <NavLink to="/author/1">Author 1</NavLink>
+      </div>
+      <div className="navColumn">
+        <NavLink to="/myScenes">My Scenes</NavLink>
+        <NavLink to="/myScene/1">MyScene 1</NavLink>
+      </div>
+      <div className="navColumn">
+        {user.name ? (
+          <div>
+            <p>Welcome back {user.name}</p>
+            <Button onClick={() => dispatch(logOut())}>Logout</Button>
+          </div>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
+      </div>
     </Header>
   );
 }

@@ -8,11 +8,17 @@ import {
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
   LOG_OUT,
+  EDIT_ABOUT,
   UserActionTypes,
   UserWithoutToken,
   UserWithToken,
 } from "./types";
 import { AppThunk } from "../types";
+
+const setAbout = (about: string): UserActionTypes => ({
+  type: EDIT_ABOUT,
+  payload: about,
+});
 
 const loadingUser = (): UserActionTypes => ({ type: LOADING_USER });
 
@@ -36,6 +42,35 @@ const tokenStillValid = (
   type: TOKEN_STILL_VALID,
   payload: userWithoutToken,
 });
+
+export const editAbout = (about: string): AppThunk => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+    if (token === null) return;
+
+    const currentAbout = getState().user.about || "";
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/users`,
+        {
+          about,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(setAbout(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setUserFeedbackMessage(error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setUserFeedbackMessage(error.message));
+      }
+      // change the text back to what it was to show that it didn't save
+      dispatch(setAbout(currentAbout));
+    }
+  };
+};
 
 export const logOut = (): UserActionTypes => ({ type: LOG_OUT });
 
