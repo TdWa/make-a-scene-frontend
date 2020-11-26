@@ -20,4 +20,13 @@ export const Button = styled.button`
   &:active {
     transform: translateY(1px);
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 2px solid blue;
+    box-shadow: none;
+  }
 `;
