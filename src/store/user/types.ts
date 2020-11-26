@@ -6,6 +6,7 @@ export type UserState = {
   name: string | null;
   email: string | null;
   about?: string;
+  scenes?: any[]; // change to a scene type later
 };
 
 // user types
