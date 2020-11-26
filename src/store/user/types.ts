@@ -18,12 +18,18 @@ export type UserWithoutToken = {
 export type UserWithToken = UserWithoutToken & { token: string };
 
 // action types
+export const EDIT_ABOUT = "EDIT_ABOUT";
 export const LOADING_USER = "LOADING_USER";
 export const USER_FEEDBACK_MESSAGE = "USER_FEEDBACK_MESSAGE";
 export const CLEAR_USER_FEEDBACK_MESSAGE = "CLEAR_USER_FEEDBACK_MESSAGE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+
+export type SetAbout = {
+  type: typeof EDIT_ABOUT;
+  payload: string;
+};
 
 export type SetLoadingUser = {
   type: typeof LOADING_USER;
@@ -53,6 +59,7 @@ export type Logout = {
 };
 
 export type UserActionTypes =
+  | SetAbout
   | SetLoadingUser
   | SetUserFeedbackMessage
   | ClearUserFeedbackMessage

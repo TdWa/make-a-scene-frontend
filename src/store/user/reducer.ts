@@ -7,6 +7,7 @@ import {
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
   LOG_OUT,
+  EDIT_ABOUT,
 } from "./types";
 
 const initialState: UserState = {
@@ -38,6 +39,9 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
     case LOG_OUT:
       localStorage.removeItem("token");
       return { ...initialState, token: null };
+
+    case EDIT_ABOUT:
+      return { ...state, about: action.payload };
 
     default:
       return state;
