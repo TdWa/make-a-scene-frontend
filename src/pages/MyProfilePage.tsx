@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editAbout } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
 import { AboutWrapper, Button, PageTitle } from "../styles/styledElements";
+import { Link } from "react-router-dom";
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -69,6 +70,10 @@ export default function MyProfilePage() {
           </div>
         )}
       </AboutWrapper>
+      {/* Maybe change this link later if it needs to have an id or something */}
+      <Link to="/myScene/new">
+        <Button>Make a new scene!</Button>
+      </Link>
     </div>
   );
 }
