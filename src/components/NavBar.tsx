@@ -11,26 +11,28 @@ export default function NavBar() {
 
   return (
     <Header>
-      <div className="navColumn">
+      <div>
         <NavLink to="/" exact={true}>
           Home
         </NavLink>
       </div>
-      <div className="navColumn">
+      <div>
         <NavLink to="/scenes">Public Scenes</NavLink>
         {/* <NavLink to="/scene/1">Scene 1</NavLink>
         <NavLink to="/author/1">Author 1</NavLink> */}
       </div>
-      <div className="navColumn">
+      <div>
         <NavLink to="/myScenes">My Scenes</NavLink>
         {/* <NavLink to="/myScenes/1">MyScene 1</NavLink>
         <NavLink to="/myScenes/new">New Scene</NavLink> */}
       </div>
-      <div className="navColumn">
+      <div>
         {user.name ? (
           <div>
-            <p>Welcome back {user.name}</p>
-            <Button onClick={() => dispatch(logOut())}>Logout</Button>
+            <p>
+              {user.name}{" "}
+              <Button onClick={() => dispatch(logOut())}>Logout</Button>
+            </p>
           </div>
         ) : (
           <NavLink to="/login">Login</NavLink>

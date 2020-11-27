@@ -4,7 +4,7 @@ export const Header = styled.header`
   display: flex;
   background-color: lightblue;
 
-  .navColumn {
+  > div {
     flex: 1;
     display: flex;
     justify-content: center;
