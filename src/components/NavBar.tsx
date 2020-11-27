@@ -12,17 +12,23 @@ export default function NavBar() {
   return (
     <Header>
       <div>
-        <NavLink to="/" exact={true}>
+        <NavLink exact to="/">
           Home
         </NavLink>
       </div>
       <div>
-        <NavLink to="/scenes">Public Scenes</NavLink>
+        <NavLink exact to="/scenes">
+          Public Scenes
+        </NavLink>
         {/* <NavLink to="/scene/1">Scene 1</NavLink>
         <NavLink to="/author/1">Author 1</NavLink> */}
       </div>
       <div>
-        <NavLink to="/myScenes">My Scenes</NavLink>
+        {user.name && (
+          <NavLink exact to="/myScenes">
+            My Scenes
+          </NavLink>
+        )}
         {/* <NavLink to="/myScenes/1">MyScene 1</NavLink>
         <NavLink to="/myScenes/new">New Scene</NavLink> */}
       </div>
@@ -35,7 +41,9 @@ export default function NavBar() {
             </p>
           </div>
         ) : (
-          <NavLink to="/login">Login</NavLink>
+          <NavLink exact to="/login">
+            Login
+          </NavLink>
         )}
       </div>
     </Header>

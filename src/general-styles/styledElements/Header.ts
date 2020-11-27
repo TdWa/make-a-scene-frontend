@@ -10,4 +10,8 @@ export const Header = styled.header`
     justify-content: center;
     align-items: center;
   }
+
+  .active {
+    font-weight: bold;
+  }
 `;
