@@ -17,7 +17,7 @@ const initialState: UserState = {
   token: localStorage.getItem("token"),
   name: null,
   email: null,
-  scenes: [], // lets go include these with the login /me fetches
+  scenes: [],
 };
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
