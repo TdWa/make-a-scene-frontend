@@ -33,7 +33,7 @@ export default function MyNewScenePage() {
         actor1: {
           type: type === "male" ? "male" : "female",
           name: "",
-          backgroundColor: "#e2dc85",
+          backgroundColor: "#31c5ff",
           color: "#000000",
         },
         actor2: actors.actor2,
@@ -43,7 +43,7 @@ export default function MyNewScenePage() {
         actor2: {
           type: type === "male" ? "male" : "female",
           name: "",
-          backgroundColor: "#e2dc85",
+          backgroundColor: "#ffee00",
           color: "#000000",
         },
         actor1: actors.actor1,
