@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ActorWrapper = styled.div`
-  width: 250px;
+  width: 200px;
   height: 300px;
   border: 1px solid black;
   display: flex;

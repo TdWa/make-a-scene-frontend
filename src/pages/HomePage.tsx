@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTitle } from "../styles/styledElements";
+import { PageTitle } from "../general-styles/styledElements";
 
 export default function HomePage() {
   return (

@@ -1,59 +1,67 @@
 import React from "react";
 import Actor from "../components/Actor";
-import { ActorsToCreate } from "../pages/MyNewScenePage";
+import { ActorType } from "../store/types";
 
 type ActorCreaterProp = {
-  actors: ActorsToCreate;
-  selectActor: (type: "male" | "female") => void;
+  number: 1 | 2;
+  actor: ActorType | null;
+  selectActor: (actor: 1 | 2, type: "male" | "female") => void;
   editActorColors: (
+    actor: 1 | 2,
     property: "color" | "backgroundColor",
     color: string
   ) => void;
-  editActorName: (name: string) => void;
+  editActorName: (actor: 1 | 2, name: string) => void;
 };
 
 export default function ActorCreater(props: ActorCreaterProp) {
-  const { actors, selectActor, editActorColors, editActorName } = props;
+  const { number, actor, selectActor, editActorColors, editActorName } = props;
   return (
-    <div>
-      <h3>Actor 1</h3>
-      <select
-        defaultValue={"Select"}
-        onChange={(e) => {
-          if (e.target.value === "male" || e.target.value === "female") {
-            selectActor(e.target.value);
-          }
-        }}
-      >
-        <option disabled>Select</option>
-        <option value="male">male</option>
-        <option value="female">female</option>
-      </select>
-      {actors.actor1 && <Actor {...actors.actor1} />}
-      {actors.actor1 && (
+    <div className="actorCreater">
+      <h3>Actor {number}</h3>
+      <div>
+        <p>Type:</p>
+        <select
+          defaultValue={"Select"}
+          onChange={(e) => {
+            if (e.target.value === "male" || e.target.value === "female") {
+              selectActor(number, e.target.value);
+            }
+          }}
+        >
+          <option disabled>Select</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+      </div>
+      {actor && (
         <div>
           <div>
+            <p>Name:</p>
+            <input
+              value={actor.name}
+              onChange={(e) => editActorName(number, e.target.value)}
+              placeholder="Actor name"
+              required
+            />
+          </div>
+          <Actor {...actor} />
+          <div>
+            <p>Body color:</p>
             <input
               type="color"
-              value={actors.actor1.backgroundColor}
+              value={actor.backgroundColor}
               onChange={(e) =>
-                editActorColors("backgroundColor", e.target.value)
+                editActorColors(number, "backgroundColor", e.target.value)
               }
             />
           </div>
-
           <div>
+            <p>Text color:</p>
             <input
               type="color"
-              value={actors.actor1.color}
-              onChange={(e) => editActorColors("color", e.target.value)}
-            />
-          </div>
-
-          <div>
-            <input
-              value={actors.actor1.name}
-              onChange={(e) => editActorName(e.target.value)}
+              value={actor.color}
+              onChange={(e) => editActorColors(number, "color", e.target.value)}
             />
           </div>
         </div>

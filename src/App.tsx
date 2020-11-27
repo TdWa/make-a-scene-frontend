@@ -16,7 +16,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 
-import { MainWrapper } from "./styles/styledElements";
+import { MainWrapper } from "./general-styles/styledElements";
 
 function App() {
   const dispatch = useDispatch();

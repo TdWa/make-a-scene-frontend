@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserFeedbackMessage } from "../store/user/selectors";
 import { clearUserFeedbackMessage } from "../store/user/actions";
-import { FeedbackWrapper } from "../styles/styledElements";
+import { FeedbackWrapper } from "../general-styles/styledElements";
 
 export default function MessageBox() {
   const dispatch = useDispatch();

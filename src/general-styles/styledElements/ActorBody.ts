@@ -14,7 +14,7 @@ export const ActorBody = styled.div.attrs((props: ActorBodyProps) => ({
   },
 }))<{ bg: string }>`
   position: relative;
-  width: 50%;
-  height: 50%;
+  width: 70%;
+  height: 70%;
   border: 1px solid black;
 `;

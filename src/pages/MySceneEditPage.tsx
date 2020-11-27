@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle } from "../styles/styledElements";
+import { PageTitle } from "../general-styles/styledElements";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneEditPage() {

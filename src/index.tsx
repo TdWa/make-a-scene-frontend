@@ -7,8 +7,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import { ThemeProvider } from "styled-components";
-import GlobalStyles from "./styles/globalStyles";
-import { theme } from "./styles/theme";
+import GlobalStyles from "./general-styles/globalStyles";
+import { theme } from "./general-styles/theme";
 
 ReactDOM.render(
   <Provider store={store}>

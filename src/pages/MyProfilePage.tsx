@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editAbout } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
-import { AboutWrapper, Button, PageTitle } from "../styles/styledElements";
+import {
+  AboutWrapper,
+  Button,
+  PageTitle,
+} from "../general-styles/styledElements";
 import { Link } from "react-router-dom";
 
 export default function MyProfilePage() {
