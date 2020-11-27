@@ -2,9 +2,10 @@ import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import { Button, PageTitle } from "../styles/styledElements";
 import { ActorType } from "../store/types";
-import Actor from "../components/Actor";
+// import Actor from "../components/Actor";
+import ActorCreater from "../components/ActorCreater";
 
-type ActorsToCreate = {
+export type ActorsToCreate = {
   actor1: null | ActorType;
   actor2: null | ActorType;
 };
@@ -26,9 +27,58 @@ export default function MyNewScenePage() {
   //   // setActor();
   // }
 
+  const selectActor = (type: "male" | "female"): void => {
+    setActors({
+      actor1: {
+        type: type === "male" ? "male" : "female",
+        name: "name",
+        backgroundColor: "#e2dc85",
+        color: "#000000",
+      },
+      actor2: actors.actor2,
+    });
+  };
+
+  const editActorColors = (
+    property: "color" | "backgroundColor",
+    color: string
+  ): void => {
+    if (actors.actor1) {
+      if (property === "color") {
+        setActors({
+          actor1: {
+            ...actors.actor1,
+            color: color,
+          },
+          actor2: actors.actor2,
+        });
+      } else {
+        setActors({
+          actor1: {
+            ...actors.actor1,
+            backgroundColor: color,
+          },
+          actor2: actors.actor2,
+        });
+      }
+    }
+  };
+
+  const editActorName = (name: string): void => {
+    if (actors.actor1) {
+      setActors({
+        actor1: {
+          ...actors.actor1,
+          name: name,
+        },
+        actor2: actors.actor2,
+      });
+    }
+  };
+
   return (
     <div>
-      <PageTitle>Create a new scene</PageTitle>
+      <PageTitle>Let's make a scene!</PageTitle>
       <p>You can always change things later</p>
       <h2>Choose a name</h2>
       <input
@@ -38,7 +88,19 @@ export default function MyNewScenePage() {
         required
       ></input>
       <h2>Choose actors</h2>
-      <h3>Actor 1</h3>
+      <ActorCreater
+        actors={actors}
+        selectActor={selectActor}
+        editActorColors={editActorColors}
+        editActorName={editActorName}
+      />
+      {actors.actor1 && <Button>Next</Button>}
+    </div>
+  );
+}
+
+/*
+<h3>Actor 1</h3>
       <select
         defaultValue={"Select"}
         onChange={(e) => {
@@ -114,7 +176,4 @@ export default function MyNewScenePage() {
           </div>
         </div>
       )}
-      {actors.actor1 && <Button>Next</Button>}
-    </div>
-  );
-}
+      */
