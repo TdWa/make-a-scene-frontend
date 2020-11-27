@@ -1,30 +1,36 @@
-import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, PageTitle } from "../general-styles/styledElements";
-import { ActorType } from "../store/types";
+import { ActorsToCreate } from "../store/types";
 import ActorCreater from "../components/ActorCreater";
 import { MyNewScenePageStyle } from "./MyNewScenePageStyle";
-
-export type ActorsToCreate = {
-  actor1: ActorType | null;
-  actor2: ActorType | null;
-};
+import { createNewScene } from "../store/user/actions";
+import { selectUserScenes } from "../store/user/selectors";
+import { useHistory } from "react-router-dom";
 
 export default function MyNewScenePage() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
+  const [hideButton, setHideButton] = useState(false);
   const [actors, setActors] = useState<ActorsToCreate>({
     actor1: null,
     actor2: null,
   });
+  const userScenes = useSelector(selectUserScenes);
+  const initialScenesAmount = useRef(userScenes.length);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (userScenes.length === initialScenesAmount.current + 1) {
+      const sceneId = userScenes[userScenes.length - 1].id;
+      history.push(`/myScenes/${sceneId}`);
+    }
+  }, [userScenes, history, initialScenesAmount]);
 
   function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("hello");
-    // dispatch(login(email, password));
-
-    // setName("");
-    // setActor();
+    dispatch(createNewScene(name, actors));
+    setHideButton(true);
   }
 
   const selectActor = (actor: 1 | 2, type: "male" | "female"): void => {
@@ -148,7 +154,7 @@ export default function MyNewScenePage() {
                 editActorName={editActorName}
               />
             )}
-            {actors.actor1 && <Button>Next</Button>}
+            {actors.actor1 && !hideButton && <Button>Next</Button>}
           </div>
         </div>
         <p>

@@ -21,7 +21,6 @@ export type Phrase = {
 
 export type ActorType = {
   id?: number;
-  sceneId?: number;
   type: "male" | "female";
   name: string;
   backgroundColor: string;
@@ -29,4 +28,13 @@ export type ActorType = {
   phrases?: Phrase[];
 };
 
-export type Scene = Phrase[];
+export type ActorsToCreate = {
+  actor1: ActorType | null;
+  actor2: ActorType | null;
+};
+
+export type Scene = {
+  id: number;
+  name: string;
+  actors: ActorType[];
+};

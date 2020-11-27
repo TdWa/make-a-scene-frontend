@@ -1,3 +1,5 @@
+import { Scene } from "../types";
+
 // state type
 export type UserState = {
   loading: boolean;
@@ -5,8 +7,8 @@ export type UserState = {
   token: string | null;
   name: string | null;
   email: string | null;
+  scenes: Scene[];
   about?: string;
-  scenes?: any[]; // change to a scene type later
 };
 
 // user types
@@ -19,6 +21,7 @@ export type UserWithoutToken = {
 export type UserWithToken = UserWithoutToken & { token: string };
 
 // action types
+export const CREATE_NEW_SCENE = "CREATE_NEW_SCENE";
 export const EDIT_ABOUT = "EDIT_ABOUT";
 export const LOADING_USER = "LOADING_USER";
 export const USER_FEEDBACK_MESSAGE = "USER_FEEDBACK_MESSAGE";
@@ -26,6 +29,11 @@ export const CLEAR_USER_FEEDBACK_MESSAGE = "CLEAR_USER_FEEDBACK_MESSAGE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+
+export type CreateNewScene = {
+  type: typeof CREATE_NEW_SCENE;
+  payload: Scene;
+};
 
 export type SetAbout = {
   type: typeof EDIT_ABOUT;
@@ -60,6 +68,7 @@ export type Logout = {
 };
 
 export type UserActionTypes =
+  | CreateNewScene
   | SetAbout
   | SetLoadingUser
   | SetUserFeedbackMessage
