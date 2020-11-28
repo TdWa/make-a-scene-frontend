@@ -20,7 +20,7 @@ export default function Actor(props: ActorType) {
             <div>{body.rightEye}</div>
           </div>
           <div className="moustache">
-            {props.type === "male" && body.moustache}
+            {props.type === "man" && body.moustache}
           </div>
           <div>{body.mouth}</div>
         </div>
@@ -32,11 +32,11 @@ export default function Actor(props: ActorType) {
 
 /*
 export default function Actor({ gender }) {
-  const male = gender === "male";
+  const man = gender === "man";
   return (
     <div className={`personContainer ${gender}`}>
       <div className="speechBoxContainer">
-        {male ? (
+        {man ? (
           <div id="manText" className="speechBox"></div>
         ) : (
           <div id="womanText" className="speechBox"></div>
@@ -44,16 +44,16 @@ export default function Actor({ gender }) {
       </div>
       <div className={`person`}>
         <div className="head">
-          <div className="eye1">{male ? "o" : "("}</div>
-          <div className="eye2">{male ? "o" : "("}</div>
-          {male ? <div className="moustache">{"{"}</div> : <div></div>}
+          <div className="eye1">{man ? "o" : "("}</div>
+          <div className="eye2">{man ? "o" : "("}</div>
+          {man ? <div className="moustache">{"{"}</div> : <div></div>}
           <div className="mouth">o</div>
         </div>
         <div className="upperBody">
           <div className="arm1a"></div>
           <div className="arm1b"></div>
           <div className="hand1"></div>
-          {male ? (
+          {man ? (
             <div>
               <div className="arm2a"></div>
               <div className="arm2b"></div>
@@ -61,9 +61,9 @@ export default function Actor({ gender }) {
             </div>
           ) : (
             <div>
-              <div className="femaleArm2a"></div>
-              <div className="femaleArm2b"></div>
-              <div className="femaleHand2"></div>
+              <div className="womanArm2a"></div>
+              <div className="womanArm2b"></div>
+              <div className="womanHand2"></div>
             </div>
           )}
         </div>
@@ -74,7 +74,7 @@ export default function Actor({ gender }) {
           <div className="leg2">
             <div className="foot2"></div>
           </div>
-          {male ? <div></div> : <div className="skirt"></div>}
+          {man ? <div></div> : <div className="skirt"></div>}
         </div>
       </div>
     </div>

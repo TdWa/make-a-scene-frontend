@@ -19,7 +19,7 @@ export type Phrase = {
 
 export type ActorType = {
   id?: number;
-  type: "male" | "female";
+  type: "man" | "woman";
   name: string;
   backgroundColor: string;
   color: string;

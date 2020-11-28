@@ -33,11 +33,11 @@ export default function MyNewScenePage() {
     setHideButton(true);
   }
 
-  const selectActor = (actor: 1 | 2, type: "male" | "female"): void => {
+  const selectActor = (actor: 1 | 2, type: "man" | "woman"): void => {
     if (actor === 1) {
       setActors({
         actor1: {
-          type: type === "male" ? "male" : "female",
+          type: type === "man" ? "man" : "woman",
           name: "",
           backgroundColor: "#31c5ff",
           color: "#000000",
@@ -47,7 +47,7 @@ export default function MyNewScenePage() {
     } else {
       setActors({
         actor2: {
-          type: type === "male" ? "male" : "female",
+          type: type === "man" ? "man" : "woman",
           name: "",
           backgroundColor: "#ffee00",
           color: "#000000",
