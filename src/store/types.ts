@@ -11,7 +11,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-// work in progress..
 export type Phrase = {
   id: number;
   index: number;

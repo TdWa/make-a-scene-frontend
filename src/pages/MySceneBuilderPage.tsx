@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageTitle } from "../general-styles/styledElements";
 
 // still need to fix not logged in situation, jwt expired etc
-export default function MySceneEditPage() {
+export default function MySceneBuilderPage() {
   const [scene] = useState([
     { id: Math.random(), actorId: 1, index: 0, text: "Hey, how are you?" },
     {
