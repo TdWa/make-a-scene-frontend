@@ -1,5 +1,6 @@
 import React from "react";
-import Actor from "../components/Actor";
+import Actor from "./Actor";
+import SpeechBox from "./SpeechBox";
 import { Scene } from "../store/types";
 import { ScenePlayerStyle } from "./ScenePlayerStyle";
 
@@ -12,7 +13,10 @@ export default function ScenePlayer(props: ScenePlayerProp) {
   return (
     <ScenePlayerStyle>
       {scene.actors.map((actor) => (
-        <Actor key={actor.id} {...actor} />
+        <div key={actor.id}>
+          <SpeechBox currentText={actor.currentText} />
+          <Actor {...actor} />
+        </div>
       ))}
     </ScenePlayerStyle>
   );

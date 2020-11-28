@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PageTitle } from "../general-styles/styledElements";
 import { selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
+import { Phrase } from "../store/types";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
   const sceneId = Number(useParams<{ id: string }>().id);
   const scene = useSelector(selectUserSceneById(sceneId));
+  const [script, setScript] = useState<Phrase[]>([]);
 
-  console.log(scene);
+  useEffect(() => {
+    if (scene) {
+      const phrases = scene.actors
+        .flatMap((actor) => (actor.phrases ? actor.phrases : []))
+        ?.sort((a, b) => (a && b ? a.index - b.index : 0));
+
+      setScript(phrases);
+    }
+  }, [scene]);
+
+  console.log("scene, script", scene, script);
 
   return (
     <div>

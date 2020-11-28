@@ -13,6 +13,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 export type Phrase = {
   id: number;
+  actorId: number;
   index: number;
   text: string;
 };
@@ -24,6 +25,7 @@ export type ActorType = {
   backgroundColor: string;
   color: string;
   phrases?: Phrase[];
+  currentText?: string;
 };
 
 export type ActorsToCreate = {
