@@ -5,6 +5,7 @@ import { PageTitle } from "../general-styles/styledElements";
 import { selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
 import { Phrase } from "../store/types";
+import ScriptPhrase from "../components/ScriptPhrase";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
@@ -22,12 +23,33 @@ export default function MySceneBuilderPage() {
     }
   }, [scene]);
 
+  if (!scene) return <p>Loading or whatever..</p>; // change this ;)
+
   console.log("scene, script", scene, script);
 
   return (
     <div>
-      <PageTitle>{scene?.name}</PageTitle>
-      {scene && <ScenePlayer scene={scene} />}
+      <PageTitle>{scene.name}</PageTitle>
+      <ScenePlayer scene={scene} />
+      {script.map((phrase) => {
+        const actor = scene.actors.find((actor) => actor.id === phrase.actorId);
+
+        const actorPosition =
+          scene.actors.length === 1
+            ? "MIDDLE"
+            : actor && scene.actors.indexOf(actor) === 0
+            ? "LEFT"
+            : "RIGHT";
+
+        return (
+          <ScriptPhrase
+            key={phrase.id}
+            text={phrase.text}
+            actorName={actor?.name}
+            actorPosition={actorPosition}
+          />
+        );
+      })}
     </div>
   );
 }
