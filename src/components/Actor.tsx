@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActorWrapper, ActorBody } from "../general-styles/styledElements";
+import { ActorWrapper, ActorBody } from "./ActorStyles";
 import { ActorType } from "../store/types";
 
 export default function Actor(props: ActorType) {
