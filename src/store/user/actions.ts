@@ -9,11 +9,17 @@ import {
   TOKEN_STILL_VALID,
   LOG_OUT,
   EDIT_ABOUT,
+  CREATE_NEW_SCENE,
   UserActionTypes,
   UserWithoutToken,
   UserWithToken,
 } from "./types";
-import { AppThunk } from "../types";
+import { AppThunk, ActorsToCreate, Scene } from "../types";
+
+const setNewScene = (scene: Scene): UserActionTypes => ({
+  type: CREATE_NEW_SCENE,
+  payload: scene,
+});
 
 const setAbout = (about: string): UserActionTypes => ({
   type: EDIT_ABOUT,
@@ -42,6 +48,36 @@ const tokenStillValid = (
   type: TOKEN_STILL_VALID,
   payload: userWithoutToken,
 });
+
+export const createNewScene = (
+  sceneName: string,
+  actors: ActorsToCreate
+): AppThunk => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+    if (token === null) return;
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/scenes`,
+        {
+          sceneName,
+          actors,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(setNewScene(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setUserFeedbackMessage(error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setUserFeedbackMessage(error.message));
+      }
+    }
+  };
+};
 
 export const editAbout = (about: string): AppThunk => {
   return async (dispatch, getState) => {

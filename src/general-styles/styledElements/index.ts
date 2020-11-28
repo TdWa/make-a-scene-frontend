@@ -6,6 +6,8 @@ import { PageTitle } from "./PageTitle";
 import { FeedbackWrapper } from "./FeedbackWrapper";
 import { Header } from "./Header";
 import { AboutWrapper } from "./AboutWrapper";
+import { ActorWrapper } from "./ActorWrapper";
+import { ActorBody } from "./ActorBody";
 
 export {
   Button,
@@ -16,4 +18,6 @@ export {
   FeedbackWrapper,
   Header,
   AboutWrapper,
+  ActorWrapper,
+  ActorBody,
 };

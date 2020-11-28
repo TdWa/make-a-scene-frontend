@@ -4,7 +4,12 @@ import { useHistory } from "react-router-dom";
 import { signUp } from "../store/user/actions";
 import { selectToken } from "../store/user/selectors";
 
-import { Button, Form, StyledLink, PageTitle } from "../styles/styledElements";
+import {
+  Button,
+  Form,
+  StyledLink,
+  PageTitle,
+} from "../general-styles/styledElements";
 
 export default function SignupPage() {
   const [name, setName] = useState("");

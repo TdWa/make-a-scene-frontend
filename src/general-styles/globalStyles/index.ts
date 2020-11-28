@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
 
  html {
    font-size: 16px;
+   width: 100%;
  }
 
  body {

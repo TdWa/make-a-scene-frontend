@@ -10,12 +10,13 @@ import PublicScenesListPage from "./pages/PublicScenesListPage";
 import PublicSceneViewPage from "./pages/PublicSceneViewPage";
 import PublicAuthorViewPage from "./pages/PublicAuthorViewPage";
 import MyProfilePage from "./pages/MyProfilePage";
-import MySceneEditPage from "./pages/MySceneEditPage";
+import MyNewScenePage from "./pages/MyNewScenePage";
+import MySceneBuilderPage from "./pages/MySceneBuilderPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 
-import { MainWrapper } from "./styles/styledElements";
+import { MainWrapper } from "./general-styles/styledElements";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +35,9 @@ function App() {
           <Route path="/scenes" component={PublicScenesListPage} />
           <Route path="/scene/:id" component={PublicSceneViewPage} />
           <Route path="/author/:id" component={PublicAuthorViewPage} />
-          <Route path="/myScenes" component={MyProfilePage} />
-          <Route path="/myScene/:id" component={MySceneEditPage} />
+          <Route exact path="/myScenes" component={MyProfilePage} />
+          <Route exact path="/myScenes/new" component={MyNewScenePage} />
+          <Route path="/myScenes/:id" component={MySceneBuilderPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
         </Switch>

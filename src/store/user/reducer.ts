@@ -8,6 +8,7 @@ import {
   TOKEN_STILL_VALID,
   LOG_OUT,
   EDIT_ABOUT,
+  CREATE_NEW_SCENE,
 } from "./types";
 
 const initialState: UserState = {
@@ -16,10 +17,14 @@ const initialState: UserState = {
   token: localStorage.getItem("token"),
   name: null,
   email: null,
+  scenes: [],
 };
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
+    case CREATE_NEW_SCENE:
+      return { ...state, scenes: [...state.scenes, action.payload] };
+
     case LOADING_USER:
       return { ...state, loading: true };
 

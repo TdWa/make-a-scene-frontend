@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../store/user/actions";
 import { selectToken } from "../store/user/selectors";
-import { Button, Form, StyledLink, PageTitle } from "../styles/styledElements";
+import {
+  Button,
+  Form,
+  StyledLink,
+  PageTitle,
+} from "../general-styles/styledElements";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

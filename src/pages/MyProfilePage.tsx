@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editAbout } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
-import { AboutWrapper, Button, PageTitle } from "../styles/styledElements";
+import {
+  AboutWrapper,
+  Button,
+  PageTitle,
+} from "../general-styles/styledElements";
 import { Link } from "react-router-dom";
 
 export default function MyProfilePage() {
@@ -71,7 +75,12 @@ export default function MyProfilePage() {
         )}
       </AboutWrapper>
       {/* Maybe change this link later if it needs to have an id or something */}
-      <Link to="/myScene/new">
+      {/* Remove these breaks later! */}
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link to="/myScenes/new">
         <Button>Make a new scene!</Button>
       </Link>
     </div>
