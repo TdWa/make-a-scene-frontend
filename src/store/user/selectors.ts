@@ -10,3 +10,6 @@ export const selectToken = (state: RootState) => state.user.token;
 export const selectUser = (state: RootState) => state.user;
 
 export const selectUserScenes = (state: RootState) => state.user.scenes;
+
+export const selectUserSceneById = (id: number) => (state: RootState) =>
+  state.user.scenes.find((scene) => scene.id === id);
