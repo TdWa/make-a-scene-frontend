@@ -2,22 +2,34 @@ import React from "react";
 import { ScriptPhraseWrapper } from "./ScriptPhraseStyle";
 
 type ScriptPhraseProps = {
+  id: number;
+  index: number;
   text: string;
   actorName: string | undefined;
   actorPosition: "LEFT" | "MIDDLE" | "RIGHT";
+  deletePhrase: (id: number) => void;
+  movePhrase: (currentIndex: number, direction: "UP" | "DOWN") => void;
 };
 
 export default function ScriptPhrase(props: ScriptPhraseProps) {
-  const { text, actorName, actorPosition } = props;
+  const {
+    id,
+    index,
+    text,
+    actorName,
+    actorPosition,
+    deletePhrase,
+    movePhrase,
+  } = props;
   return (
     <ScriptPhraseWrapper position={actorPosition}>
       <p>
         <strong>{actorName}</strong>
       </p>
       <p>{text}</p>
-      <button>Delete</button>
-      <button>Move Down</button>
-      <button>Move Up</button>
+      <button onClick={() => deletePhrase(id)}>Delete</button>
+      <button onClick={() => movePhrase(index, "DOWN")}>Move Down</button>
+      <button onClick={() => movePhrase(index, "UP")}>Move Up</button>
     </ScriptPhraseWrapper>
   );
 }

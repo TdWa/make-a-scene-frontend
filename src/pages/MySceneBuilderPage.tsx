@@ -63,6 +63,30 @@ export default function MySceneBuilderPage() {
     setScript([...script, { id, actorId, index: script.length - 1, text }]);
   };
 
+  const deletePhrase = (id: number) => {
+    setScript(script.filter((phrase) => phrase.id !== id));
+  };
+
+  const movePhrase = (currentIndex: number, direction: "UP" | "DOWN") => {
+    setScript(
+      script.map((phrase, i, arr) => {
+        if (direction === "UP" && currentIndex !== 0) {
+          if (i === currentIndex) return { ...arr[i - 1], index: i };
+          else if (i === currentIndex - 1)
+            return { ...arr[currentIndex], index: i };
+          else return phrase;
+        } else if (direction === "DOWN" && currentIndex !== script.length - 1) {
+          if (i === currentIndex) return { ...arr[i + 1], index: i };
+          else if (i === currentIndex + 1)
+            return { ...arr[currentIndex], index: i };
+          else return phrase;
+        } else {
+          return phrase;
+        }
+      })
+    );
+  };
+
   return (
     <div>
       <PageTitle>{scene.name}</PageTitle>
@@ -81,9 +105,13 @@ export default function MySceneBuilderPage() {
         return (
           <ScriptPhrase
             key={phrase.id}
+            id={phrase.id}
+            index={phrase.index}
             text={phrase.text}
             actorName={actor?.name}
             actorPosition={actorPosition}
+            deletePhrase={deletePhrase}
+            movePhrase={movePhrase}
           />
         );
       })}
@@ -91,83 +119,6 @@ export default function MySceneBuilderPage() {
     </div>
   );
 }
-
-// function handleStart() {
-//   // document.getElementById("manText").textContent = "";
-//   // document.getElementById("womanText").textContent = "";
-//   // print(scene);
-// }
-
-/*
-  function addText(id: number, actorId: number, index: number, text: string) {
-    setScene([...scene, { id, actorId, index, text }]);
-  }
-  function removeText(id: number) {
-    // const indexToRemove = scene.findIndex((phrase) => phrase.id === id);
-    // const newScene = [...scene];
-    // newScene.splice(indexToRemove, 1);
-    // setScene(newScene);
-  }
-  function moveUp(id: number) {
-    // const indexToChange = scene.findIndex((phrase) => phrase.id === id);
-    // if (indexToChange > 0) {
-    // const newScene = [...scene];
-    // const swapper = newScene[indexToChange - 1];
-    // newScene[indexToChange - 1] = newScene[indexToChange];
-    // newScene[indexToChange] = swapper;
-    // setScene(newScene);
-    // }
-  }
-  function moveDown(id: number) {
-    // const indexToChange = scene.findIndex((phrase) => phrase.id === id);
-    // if (indexToChange < scene.length - 1) {
-    // const newScene = [...scene];
-    // const swapper = newScene[indexToChange + 1];
-    // newScene[indexToChange + 1] = newScene[indexToChange];
-    // newScene[indexToChange] = swapper;
-    // setScene(newScene);
-    // }
-  }
-  */
-
-// return (
-//   <div>
-//     <PageTitle>New scene name!</PageTitle>
-//     <div>
-//       <div id="actorContainerContainer">
-//         <div id="actorContainer">
-//           {/* <Actor gender="man" >*/}
-//           {/* <Actor gender="woman" /> */}
-//         </div>
-//       </div>
-//       <div id="sceneControls">
-//         <button id="startButton" onClick={handleStart}>
-//           Start
-//         </button>
-//       </div>
-//       <div id="inputContainerContainer">
-//         <div id="inputContainer">
-//           {scene.map((phrase, i) => {
-//             return (
-//               <p key={i}>test</p>
-//               // <Phrase
-//               // key={Math.random()}
-//               // {...phrase}
-//               // removeText={removeText}
-//               // moveUp={moveUp}
-//               // moveDown={moveDown}
-//               // />
-//             );
-//           })}
-//         </div>
-//       </div>
-//       {/* <AddTextForm addText={addText} /> */}
-//     </div>
-//     ;
-//   </div>
-// );
-
-// import AddTextForm from "./components/AddTextForm/AddTextForm";
 
 /*
       // document.getElementById("startButton").style.visibility = "hidden";
