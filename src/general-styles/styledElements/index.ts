@@ -5,7 +5,7 @@ import { MainWrapper } from "./MainWrapper";
 import { PageTitle } from "./PageTitle";
 import { FeedbackWrapper } from "./FeedbackWrapper";
 import { Header } from "./Header";
-import { AboutWrapper } from "./AboutWrapper";
+import { AboutDescriptionEditStyle } from "./AboutDescriptionEditStyle";
 
 export {
   Button,
@@ -15,5 +15,5 @@ export {
   PageTitle,
   FeedbackWrapper,
   Header,
-  AboutWrapper,
+  AboutDescriptionEditStyle,
 };

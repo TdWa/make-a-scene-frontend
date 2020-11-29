@@ -21,6 +21,14 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
    height: 100%;
    margin: 0 auto;
   }
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  .pageRow {
+    margin-bottom: 10px;
+  }
   `;
 
 export default GlobalStyle;

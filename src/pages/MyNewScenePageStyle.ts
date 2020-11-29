@@ -9,10 +9,6 @@ export const MyNewScenePageStyle = styled.div`
     margin-left: 10px;
   }
 
-  h2 {
-    margin-bottom: 10px;
-  }
-
   input,
   select {
     width: 200px;

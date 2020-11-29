@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, PageTitle } from "../general-styles/styledElements";
+import {
+  AboutDescriptionEditStyle,
+  Button,
+  PageTitle,
+} from "../general-styles/styledElements";
 import { selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
 import { ActorType, Phrase } from "../store/types";
@@ -16,9 +20,12 @@ export default function MySceneBuilderPage() {
   const [actors, setActors] = useState<ActorType[]>([]);
   const [script, setScript] = useState<Phrase[]>([]);
   const actorText = useRef("");
+
   const [sceneName, setSceneName] = useState("");
   const sceneNameInputRef = useRef<HTMLInputElement>(null);
-  const [edit, setEdit] = useState({ title: false });
+  const [sceneDescription, setSceneDescription] = useState("");
+  const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [edit, setEdit] = useState({ title: false, description: false });
 
   useEffect(() => {
     if (scene) {
@@ -29,6 +36,7 @@ export default function MySceneBuilderPage() {
       setScript(phrases);
       setActors(scene.actors);
       setSceneName(scene.name);
+      setSceneDescription(scene.description ? scene.description : "");
     }
   }, [scene]);
 
@@ -38,7 +46,12 @@ export default function MySceneBuilderPage() {
       sceneNameInputRef.current.selectionStart = sceneNameInputRef.current.selectionEnd =
         sceneNameInputRef.current.value.length;
     }
-  }, [edit.title]);
+    if (descriptionTextareaRef.current) {
+      descriptionTextareaRef.current.focus();
+      descriptionTextareaRef.current.selectionStart = descriptionTextareaRef.current.selectionEnd =
+        descriptionTextareaRef.current.value.length;
+    }
+  }, [edit]);
 
   if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
 
@@ -102,14 +115,6 @@ export default function MySceneBuilderPage() {
   return (
     <div>
       <PageTitle>
-        {!edit.title && (
-          <div>
-            {sceneName}{" "}
-            <Button onClick={() => setEdit({ ...edit, title: true })}>
-              Edit
-            </Button>
-          </div>
-        )}
         {edit.title && (
           <div>
             <input
@@ -122,35 +127,76 @@ export default function MySceneBuilderPage() {
             </Button>
           </div>
         )}
+        {!edit.title && (
+          <div>
+            {sceneName}{" "}
+            <Button onClick={() => setEdit({ ...edit, title: true })}>
+              Edit
+            </Button>
+          </div>
+        )}
       </PageTitle>
-      <ScenePlayer actors={actors} />
-      <Button center onClick={() => playScene(script)}>
-        Play
-      </Button>
-      {script.map((phrase) => {
-        const actor = actors.find((actor) => actor.id === phrase.actorId);
+      <div className="pageRow">
+        <AboutDescriptionEditStyle>
+          <h2>
+            Description{" "}
+            {edit.description ? (
+              <Button onClick={() => setEdit({ ...edit, description: false })}>
+                OK
+              </Button>
+            ) : (
+              <Button onClick={() => setEdit({ ...edit, description: true })}>
+                {sceneDescription ? "Edit" : "Add"}
+              </Button>
+            )}
+          </h2>
+          {edit.description ? (
+            <textarea
+              value={sceneDescription}
+              onChange={(e) => setSceneDescription(e.target.value)}
+              ref={descriptionTextareaRef}
+            ></textarea>
+          ) : (
+            <p>{sceneDescription}</p>
+          )}
+        </AboutDescriptionEditStyle>
+      </div>
+      <div className="pageRow">
+        <ScenePlayer actors={actors} />
+      </div>
+      <div className="pageRow">
+        <Button center onClick={() => playScene(script)}>
+          Play
+        </Button>
+      </div>
+      <div className="pageRow">
+        {script.map((phrase) => {
+          const actor = actors.find((actor) => actor.id === phrase.actorId);
 
-        const actorPosition =
-          scene.actors.length === 1
-            ? "MIDDLE"
-            : actor && actors.indexOf(actor) === 0
-            ? "LEFT"
-            : "RIGHT";
+          const actorPosition =
+            scene.actors.length === 1
+              ? "MIDDLE"
+              : actor && actors.indexOf(actor) === 0
+              ? "LEFT"
+              : "RIGHT";
 
-        return (
-          <ScriptPhrase
-            key={phrase.id}
-            id={phrase.id}
-            index={phrase.index}
-            text={phrase.text}
-            actorName={actor?.name}
-            actorPosition={actorPosition}
-            deletePhrase={deletePhrase}
-            movePhrase={movePhrase}
-          />
-        );
-      })}
-      <AddPhraseForm addPhrase={addPhrase} actors={actors} />
+          return (
+            <ScriptPhrase
+              key={phrase.id}
+              id={phrase.id}
+              index={phrase.index}
+              text={phrase.text}
+              actorName={actor?.name}
+              actorPosition={actorPosition}
+              deletePhrase={deletePhrase}
+              movePhrase={movePhrase}
+            />
+          );
+        })}
+      </div>
+      <div className="pageRow">
+        <AddPhraseForm addPhrase={addPhrase} actors={actors} />
+      </div>
     </div>
   );
 }
