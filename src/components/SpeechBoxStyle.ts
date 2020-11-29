@@ -7,6 +7,7 @@ export const SpeechBoxWrapper = styled.div`
   border-radius: 10px;
   padding: 5px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 `;
 
