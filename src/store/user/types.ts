@@ -5,17 +5,20 @@ export type UserState = {
   loading: boolean;
   message: string | null;
   token: string | null;
+  id?: number; // should I just delete it from the response?
   name: string | null;
   email: string | null;
   scenes: Scene[];
-  about?: string;
+  about?: string | null;
 };
 
 // user types
 export type UserWithoutToken = {
+  id: number;
   name: string;
   email: string;
-  about: string;
+  about: string | null;
+  scenes?: Scene[];
 };
 
 export type UserWithToken = UserWithoutToken & { token: string };

@@ -9,6 +9,9 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  // Public Scenes -> Discover Scenes?
+  // My Scenes -> My Profile?
+
   return (
     <Header>
       <nav>
