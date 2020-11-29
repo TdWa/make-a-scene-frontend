@@ -16,6 +16,9 @@ export default function MySceneBuilderPage() {
   const [actors, setActors] = useState<ActorType[]>([]);
   const [script, setScript] = useState<Phrase[]>([]);
   const actorText = useRef("");
+  const [sceneName, setSceneName] = useState("");
+  const sceneNameInputRef = useRef<HTMLInputElement>(null);
+  const [edit, setEdit] = useState({ title: false });
 
   useEffect(() => {
     if (scene) {
@@ -25,8 +28,17 @@ export default function MySceneBuilderPage() {
 
       setScript(phrases);
       setActors(scene.actors);
+      setSceneName(scene.name);
     }
   }, [scene]);
+
+  useEffect(() => {
+    if (sceneNameInputRef.current) {
+      sceneNameInputRef.current.focus();
+      sceneNameInputRef.current.selectionStart = sceneNameInputRef.current.selectionEnd =
+        sceneNameInputRef.current.value.length;
+    }
+  }, [edit.title]);
 
   if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
 
@@ -89,9 +101,32 @@ export default function MySceneBuilderPage() {
 
   return (
     <div>
-      <PageTitle>{scene.name}</PageTitle>
+      <PageTitle>
+        {!edit.title && (
+          <div>
+            {sceneName}{" "}
+            <Button onClick={() => setEdit({ ...edit, title: true })}>
+              Edit
+            </Button>
+          </div>
+        )}
+        {edit.title && (
+          <div>
+            <input
+              value={sceneName}
+              onChange={(e) => setSceneName(e.target.value)}
+              ref={sceneNameInputRef}
+            ></input>
+            <Button onClick={() => setEdit({ ...edit, title: false })}>
+              OK
+            </Button>
+          </div>
+        )}
+      </PageTitle>
       <ScenePlayer actors={actors} />
-      <Button onClick={() => playScene(script)}>Play</Button>
+      <Button center onClick={() => playScene(script)}>
+        Play
+      </Button>
       {script.map((phrase) => {
         const actor = actors.find((actor) => actor.id === phrase.actorId);
 
