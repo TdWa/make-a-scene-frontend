@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Form = styled.form`
+type FormPropType = {
+  left?: boolean;
+};
+
+export const Form = styled.form<FormPropType>`
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -19,7 +23,7 @@ export const Form = styled.form`
   }
 
   & textarea {
-    width: 300px;
+    width: 100%;
     resize: vertical;
     height: 70px;
     min-height: 70px;
@@ -28,7 +32,11 @@ export const Form = styled.form`
   }
 
   > div {
-    margin: 10px auto;
+    margin: ${({ left }) => (left ? "10px auto 10px 5%" : "10px auto")};
+  }
+
+  > div.wide {
+    width: 90%;
   }
 `;
 

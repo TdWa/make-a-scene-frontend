@@ -16,6 +16,7 @@ export default function AddPhraseForm(props: AddPhraseFormProps) {
   });
   return (
     <Form
+      left
       onSubmit={(e) => {
         e.preventDefault();
         if (phrase.actorId) {
@@ -44,7 +45,7 @@ export default function AddPhraseForm(props: AddPhraseFormProps) {
           ))}
         </select>
       </div>
-      <div>
+      <div className="wide">
         <label htmlFor="textInput">Text:</label>
         <br></br>
         <textarea

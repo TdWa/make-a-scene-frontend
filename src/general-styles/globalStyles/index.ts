@@ -12,13 +12,14 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
  html {
    font-size: 16px;
    width: 100%;
+   height: 100%;
  }
 
  body {
    width: 100%;
-   max-width: 800px;
+   background-color: ${({ theme }) => theme.colors.main};
+   height: 100%;
    margin: 0 auto;
-   border: 1px solid black;
   }
   `;
 
