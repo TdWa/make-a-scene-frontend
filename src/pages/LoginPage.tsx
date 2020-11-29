@@ -36,7 +36,7 @@ export default function LoginPage() {
     <div>
       <PageTitle>Log in</PageTitle>
       <Form onSubmit={submitForm}>
-        <div className="formRow">
+        <div>
           <label htmlFor="loginEmail">Email</label>
           <input
             id="loginEmail"
@@ -48,7 +48,7 @@ export default function LoginPage() {
             required
           ></input>
         </div>
-        <div className="formRow">
+        <div>
           <label htmlFor="loginPassword">Password</label>
           <input
             id="loginPassword"
@@ -60,10 +60,10 @@ export default function LoginPage() {
             required
           ></input>
         </div>
-        <div className="formRow">
+        <div>
           <Button type="submit">Login</Button>
         </div>
-        <div className="formRow">
+        <div>
           <StyledLink to="/signup">Or click here to make an account</StyledLink>
         </div>
       </Form>

@@ -19,7 +19,7 @@ export const Form = styled.form`
     height: 25px;
   }
 
-  & .formRow {
+  > div {
     margin: 10px auto;
   }
 `;

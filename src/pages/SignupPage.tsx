@@ -39,7 +39,7 @@ export default function SignupPage() {
     <div>
       <PageTitle>Make an account</PageTitle>
       <Form onSubmit={submitForm}>
-        <div className="formRow">
+        <div>
           <label htmlFor="signupName">Name</label>
           <input
             id="signupName"
@@ -51,7 +51,7 @@ export default function SignupPage() {
             required
           ></input>
         </div>
-        <div className="formRow">
+        <div>
           <label htmlFor="signupEmail">Email</label>
           <input
             id="signupEmail"
@@ -63,7 +63,7 @@ export default function SignupPage() {
             required
           ></input>
         </div>
-        <div className="formRow">
+        <div>
           <label htmlFor="signupPassword">Password</label>
           <input
             id="signupPassword"
@@ -75,10 +75,10 @@ export default function SignupPage() {
             required
           ></input>
         </div>
-        <div className="formRow">
+        <div>
           <Button type="submit">Sign up</Button>
         </div>
-        <div className="formRow">
+        <div>
           <StyledLink to="/login">Click here to log in</StyledLink>
         </div>
       </Form>
