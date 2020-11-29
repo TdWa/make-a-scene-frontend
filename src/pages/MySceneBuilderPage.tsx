@@ -6,6 +6,7 @@ import { selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
 import { ActorType, Phrase } from "../store/types";
 import ScriptPhrase from "../components/ScriptPhrase";
+import AddPhraseForm from "../components/AddPhraseForm";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
@@ -27,9 +28,9 @@ export default function MySceneBuilderPage() {
     }
   }, [scene]);
 
-  if (!scene) return <p>Loading or whatever..</p>; // change this ;)
+  if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
 
-  function playScene(script: Phrase[]) {
+  const playScene = (script: Phrase[]) => {
     if (script.length > 0) {
       const text = script[0].text;
       actorText.current = "";
@@ -53,8 +54,14 @@ export default function MySceneBuilderPage() {
         // mouth.textContent = "o";
         playScene(script.slice(1));
       }, 1000 + 50 * text.length);
+    } else {
+      setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
     }
-  }
+  };
+
+  const addPhrase = (id: number, actorId: number, text: string) => {
+    setScript([...script, { id, actorId, index: script.length - 1, text }]);
+  };
 
   return (
     <div>
@@ -80,6 +87,7 @@ export default function MySceneBuilderPage() {
           />
         );
       })}
+      <AddPhraseForm addPhrase={addPhrase} actors={actors} />
     </div>
   );
 }
