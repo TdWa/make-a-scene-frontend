@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { ThemeType } from "../theme";
 
-export const MainWrapper = styled.main<{ theme: ThemeType }>`
+export const MainWrapper = styled.main`
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 10px;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.main};
   min-height: 90vh;
 `;

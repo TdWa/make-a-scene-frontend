@@ -1,149 +1,267 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { PageTitle } from "../general-styles/styledElements";
+import {
+  AboutDescriptionEditStyle,
+  Button,
+  PageTitle,
+} from "../general-styles/styledElements";
 import { selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
+import { ActorType, Phrase } from "../store/types";
+import ScriptPhrase from "../components/ScriptPhrase";
+import AddPhraseForm from "../components/AddPhraseForm";
+import { updateScene } from "../store/user/actions";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
+  const dispatch = useDispatch();
   const sceneId = Number(useParams<{ id: string }>().id);
   const scene = useSelector(selectUserSceneById(sceneId));
+  const [actors, setActors] = useState<ActorType[]>([]);
+  const [script, setScript] = useState<Phrase[]>([]);
+  const actorText = useRef("");
 
-  console.log(scene);
+  const [sceneName, setSceneName] = useState("");
+  const sceneNameInputRef = useRef<HTMLInputElement>(null);
+  const [sceneDescription, setSceneDescription] = useState("");
+  const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [edit, setEdit] = useState({
+    title: false,
+    description: false,
+    save: false,
+  });
+
+  useEffect(() => {
+    if (scene) {
+      const phrases = scene.actors
+        .flatMap((actor) => (actor.phrases ? actor.phrases : []))
+        ?.sort((a, b) => (a && b ? a.index - b.index : 0));
+
+      setScript(phrases);
+      setActors(scene.actors);
+      setSceneName(scene.name);
+      setSceneDescription(scene.description ? scene.description : "");
+    }
+  }, [scene]);
+
+  useEffect(() => {
+    if (sceneNameInputRef.current) {
+      sceneNameInputRef.current.focus();
+      sceneNameInputRef.current.selectionStart = sceneNameInputRef.current.selectionEnd =
+        sceneNameInputRef.current.value.length;
+    }
+    if (descriptionTextareaRef.current) {
+      descriptionTextareaRef.current.focus();
+      descriptionTextareaRef.current.selectionStart = descriptionTextareaRef.current.selectionEnd =
+        descriptionTextareaRef.current.value.length;
+    }
+  }, [edit]);
+
+  if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
+
+  const playScene = (script: Phrase[]) => {
+    if (script.length > 0) {
+      const text = script[0].text;
+      actorText.current = "";
+      for (let i = 0; i < text.length; i++) {
+        setTimeout(() => {
+          // mouth.textContent = i % 5 === 0 ? "O" : "o";
+          actorText.current += text[i];
+          setActors(
+            actors.map((actor) => {
+              if (actor.id !== script[0].actorId) {
+                return { ...actor, currentText: "" };
+              } else {
+                return { ...actor, currentText: actorText.current };
+              }
+            })
+          );
+        }, 50 * i);
+      }
+
+      setTimeout(() => {
+        // mouth.textContent = "o";
+        playScene(script.slice(1));
+      }, 1000 + 50 * text.length);
+    } else {
+      setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
+    }
+  };
+
+  const addPhrase = (id: number, actorId: number, text: string) => {
+    setScript([...script, { id, actorId, index: script.length, text }]);
+  };
+
+  const deletePhrase = (id: number, index: number) => {
+    setScript(
+      script
+        .map((phrase) =>
+          phrase.index > index ? { ...phrase, index: phrase.index - 1 } : phrase
+        )
+        .filter((phrase) => phrase.id !== id)
+    );
+  };
+
+  const movePhrase = (currentIndex: number, direction: "UP" | "DOWN") => {
+    setScript(
+      script.map((phrase, i, arr) => {
+        if (direction === "UP" && currentIndex !== 0) {
+          if (i === currentIndex) return { ...arr[i - 1], index: i };
+          else if (i === currentIndex - 1)
+            return { ...arr[currentIndex], index: i };
+          else return phrase;
+        } else if (direction === "DOWN" && currentIndex !== script.length - 1) {
+          if (i === currentIndex) return { ...arr[i + 1], index: i };
+          else if (i === currentIndex + 1)
+            return { ...arr[currentIndex], index: i };
+          else return phrase;
+        } else {
+          return phrase;
+        }
+      })
+    );
+  };
+
+  const editPhrase = (id: number, newText: string) => {
+    setScript(
+      script.map((phrase) =>
+        phrase.id === id ? { ...phrase, text: newText } : phrase
+      )
+    );
+  };
+
+  const setSaveableTrue = () => setEdit({ ...edit, save: true });
 
   return (
     <div>
-      <PageTitle>{scene?.name}</PageTitle>
-      {scene && <ScenePlayer scene={scene} />}
+      {edit.save && (
+        <Button
+          save
+          onClick={() => {
+            const actorIds = actors.flatMap((actor) =>
+              actor.id ? actor.id : []
+            );
+            dispatch(
+              updateScene(
+                scene.id,
+                sceneName,
+                sceneDescription,
+                script,
+                actorIds
+              )
+            );
+            setEdit({ ...edit, save: false });
+          }}
+        >
+          Save all changes
+        </Button>
+      )}
+      <PageTitle>
+        {edit.title && (
+          <div>
+            <input
+              value={sceneName}
+              onChange={(e) => setSceneName(e.target.value)}
+              ref={sceneNameInputRef}
+            ></input>
+            <Button
+              onClick={() => setEdit({ ...edit, title: false, save: true })}
+            >
+              OK
+            </Button>
+          </div>
+        )}
+        {!edit.title && (
+          <div>
+            {sceneName}{" "}
+            <Button onClick={() => setEdit({ ...edit, title: true })}>
+              Edit
+            </Button>
+          </div>
+        )}
+      </PageTitle>
+      <div className="pageRow">
+        <AboutDescriptionEditStyle>
+          <h2>
+            Description{" "}
+            {edit.description ? (
+              <Button
+                onClick={() =>
+                  setEdit({ ...edit, description: false, save: true })
+                }
+              >
+                OK
+              </Button>
+            ) : (
+              <Button onClick={() => setEdit({ ...edit, description: true })}>
+                {sceneDescription ? "Edit" : "Add"}
+              </Button>
+            )}
+          </h2>
+          {edit.description ? (
+            <textarea
+              value={sceneDescription}
+              onChange={(e) => setSceneDescription(e.target.value)}
+              ref={descriptionTextareaRef}
+            ></textarea>
+          ) : (
+            <p>{sceneDescription}</p>
+          )}
+        </AboutDescriptionEditStyle>
+      </div>
+      <div className="pageRow">
+        <ScenePlayer actors={actors} />
+      </div>
+      <div className="pageRow">
+        <Button center onClick={() => playScene(script)}>
+          Play
+        </Button>
+      </div>
+      <div className="pageRow">
+        {script.map((phrase) => {
+          const actor = actors.find((actor) => actor.id === phrase.actorId);
+
+          const actorPosition =
+            scene.actors.length === 1
+              ? "MIDDLE"
+              : actor && actors.indexOf(actor) === 0
+              ? "LEFT"
+              : "RIGHT";
+
+          return (
+            <ScriptPhrase
+              key={phrase.id}
+              id={phrase.id}
+              index={phrase.index}
+              text={phrase.text}
+              actorName={actor?.name}
+              actorPosition={actorPosition}
+              deletePhrase={deletePhrase}
+              movePhrase={movePhrase}
+              editPhrase={editPhrase}
+              setSaveableTrue={setSaveableTrue}
+            />
+          );
+        })}
+      </div>
+      <div className="pageRow">
+        <AddPhraseForm
+          addPhrase={addPhrase}
+          setSaveableTrue={setSaveableTrue}
+          actors={actors}
+        />
+      </div>
     </div>
   );
 }
 
 /*
-  const [scene] = useState([
-    { id: Math.random(), actorId: 1, index: 0, text: "Hey, how are you?" },
-    {
-      id: Math.random(),
-      actorId: 1,
-      index: 1,
-      text: "I'm fine thanks, what's up?",
-    },
-  ]);
+      // document.getElementById("startButton").style.visibility = "hidden";
+      // if (script.length === 1) {
+      //   setTimeout(() => {
+      //     document.getElementById("startButton").style.visibility = "visible";
+      //   }, 1000 + 50 * text.length);
+      // }
+
   */
-
-// function handleStart() {
-//   // document.getElementById("manText").textContent = "";
-//   // document.getElementById("womanText").textContent = "";
-//   // print(scene);
-// }
-
-/*
-  function addText(id: number, actorId: number, index: number, text: string) {
-    setScene([...scene, { id, actorId, index, text }]);
-  }
-  function removeText(id: number) {
-    // const indexToRemove = scene.findIndex((phrase) => phrase.id === id);
-    // const newScene = [...scene];
-    // newScene.splice(indexToRemove, 1);
-    // setScene(newScene);
-  }
-  function moveUp(id: number) {
-    // const indexToChange = scene.findIndex((phrase) => phrase.id === id);
-    // if (indexToChange > 0) {
-    // const newScene = [...scene];
-    // const swapper = newScene[indexToChange - 1];
-    // newScene[indexToChange - 1] = newScene[indexToChange];
-    // newScene[indexToChange] = swapper;
-    // setScene(newScene);
-    // }
-  }
-  function moveDown(id: number) {
-    // const indexToChange = scene.findIndex((phrase) => phrase.id === id);
-    // if (indexToChange < scene.length - 1) {
-    // const newScene = [...scene];
-    // const swapper = newScene[indexToChange + 1];
-    // newScene[indexToChange + 1] = newScene[indexToChange];
-    // newScene[indexToChange] = swapper;
-    // setScene(newScene);
-    // }
-  }
-  */
-
-// return (
-//   <div>
-//     <PageTitle>New scene name!</PageTitle>
-//     <div>
-//       <div id="actorContainerContainer">
-//         <div id="actorContainer">
-//           {/* <Actor gender="man" >*/}
-//           {/* <Actor gender="woman" /> */}
-//         </div>
-//       </div>
-//       <div id="sceneControls">
-//         <button id="startButton" onClick={handleStart}>
-//           Start
-//         </button>
-//       </div>
-//       <div id="inputContainerContainer">
-//         <div id="inputContainer">
-//           {scene.map((phrase, i) => {
-//             return (
-//               <p key={i}>test</p>
-//               // <Phrase
-//               // key={Math.random()}
-//               // {...phrase}
-//               // removeText={removeText}
-//               // moveUp={moveUp}
-//               // moveDown={moveDown}
-//               // />
-//             );
-//           })}
-//         </div>
-//       </div>
-//       {/* <AddTextForm addText={addText} /> */}
-//     </div>
-//     ;
-//   </div>
-// );
-
-// import Actor from "./components/Actor/Actor";
-// import Phrase from "./components/Phrase/Phrase";
-// import AddTextForm from "./components/AddTextForm/AddTextForm";
-
-/*
-function print(scene) {
-if (scene.length > 0) {
-const target =
-scene[0].actorId === "man"
-? document.getElementById("manText")
-: document.getElementById("womanText");
-const text = scene[0].text;
-const mouth =
-scene[0].actorId === "man"
-? document.getElementsByClassName("mouth")[0]
-: document.getElementsByClassName("mouth")[1];
-
-    document.getElementById("startButton").style.visibility = "hidden";
-    if (scene.length === 1) {
-      setTimeout(() => {
-        document.getElementById("startButton").style.visibility = "visible";
-      }, 1000 + 50 * text.length);
-    }
-
-    target.textContent = "";
-    for (let i = 0; i < text.length; i++) {
-      setTimeout(() => {
-        mouth.textContent = i % 5 === 0 ? "O" : "o";
-        target.textContent += text[i];
-      }, 50 * i);
-    }
-
-    setTimeout(() => {
-      mouth.textContent = "o";
-      print(scene.slice(1));
-    }, 1000 + 50 * text.length);
-
-}
-}
-*/

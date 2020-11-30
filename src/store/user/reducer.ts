@@ -9,6 +9,7 @@ import {
   LOG_OUT,
   EDIT_ABOUT,
   CREATE_NEW_SCENE,
+  UPDATE_SCENE,
 } from "./types";
 
 const initialState: UserState = {
@@ -22,6 +23,26 @@ const initialState: UserState = {
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
+    case UPDATE_SCENE: {
+      return {
+        ...state,
+        scenes: state.scenes.map((scene) =>
+          scene.id !== action.payload.scene.id
+            ? scene
+            : {
+                ...scene,
+                name: action.payload.scene.name,
+                description: action.payload.scene.description,
+                actors: scene.actors.map((actor) => ({
+                  ...actor,
+                  phrases: action.payload.script.filter(
+                    (phrase) => phrase.actorId === actor.id
+                  ),
+                })),
+              }
+        ),
+      };
+    }
     case CREATE_NEW_SCENE:
       return { ...state, scenes: [...state.scenes, action.payload] };
 

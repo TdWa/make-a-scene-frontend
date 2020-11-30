@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editAbout } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
 import {
-  AboutWrapper,
+  AboutDescriptionEditStyle,
   Button,
   PageTitle,
 } from "../general-styles/styledElements";
@@ -41,48 +41,46 @@ export default function MyProfilePage() {
   return (
     <div>
       <PageTitle>My profile</PageTitle>
-      <AboutWrapper>
-        <h2>About</h2>
-        {edit ? (
-          <div>
-            <textarea
-              value={about}
-              onChange={(e) => setAbout(e.target.value)}
-              ref={textareaRef}
-            ></textarea>
-            <Button onClick={handleSave}>Save</Button>
-            <Button
-              onClick={() => {
-                setAbout(textBeforeEdit.current);
-                setEdit(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <p>{about}</p>
-            <Button
-              onClick={() => {
-                setEdit(true);
-                textBeforeEdit.current = about;
-              }}
-            >
-              Edit
-            </Button>
-          </div>
-        )}
-      </AboutWrapper>
-      {/* Maybe change this link later if it needs to have an id or something */}
-      {/* Remove these breaks later! */}
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <Link to="/myScenes/new">
-        <Button>Make a new scene!</Button>
-      </Link>
+      <div className="pageRow">
+        <AboutDescriptionEditStyle>
+          <h2>About</h2>
+          {edit ? (
+            <div>
+              <textarea
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                ref={textareaRef}
+              ></textarea>
+              <Button onClick={handleSave}>Save</Button>
+              <Button
+                onClick={() => {
+                  setAbout(textBeforeEdit.current);
+                  setEdit(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <p>{about}</p>
+              <Button
+                onClick={() => {
+                  setEdit(true);
+                  textBeforeEdit.current = about;
+                }}
+              >
+                Edit
+              </Button>
+            </div>
+          )}
+        </AboutDescriptionEditStyle>
+      </div>
+      <div className="pageRow">
+        <Link to="/myScenes/new">
+          <Button>Make a new scene!</Button>
+        </Link>
+      </div>
     </div>
   );
 }

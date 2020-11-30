@@ -10,11 +10,18 @@ import {
   LOG_OUT,
   EDIT_ABOUT,
   CREATE_NEW_SCENE,
+  UPDATE_SCENE,
   UserActionTypes,
   UserWithoutToken,
   UserWithToken,
+  SceneUpdate,
 } from "./types";
-import { AppThunk, ActorsToCreate, Scene } from "../types";
+import { AppThunk, ActorsToCreate, Scene, Phrase } from "../types";
+
+const setUpdatedScene = (sceneUpdate: SceneUpdate): UserActionTypes => ({
+  type: UPDATE_SCENE,
+  payload: sceneUpdate,
+});
 
 const setNewScene = (scene: Scene): UserActionTypes => ({
   type: CREATE_NEW_SCENE,
@@ -48,6 +55,41 @@ const tokenStillValid = (
   type: TOKEN_STILL_VALID,
   payload: userWithoutToken,
 });
+
+export const updateScene = (
+  sceneId: number,
+  sceneName: string,
+  sceneDescription: string,
+  script: Phrase[],
+  actorIds: number[]
+): AppThunk => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+    if (token === null) return;
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/scenes`,
+        {
+          sceneId,
+          sceneName,
+          sceneDescription,
+          script,
+          actorIds,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(setUpdatedScene(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setUserFeedbackMessage(error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setUserFeedbackMessage(error.message));
+      }
+    }
+  };
+};
 
 export const createNewScene = (
   sceneName: string,
@@ -151,6 +193,12 @@ export const login = (email: string, password: string): AppThunk => {
         password,
       });
 
+      // Sort the actors by Id so they always stay in the same order
+      response.data.scenes.map((scene: Scene) => ({
+        ...scene,
+        actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
+      }));
+
       dispatch(loginSuccess(response.data));
       dispatch(setUserFeedbackMessage("Welcome back!"));
       setTimeout(
@@ -179,6 +227,12 @@ export const getUserWithStoredToken = (): AppThunk => {
       const response = await axios.get(`${apiUrl}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      // Sort the actors by Id so they always stay in the same order
+      response.data.scenes.map((scene: Scene) => ({
+        ...scene,
+        actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
+      }));
 
       dispatch(tokenStillValid(response.data));
     } catch (error) {
