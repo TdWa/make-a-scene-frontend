@@ -10,6 +10,7 @@ import {
   EDIT_ABOUT,
   CREATE_NEW_SCENE,
   UPDATE_SCENE,
+  REMOVE_SCENE,
 } from "./types";
 
 const initialState: UserState = {
@@ -23,7 +24,13 @@ const initialState: UserState = {
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
-    case UPDATE_SCENE: {
+    case REMOVE_SCENE:
+      return {
+        ...state,
+        scenes: state.scenes.filter((scene) => scene.id !== action.payload),
+      };
+
+    case UPDATE_SCENE:
       return {
         ...state,
         scenes: state.scenes.map((scene) =>
@@ -42,7 +49,7 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
               }
         ),
       };
-    }
+
     case CREATE_NEW_SCENE:
       return { ...state, scenes: [...state.scenes, action.payload] };
 
