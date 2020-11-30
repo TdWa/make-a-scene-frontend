@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-type FormPropType = {
+type FormProp = {
   left?: boolean;
 };
 
-export const Form = styled.form<FormPropType>`
+export const Form = styled.form<FormProp>`
   margin: 20px auto;
   display: flex;
   flex-direction: column;

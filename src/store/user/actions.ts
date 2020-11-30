@@ -194,10 +194,12 @@ export const login = (email: string, password: string): AppThunk => {
       });
 
       // Sort the actors by Id so they always stay in the same order
-      response.data.scenes.map((scene: Scene) => ({
-        ...scene,
-        actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
-      }));
+      response.data.scenes
+        .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
+        .map((scene: Scene) => ({
+          ...scene,
+          actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
+        }));
 
       dispatch(loginSuccess(response.data));
       dispatch(setUserFeedbackMessage("Welcome back!"));
@@ -229,10 +231,12 @@ export const getUserWithStoredToken = (): AppThunk => {
       });
 
       // Sort the actors by Id so they always stay in the same order
-      response.data.scenes.map((scene: Scene) => ({
-        ...scene,
-        actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
-      }));
+      response.data.scenes
+        .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
+        .map((scene: Scene) => ({
+          ...scene,
+          actors: scene.actors.sort((a, b) => (a.id && b.id ? a.id - b.id : 0)),
+        }));
 
       dispatch(tokenStillValid(response.data));
     } catch (error) {
