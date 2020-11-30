@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type ButtonPropType = {
   center?: boolean;
+  save?: boolean;
 };
 
 export const Button = styled.button<ButtonPropType>`
@@ -35,4 +36,13 @@ export const Button = styled.button<ButtonPropType>`
     border: 2px solid blue;
     box-shadow: none;
   }
+
+  ${({ save }) =>
+    save &&
+    css`
+      background-color: darkgreen;
+      position: absolute;
+      top: 150px;
+      right: 10px;
+    `}
 `;

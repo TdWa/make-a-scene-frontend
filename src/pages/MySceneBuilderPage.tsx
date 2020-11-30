@@ -85,7 +85,7 @@ export default function MySceneBuilderPage() {
   };
 
   const addPhrase = (id: number, actorId: number, text: string) => {
-    setScript([...script, { id, actorId, index: script.length - 1, text }]);
+    setScript([...script, { id, actorId, index: script.length, text }]);
   };
 
   const deletePhrase = (id: number) => {
@@ -112,8 +112,17 @@ export default function MySceneBuilderPage() {
     );
   };
 
+  const editPhrase = (id: number, newText: string) => {
+    setScript(
+      script.map((phrase) =>
+        phrase.id === id ? { ...phrase, text: newText } : phrase
+      )
+    );
+  };
+
   return (
     <div>
+      <Button save>Save all changes</Button>
       <PageTitle>
         {edit.title && (
           <div>
@@ -190,6 +199,7 @@ export default function MySceneBuilderPage() {
               actorPosition={actorPosition}
               deletePhrase={deletePhrase}
               movePhrase={movePhrase}
+              editPhrase={editPhrase}
             />
           );
         })}

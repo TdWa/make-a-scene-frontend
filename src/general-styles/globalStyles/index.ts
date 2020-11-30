@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     padding: 0;
     font-family: ${({ theme }) => theme.fontFamilies.arial};
     box-sizing: border-box;
+    overflow-wrap: break-word;
   }
 
  html {

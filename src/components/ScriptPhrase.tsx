@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ScriptPhraseWrapper } from "./ScriptPhraseStyle";
 
 type ScriptPhraseProps = {
@@ -9,9 +9,21 @@ type ScriptPhraseProps = {
   actorPosition: "LEFT" | "MIDDLE" | "RIGHT";
   deletePhrase: (id: number) => void;
   movePhrase: (currentIndex: number, direction: "UP" | "DOWN") => void;
+  editPhrase: (id: number, newText: string) => void;
 };
 
 export default function ScriptPhrase(props: ScriptPhraseProps) {
+  const [edit, setEdit] = useState(false);
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (textInputRef.current) {
+      textInputRef.current.focus();
+      textInputRef.current.selectionStart = textInputRef.current.selectionEnd =
+        textInputRef.current.value.length;
+    }
+  }, [edit]);
+
   const {
     id,
     index,
@@ -20,39 +32,43 @@ export default function ScriptPhrase(props: ScriptPhraseProps) {
     actorPosition,
     deletePhrase,
     movePhrase,
+    editPhrase,
   } = props;
   return (
     <ScriptPhraseWrapper position={actorPosition}>
       <p>
         <strong>{actorName}</strong>
       </p>
-      <p>{text}</p>
-      <button onClick={() => deletePhrase(id)}>Delete</button>
-      <button onClick={() => movePhrase(index, "DOWN")}>Move Down</button>
-      <button onClick={() => movePhrase(index, "UP")}>Move Up</button>
+      {edit ? (
+        <input
+          value={text}
+          onChange={(e) => editPhrase(id, e.target.value)}
+          ref={textInputRef}
+        ></input>
+      ) : (
+        <p>{text}</p>
+      )}
+      <button className="deletePhrase" onClick={() => deletePhrase(id)}>
+        Delete
+      </button>
+      <button className="movePhraseUp" onClick={() => movePhrase(index, "UP")}>
+        /\
+      </button>
+      <button
+        className="movePhraseDown"
+        onClick={() => movePhrase(index, "DOWN")}
+      >
+        \/
+      </button>
+      {edit ? (
+        <button className="editPhrase" onClick={() => setEdit(false)}>
+          OK
+        </button>
+      ) : (
+        <button className="editPhrase" onClick={() => setEdit(true)}>
+          Edit
+        </button>
+      )}
     </ScriptPhraseWrapper>
   );
 }
-
-/*
-export default function Phrase({
-  id,
-  forActor,
-  text,
-  removeText,
-  moveUp,
-  moveDown,
-}) {
-  return (
-    <div className={`inputText ${forActor}`}>
-      <p>
-        <strong>{forActor}</strong>
-      </p>
-      <p>{text}</p>
-      <button onClick={() => removeText(id)}>Delete</button>
-      <button onClick={() => moveDown(id)}>Move Down</button>
-      <button onClick={() => moveUp(id)}>Move Up</button>
-    </div>
-  );
-}
-*/
