@@ -5,5 +5,5 @@ export const MainWrapper = styled.main`
   margin: 0 auto;
   padding: 0 10px;
   position: relative;
-  min-height: 90vh;
+  min-height: calc(100vh - 210px);
 `;

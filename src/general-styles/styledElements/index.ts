@@ -4,7 +4,6 @@ import { StyledLink } from "./StyledLink";
 import { MainWrapper } from "./MainWrapper";
 import { PageTitle } from "./PageTitle";
 import { FeedbackWrapper } from "./FeedbackWrapper";
-import { Header } from "./Header";
 import { AboutDescriptionEditStyle } from "./AboutDescriptionEditStyle";
 import { ConfirmPopup } from "./ConfirmPopup";
 
@@ -15,7 +14,6 @@ export {
   MainWrapper,
   PageTitle,
   FeedbackWrapper,
-  Header,
   AboutDescriptionEditStyle,
   ConfirmPopup,
 };
