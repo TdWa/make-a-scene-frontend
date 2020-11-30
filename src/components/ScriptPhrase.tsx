@@ -7,9 +7,10 @@ type ScriptPhraseProps = {
   text: string;
   actorName: string | undefined;
   actorPosition: "LEFT" | "MIDDLE" | "RIGHT";
-  deletePhrase: (id: number) => void;
+  deletePhrase: (id: number, index: number) => void;
   movePhrase: (currentIndex: number, direction: "UP" | "DOWN") => void;
   editPhrase: (id: number, newText: string) => void;
+  setSaveableTrue: () => void;
 };
 
 export default function ScriptPhrase(props: ScriptPhraseProps) {
@@ -33,6 +34,7 @@ export default function ScriptPhrase(props: ScriptPhraseProps) {
     deletePhrase,
     movePhrase,
     editPhrase,
+    setSaveableTrue,
   } = props;
   return (
     <ScriptPhraseWrapper position={actorPosition}>
@@ -48,20 +50,41 @@ export default function ScriptPhrase(props: ScriptPhraseProps) {
       ) : (
         <p>{text}</p>
       )}
-      <button className="deletePhrase" onClick={() => deletePhrase(id)}>
+      <button
+        className="deletePhrase"
+        onClick={() => {
+          deletePhrase(id, index);
+          setSaveableTrue();
+        }}
+      >
         Delete
       </button>
-      <button className="movePhraseUp" onClick={() => movePhrase(index, "UP")}>
+      <button
+        className="movePhraseUp"
+        onClick={() => {
+          movePhrase(index, "UP");
+          setSaveableTrue();
+        }}
+      >
         /\
       </button>
       <button
         className="movePhraseDown"
-        onClick={() => movePhrase(index, "DOWN")}
+        onClick={() => {
+          movePhrase(index, "DOWN");
+          setSaveableTrue();
+        }}
       >
         \/
       </button>
       {edit ? (
-        <button className="editPhrase" onClick={() => setEdit(false)}>
+        <button
+          className="editPhrase"
+          onClick={() => {
+            setEdit(false);
+            setSaveableTrue();
+          }}
+        >
           OK
         </button>
       ) : (

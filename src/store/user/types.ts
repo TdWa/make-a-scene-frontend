@@ -1,4 +1,4 @@
-import { Scene } from "../types";
+import { Phrase, Scene } from "../types";
 
 // state type
 export type UserState = {
@@ -24,6 +24,7 @@ export type UserWithoutToken = {
 export type UserWithToken = UserWithoutToken & { token: string };
 
 // action types
+export const UPDATE_SCENE = "UPDATE_SCENE";
 export const CREATE_NEW_SCENE = "CREATE_NEW_SCENE";
 export const EDIT_ABOUT = "EDIT_ABOUT";
 export const LOADING_USER = "LOADING_USER";
@@ -32,6 +33,20 @@ export const CLEAR_USER_FEEDBACK_MESSAGE = "CLEAR_USER_FEEDBACK_MESSAGE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+
+export type SceneUpdate = {
+  scene: {
+    id: number;
+    name: string;
+    description: string;
+  };
+  script: Phrase[];
+};
+
+export type UpdateScene = {
+  type: typeof UPDATE_SCENE;
+  payload: SceneUpdate;
+};
 
 export type CreateNewScene = {
   type: typeof CREATE_NEW_SCENE;
@@ -71,6 +86,7 @@ export type Logout = {
 };
 
 export type UserActionTypes =
+  | UpdateScene
   | CreateNewScene
   | SetAbout
   | SetLoadingUser

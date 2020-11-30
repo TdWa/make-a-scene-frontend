@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   AboutDescriptionEditStyle,
@@ -11,10 +11,11 @@ import ScenePlayer from "../components/ScenePlayer";
 import { ActorType, Phrase } from "../store/types";
 import ScriptPhrase from "../components/ScriptPhrase";
 import AddPhraseForm from "../components/AddPhraseForm";
+import { updateScene } from "../store/user/actions";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const sceneId = Number(useParams<{ id: string }>().id);
   const scene = useSelector(selectUserSceneById(sceneId));
   const [actors, setActors] = useState<ActorType[]>([]);
@@ -25,7 +26,11 @@ export default function MySceneBuilderPage() {
   const sceneNameInputRef = useRef<HTMLInputElement>(null);
   const [sceneDescription, setSceneDescription] = useState("");
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const [edit, setEdit] = useState({ title: false, description: false });
+  const [edit, setEdit] = useState({
+    title: false,
+    description: false,
+    save: false,
+  });
 
   useEffect(() => {
     if (scene) {
@@ -88,8 +93,14 @@ export default function MySceneBuilderPage() {
     setScript([...script, { id, actorId, index: script.length, text }]);
   };
 
-  const deletePhrase = (id: number) => {
-    setScript(script.filter((phrase) => phrase.id !== id));
+  const deletePhrase = (id: number, index: number) => {
+    setScript(
+      script
+        .map((phrase) =>
+          phrase.index > index ? { ...phrase, index: phrase.index - 1 } : phrase
+        )
+        .filter((phrase) => phrase.id !== id)
+    );
   };
 
   const movePhrase = (currentIndex: number, direction: "UP" | "DOWN") => {
@@ -120,9 +131,32 @@ export default function MySceneBuilderPage() {
     );
   };
 
+  const setSaveableTrue = () => setEdit({ ...edit, save: true });
+
   return (
     <div>
-      <Button save>Save all changes</Button>
+      {edit.save && (
+        <Button
+          save
+          onClick={() => {
+            const actorIds = actors.flatMap((actor) =>
+              actor.id ? actor.id : []
+            );
+            dispatch(
+              updateScene(
+                scene.id,
+                sceneName,
+                sceneDescription,
+                script,
+                actorIds
+              )
+            );
+            setEdit({ ...edit, save: false });
+          }}
+        >
+          Save all changes
+        </Button>
+      )}
       <PageTitle>
         {edit.title && (
           <div>
@@ -131,7 +165,9 @@ export default function MySceneBuilderPage() {
               onChange={(e) => setSceneName(e.target.value)}
               ref={sceneNameInputRef}
             ></input>
-            <Button onClick={() => setEdit({ ...edit, title: false })}>
+            <Button
+              onClick={() => setEdit({ ...edit, title: false, save: true })}
+            >
               OK
             </Button>
           </div>
@@ -150,7 +186,11 @@ export default function MySceneBuilderPage() {
           <h2>
             Description{" "}
             {edit.description ? (
-              <Button onClick={() => setEdit({ ...edit, description: false })}>
+              <Button
+                onClick={() =>
+                  setEdit({ ...edit, description: false, save: true })
+                }
+              >
                 OK
               </Button>
             ) : (
@@ -200,12 +240,17 @@ export default function MySceneBuilderPage() {
               deletePhrase={deletePhrase}
               movePhrase={movePhrase}
               editPhrase={editPhrase}
+              setSaveableTrue={setSaveableTrue}
             />
           );
         })}
       </div>
       <div className="pageRow">
-        <AddPhraseForm addPhrase={addPhrase} actors={actors} />
+        <AddPhraseForm
+          addPhrase={addPhrase}
+          setSaveableTrue={setSaveableTrue}
+          actors={actors}
+        />
       </div>
     </div>
   );

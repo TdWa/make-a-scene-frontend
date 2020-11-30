@@ -4,11 +4,12 @@ import { ActorType } from "../store/types";
 
 type AddPhraseFormProps = {
   addPhrase: (id: number, actorId: number, text: string) => void;
+  setSaveableTrue: () => void;
   actors: ActorType[];
 };
 
 export default function AddPhraseForm(props: AddPhraseFormProps) {
-  const { addPhrase, actors } = props;
+  const { addPhrase, setSaveableTrue, actors } = props;
   const [phrase, setPhrase] = useState({
     id: 0,
     actorId: actors[0]?.id,
@@ -22,6 +23,7 @@ export default function AddPhraseForm(props: AddPhraseFormProps) {
         if (phrase.actorId) {
           addPhrase(Date.now(), phrase.actorId, phrase.text);
           setPhrase({ ...phrase, text: "" });
+          setSaveableTrue();
         }
       }}
     >
