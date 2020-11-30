@@ -6,6 +6,7 @@ import { PageTitle } from "./PageTitle";
 import { FeedbackWrapper } from "./FeedbackWrapper";
 import { Header } from "./Header";
 import { AboutDescriptionEditStyle } from "./AboutDescriptionEditStyle";
+import { ConfirmPopup } from "./ConfirmPopup";
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   FeedbackWrapper,
   Header,
   AboutDescriptionEditStyle,
+  ConfirmPopup,
 };

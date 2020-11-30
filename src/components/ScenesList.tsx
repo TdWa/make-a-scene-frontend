@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "../general-styles/styledElements";
+import React, { useState } from "react";
+import { Button, ConfirmPopup } from "../general-styles/styledElements";
 import { Scene } from "../store/types";
 import Actor from "./Actor";
 import { ScenesListStyle } from "./ScenesListStyle";
@@ -13,6 +13,7 @@ type SceneListProp = Scene & {
 
 export default function ScenesList(props: SceneListProp) {
   const dispatch = useDispatch();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const { profilePage, id, name, actors } = props;
   return (
     <ScenesListStyle>
@@ -20,11 +21,29 @@ export default function ScenesList(props: SceneListProp) {
         <strong>{name}</strong>
         {/* <Button className="description">View description</Button> */}
         {profilePage && (
-          <Button className="delete" onClick={() => dispatch(deleteScene(id))}>
+          <Button className="delete" onClick={() => setConfirmDelete(true)}>
             Delete
           </Button>
         )}
       </h3>
+      {confirmDelete && (
+        <ConfirmPopup>
+          <div>
+            <p>Are you sure?</p>
+          </div>
+          <div>
+            <Button onClick={() => setConfirmDelete(false)}>Cancel</Button>
+            <Button
+              onClick={() => {
+                dispatch(deleteScene(id));
+                setConfirmDelete(false);
+              }}
+            >
+              Yes
+            </Button>
+          </div>
+        </ConfirmPopup>
+      )}
       <div>
         <div>
           {actors.map((actor) => (
@@ -46,18 +65,4 @@ export default function ScenesList(props: SceneListProp) {
   );
 }
 
-// type ScenePlayerProp = {
-//   small?: boolean;
-// };
-
-// margin: ${({ center }) => (center ? "0 auto" : "0")};
-// ${({ center }) => center && "display: block;"}
-
-// ${({ save }) =>
-//     save &&
-//     css`
-//       background-color: darkgreen;
-//       position: absolute;
-//       top: 150px;
-//       right: 10px;
-//     `}
+// onClick={() => dispatch(deleteScene(id))}
