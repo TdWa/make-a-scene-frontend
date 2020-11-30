@@ -24,6 +24,7 @@ export type UserWithoutToken = {
 export type UserWithToken = UserWithoutToken & { token: string };
 
 // action types
+export const REMOVE_SCENE = "REMOVE_SCENE";
 export const UPDATE_SCENE = "UPDATE_SCENE";
 export const CREATE_NEW_SCENE = "CREATE_NEW_SCENE";
 export const EDIT_ABOUT = "EDIT_ABOUT";
@@ -34,6 +35,11 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 
+type RemoveScene = {
+  type: typeof REMOVE_SCENE;
+  payload: number;
+};
+
 export type SceneUpdate = {
   scene: {
     id: number;
@@ -43,49 +49,50 @@ export type SceneUpdate = {
   script: Phrase[];
 };
 
-export type UpdateScene = {
+type UpdateScene = {
   type: typeof UPDATE_SCENE;
   payload: SceneUpdate;
 };
 
-export type CreateNewScene = {
+type CreateNewScene = {
   type: typeof CREATE_NEW_SCENE;
   payload: Scene;
 };
 
-export type SetAbout = {
+type SetAbout = {
   type: typeof EDIT_ABOUT;
   payload: string;
 };
 
-export type SetLoadingUser = {
+type SetLoadingUser = {
   type: typeof LOADING_USER;
 };
 
-export type SetUserFeedbackMessage = {
+type SetUserFeedbackMessage = {
   type: typeof USER_FEEDBACK_MESSAGE;
   payload: string;
 };
 
-export type ClearUserFeedbackMessage = {
+type ClearUserFeedbackMessage = {
   type: typeof CLEAR_USER_FEEDBACK_MESSAGE;
 };
 
-export type ManualLogin = {
+type ManualLogin = {
   type: typeof LOGIN_SUCCESS;
   payload: UserWithToken;
 };
 
-export type TokenLogin = {
+type TokenLogin = {
   type: typeof TOKEN_STILL_VALID;
   payload: UserWithoutToken;
 };
 
-export type Logout = {
+type Logout = {
   type: typeof LOG_OUT;
 };
 
 export type UserActionTypes =
+  | RemoveScene
   | UpdateScene
   | CreateNewScene
   | SetAbout

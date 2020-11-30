@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
 
  body {
    width: 100%;
+   min-width: 500px;
    background-color: ${({ theme }) => theme.colors.main};
    height: 100%;
    margin: 0 auto;
@@ -25,6 +26,7 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
 
   h2 {
     margin-bottom: 10px;
+    padding: 5px;
   }
 
   .pageRow {

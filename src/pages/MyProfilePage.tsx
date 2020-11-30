@@ -8,6 +8,7 @@ import {
   PageTitle,
 } from "../general-styles/styledElements";
 import { Link } from "react-router-dom";
+import ScenesList from "../components/ScenesList";
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -80,6 +81,12 @@ export default function MyProfilePage() {
         <Link to="/myScenes/new">
           <Button>Make a new scene!</Button>
         </Link>
+      </div>
+      <div className="pageRow">
+        <h2>My scenes</h2>
+        {user.scenes.map((scene) => (
+          <ScenesList key={scene.id} profilePage={true} {...scene} />
+        ))}
       </div>
     </div>
   );

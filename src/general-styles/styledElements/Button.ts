@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 
-type ButtonPropType = {
+type ButtonProp = {
   center?: boolean;
   save?: boolean;
 };
 
-export const Button = styled.button<ButtonPropType>`
+export const Button = styled.button<ButtonProp>`
   min-width: 60px;
   height: 30px;
   margin: ${({ center }) => (center ? "0 auto" : "0")};
@@ -16,7 +16,6 @@ export const Button = styled.button<ButtonPropType>`
   color: white;
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px #404040;
 
   &:hover {
     background-color: #01135c;
@@ -34,7 +33,6 @@ export const Button = styled.button<ButtonPropType>`
 
   &:focus-visible {
     border: 2px solid blue;
-    box-shadow: none;
   }
 
   ${({ save }) =>

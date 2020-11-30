@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ActorWrapper = styled.div`
   width: 200px;
-  height: 300px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,6 +45,6 @@ export const ActorBody = styled.div.attrs((props: ActorBodyProps) => ({
 }))<{ bg: string; color: string }>`
   position: relative;
   width: 70%;
-  height: 70%;
+  height: 80%;
   border: 1px solid black;
 `;

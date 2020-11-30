@@ -4,10 +4,6 @@ export const AboutDescriptionEditStyle = styled.div`
   display: flex;
   flex-direction: column;
 
-  h2 {
-    padding: 5px;
-  }
-
   p,
   textarea {
     width: 500px;

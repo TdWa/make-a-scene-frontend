@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/actions";
 import MessageBox from "./components/MessageBox";
 
+import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import PublicScenesListPage from "./pages/PublicScenesListPage";
 import PublicSceneViewPage from "./pages/PublicSceneViewPage";
@@ -14,7 +15,7 @@ import MyNewScenePage from "./pages/MyNewScenePage";
 import MySceneBuilderPage from "./pages/MySceneBuilderPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 import { MainWrapper } from "./general-styles/styledElements";
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/login" component={LoginPage} />
         </Switch>
       </MainWrapper>
+      <Footer />
     </div>
   );
 }
