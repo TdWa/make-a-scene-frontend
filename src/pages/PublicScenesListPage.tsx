@@ -18,7 +18,7 @@ export default function PublicScenesListPage() {
       <PageTitle>Discover Scenes</PageTitle>
       <div className="pageRow">
         {scenes.map((scene) => (
-          <ScenesList key={scene.id} profilePage={false} {...scene} />
+          <ScenesList key={scene.id} {...scene} />
         ))}
       </div>
     </div>

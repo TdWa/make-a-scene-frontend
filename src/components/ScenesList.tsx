@@ -8,7 +8,8 @@ import { useDispatch } from "react-redux";
 import { deleteScene } from "../store/user/actions";
 
 type SceneListProp = {
-  profilePage: boolean;
+  profilePage?: boolean;
+  authorPage?: boolean;
   id: number;
   name: string;
   description: string | null;
@@ -24,6 +25,7 @@ export default function ScenesList(props: SceneListProp) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const {
     profilePage,
+    authorPage,
     id,
     name,
     description,
@@ -67,7 +69,7 @@ export default function ScenesList(props: SceneListProp) {
             ))}
           </div>
           <div className="sceneLinksContainer">
-            {!profilePage && (
+            {!profilePage && !authorPage && (
               <div className="authorName">
                 <div>
                   <h4>Author: {authorName}</h4>
@@ -81,9 +83,11 @@ export default function ScenesList(props: SceneListProp) {
                   <Button>Go to edit page</Button>
                 </Link>
               ) : (
-                <Link to={`/author/${authorId}`}>
-                  <Button>Go to author page</Button>
-                </Link>
+                !authorPage && (
+                  <Link to={`/author/${authorId}`}>
+                    <Button>Go to author page</Button>
+                  </Link>
+                )
               )}
               <Link to={`/scene/${id}`}>
                 <Button>Go to scene page</Button>
