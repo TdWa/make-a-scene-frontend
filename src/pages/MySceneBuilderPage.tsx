@@ -12,6 +12,7 @@ import { ActorType, Phrase } from "../store/types";
 import ScriptPhrase from "../components/ScriptPhrase";
 import AddPhraseForm from "../components/AddPhraseForm";
 import { updateScene } from "../store/user/actions";
+import { playScene } from "../functions";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
@@ -36,7 +37,7 @@ export default function MySceneBuilderPage() {
     if (scene) {
       const phrases = scene.actors
         .flatMap((actor) => (actor.phrases ? actor.phrases : []))
-        ?.sort((a, b) => (a && b ? a.index - b.index : 0));
+        .sort((a, b) => (a && b ? a.index - b.index : 0));
 
       setScript(phrases);
       setActors(scene.actors);
@@ -59,35 +60,6 @@ export default function MySceneBuilderPage() {
   }, [edit]);
 
   if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
-
-  const playScene = (script: Phrase[]) => {
-    if (script.length > 0) {
-      const text = script[0].text;
-      actorText.current = "";
-      for (let i = 0; i < text.length; i++) {
-        setTimeout(() => {
-          // mouth.textContent = i % 5 === 0 ? "O" : "o";
-          actorText.current += text[i];
-          setActors(
-            actors.map((actor) => {
-              if (actor.id !== script[0].actorId) {
-                return { ...actor, currentText: "" };
-              } else {
-                return { ...actor, currentText: actorText.current };
-              }
-            })
-          );
-        }, 50 * i);
-      }
-
-      setTimeout(() => {
-        // mouth.textContent = "o";
-        playScene(script.slice(1));
-      }, 1000 + 50 * text.length);
-    } else {
-      setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
-    }
-  };
 
   const addPhrase = (id: number, actorId: number, text: string) => {
     setScript([...script, { id, actorId, index: script.length, text }]);
@@ -214,7 +186,10 @@ export default function MySceneBuilderPage() {
         <ScenePlayer actors={actors} />
       </div>
       <div className="pageRow">
-        <Button center onClick={() => playScene(script)}>
+        <Button
+          center
+          onClick={() => playScene(script, actors, actorText, setActors)}
+        >
           Play
         </Button>
       </div>
@@ -255,13 +230,3 @@ export default function MySceneBuilderPage() {
     </div>
   );
 }
-
-/*
-      // document.getElementById("startButton").style.visibility = "hidden";
-      // if (script.length === 1) {
-      //   setTimeout(() => {
-      //     document.getElementById("startButton").style.visibility = "visible";
-      //   }, 1000 + 50 * text.length);
-      // }
-
-  */

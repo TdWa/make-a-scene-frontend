@@ -9,3 +9,6 @@ export const selectAllScenes = (state: RootState) => state.authors.scenes;
 
 export const selectAuthorScenes = (authorId: number) => (state: RootState) =>
   state.authors.scenes.filter((scene) => scene.authorId === authorId);
+
+export const selectSceneById = (id: number) => (state: RootState) =>
+  state.authors.scenes.find((scene) => scene.id === id);
