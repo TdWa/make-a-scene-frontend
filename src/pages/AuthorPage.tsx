@@ -26,12 +26,14 @@ export default function AuthorPage() {
   return (
     <div>
       <PageTitle>{scenes[0].authorName}</PageTitle>
-      <div className="pageRow">
-        <AboutDescriptionEditStyle>
-          <h2>About</h2>
-          <p>{scenes[0].authorAbout}</p>
-        </AboutDescriptionEditStyle>
-      </div>
+      {scenes[0].authorAbout && (
+        <div className="pageRow">
+          <AboutDescriptionEditStyle>
+            <h2>About</h2>
+            <p>{scenes[0].authorAbout}</p>
+          </AboutDescriptionEditStyle>
+        </div>
+      )}
       <div className="pageRow">
         <h2>Scenes</h2>
         {scenes.map((scene) => (
