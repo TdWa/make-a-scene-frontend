@@ -16,10 +16,11 @@ export default function AuthorPage() {
   const scenes = useSelector(selectAuthorScenes(authorId));
 
   useEffect(() => {
+    console.log("useEffect");
     if (scenes.length === 0) {
       dispatch(getScenes);
     }
-  }, [scenes, dispatch]);
+  }, [scenes.length, dispatch]);
 
   if (scenes.length === 0) return null; // should be some kind of loading indicator
 
