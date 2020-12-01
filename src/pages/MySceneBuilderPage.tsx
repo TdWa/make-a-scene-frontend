@@ -137,7 +137,7 @@ export default function MySceneBuilderPage() {
     <div>
       {edit.save && (
         <Button
-          save
+          right
           onClick={() => {
             const actorIds = actors.flatMap((actor) =>
               actor.id ? actor.id : []

@@ -12,4 +12,5 @@ export const ConfirmPopup = styled.div`
   border: 2px solid black;
   display: flex;
   flex-direction: column;
+  z-index: 99;
 `;

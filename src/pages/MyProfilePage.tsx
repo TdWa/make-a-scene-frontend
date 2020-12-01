@@ -79,7 +79,7 @@ export default function MyProfilePage() {
       </div>
       <div className="pageRow">
         <Link to="/myScenes/new">
-          <Button>Make a new scene!</Button>
+          <Button right>Make a new scene!</Button>
         </Link>
       </div>
       <div className="pageRow">
