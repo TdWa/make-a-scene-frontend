@@ -5,7 +5,7 @@ import { PageTitle } from "../general-styles/styledElements";
 import { getScenes } from "../store/authors/actions";
 import { selectAllScenes } from "../store/authors/selectors";
 
-export default function PublicScenesListPage() {
+export default function DiscoverScenesPage() {
   const dispatch = useDispatch();
   const scenes = useSelector(selectAllScenes);
 

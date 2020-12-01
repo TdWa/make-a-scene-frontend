@@ -16,7 +16,6 @@ export default function AuthorPage() {
   const scenes = useSelector(selectAuthorScenes(authorId));
 
   useEffect(() => {
-    console.log("useEffect");
     if (scenes.length === 0) {
       dispatch(getScenes);
     }
