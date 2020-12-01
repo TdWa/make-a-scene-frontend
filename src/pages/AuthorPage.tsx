@@ -9,7 +9,7 @@ import { selectAuthorScenes } from "../store/authors/selectors";
 import { getScenes } from "../store/authors/actions";
 import ScenesList from "../components/ScenesList";
 
-export default function PublicAuthorViewPage() {
+export default function AuthorPage() {
   const dispatch = useDispatch();
   const params = useParams<{ id: string }>();
   const authorId = Number(params.id);

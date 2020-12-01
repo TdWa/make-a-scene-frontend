@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import PublicScenesListPage from "./pages/PublicScenesListPage";
 import PublicSceneViewPage from "./pages/PublicSceneViewPage";
-import PublicAuthorViewPage from "./pages/PublicAuthorViewPage";
+import AuthorPage from "./pages/AuthorPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import MyNewScenePage from "./pages/MyNewScenePage";
 import MySceneBuilderPage from "./pages/MySceneBuilderPage";
@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route path="/scenes" component={PublicScenesListPage} />
           <Route path="/scene/:id" component={PublicSceneViewPage} />
-          <Route path="/author/:id" component={PublicAuthorViewPage} />
+          <Route path="/author/:id" component={AuthorPage} />
           <Route exact path="/myScenes" component={MyProfilePage} />
           <Route exact path="/myScenes/new" component={MyNewScenePage} />
           <Route path="/myScenes/:id" component={MySceneBuilderPage} />
