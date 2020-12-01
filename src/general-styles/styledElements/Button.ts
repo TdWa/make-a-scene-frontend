@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 type ButtonProp = {
   center?: boolean;
-  save?: boolean;
+  right?: boolean;
 };
 
 export const Button = styled.button<ButtonProp>`
@@ -35,8 +35,8 @@ export const Button = styled.button<ButtonProp>`
     border: 2px solid blue;
   }
 
-  ${({ save }) =>
-    save &&
+  ${({ right }) =>
+    right &&
     css`
       background-color: darkgreen;
       position: absolute;
