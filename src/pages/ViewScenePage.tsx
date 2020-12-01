@@ -1,12 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, PageTitle } from "../general-styles/styledElements";
+import {
+  Button,
+  Form,
+  PageTitle,
+  StyledLink,
+} from "../general-styles/styledElements";
 import { selectSceneById } from "../store/authors/selectors";
 import { getScenes } from "../store/authors/actions";
 import ScenePlayer from "../components/ScenePlayer";
+import Comment from "../components/Comment";
 import { ActorType, Phrase } from "../store/types";
 import { playScene } from "../functions";
+import { ViewScenePageStyle } from "./ViewScenePageStyle";
+import { selectUser } from "../store/user/selectors";
+import { createComment } from "../store/authors/actions";
 
 export default function ViewScenePage() {
   const dispatch = useDispatch();
@@ -16,6 +25,8 @@ export default function ViewScenePage() {
   const [script, setScript] = useState<Phrase[]>([]);
   const [actors, setActors] = useState<ActorType[]>([]);
   const actorText = useRef("");
+  const [newComment, setNewComment] = useState("");
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     if (!scene) {
@@ -33,7 +44,7 @@ export default function ViewScenePage() {
   if (!scene) return null; // should be some kind of loading indicator
 
   return (
-    <div>
+    <ViewScenePageStyle>
       <PageTitle>{scene.name}</PageTitle>
       <ScenePlayer actors={actors} />
       <div className="pageRow">
@@ -50,6 +61,41 @@ export default function ViewScenePage() {
           <p>{scene.description}</p>
         </div>
       )}
-    </div>
+      <div className="pageRow">
+        <h2>Comments</h2>
+        {scene.comments.map((comment) => (
+          <Comment key={comment.id} {...comment} />
+        ))}
+      </div>
+      {user.name ? (
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (user.id) {
+              dispatch(
+                createComment({ sceneId, userId: user.id, text: newComment })
+              );
+            }
+            setNewComment("");
+          }}
+        >
+          <div className="wide">
+            <textarea
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
+              placeholder="Add a comment"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <Button>Add</Button>
+          </div>
+        </Form>
+      ) : (
+        <p>
+          <StyledLink to="/login">Log in</StyledLink> to add a comment
+        </p>
+      )}
+    </ViewScenePageStyle>
   );
 }

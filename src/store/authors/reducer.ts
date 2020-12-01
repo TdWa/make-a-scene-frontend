@@ -5,6 +5,8 @@ import {
   SCENESFETCH_ERROR,
   SCENESFETCH_SUCCESS,
   CLEAR_SCENESFETCH_ERROR,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
 } from "./types";
 
 const initialState: AuthorsState = {
@@ -15,6 +17,31 @@ const initialState: AuthorsState = {
 
 const authorsReducer = (state = initialState, action: AuthorsActionTypes) => {
   switch (action.type) {
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        scenes: state.scenes.map((scene) =>
+          scene.id === action.payload.sceneId
+            ? {
+                ...scene,
+                comments: scene.comments.filter(
+                  (comment) => comment.id !== action.payload.commentId
+                ),
+              }
+            : scene
+        ),
+      };
+
+    case ADD_COMMENT:
+      return {
+        ...state,
+        scenes: state.scenes.map((scene) =>
+          scene.id === action.payload.sceneId
+            ? { ...scene, comments: [...scene.comments, action.payload] }
+            : scene
+        ),
+      };
+
     case LOADING_SCENES:
       return { ...state, loading: true };
 

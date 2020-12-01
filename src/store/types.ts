@@ -41,10 +41,12 @@ export type Scene = {
 };
 
 export type CommentType = {
-  id: number;
+  id?: number;
+  sceneId: number;
   userId: number;
-  userName: string;
+  userName?: string;
   text: string;
+  createdAt?: string;
 };
 
 export type AuthorScene = {

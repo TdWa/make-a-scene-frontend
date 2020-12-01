@@ -41,7 +41,7 @@ const setAbout = (about: string): UserActionTypes => ({
 
 const loadingUser = (): UserActionTypes => ({ type: LOADING_USER });
 
-const setUserFeedbackMessage = (message: string): UserActionTypes => ({
+export const setUserFeedbackMessage = (message: string): UserActionTypes => ({
   type: USER_FEEDBACK_MESSAGE,
   payload: message,
 });
