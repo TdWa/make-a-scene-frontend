@@ -10,7 +10,6 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  // Public Scenes -> Discover Scenes?
   // My Scenes -> My Profile?
 
   return (
@@ -23,7 +22,7 @@ export default function NavBar() {
         </div>
         <div>
           <NavLink exact to="/scenes">
-            Public Scenes
+            Discover Scenes
           </NavLink>
           {/* <NavLink to="/scene/1">Scene 1</NavLink>
         <NavLink to="/author/1">Author 1</NavLink> */}

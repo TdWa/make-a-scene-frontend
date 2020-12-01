@@ -8,10 +8,25 @@ export type AuthorsState = {
 };
 
 // action types
-export const LOADING_AUTHORS = "LOADING_AUTHORS";
+export const LOADING_SCENES = "LOADING_SCENES";
+export const SCENESFETCH_SUCCESS = "SCENESFETCH_SUCCESS";
+export const SCENESFETCH_ERROR = "SCENESFETCH_ERROR";
 
-type SetLoadingAuthors = {
-  type: typeof LOADING_AUTHORS;
+type SetLoadingScenes = {
+  type: typeof LOADING_SCENES;
 };
 
-export type AuthorsActionTypes = SetLoadingAuthors;
+type ScenesFetchSuccess = {
+  type: typeof SCENESFETCH_SUCCESS;
+  payload: AuthorScene[];
+};
+
+type ScenesFetchError = {
+  type: typeof SCENESFETCH_ERROR;
+  payload: string;
+};
+
+export type AuthorsActionTypes =
+  | SetLoadingScenes
+  | ScenesFetchSuccess
+  | ScenesFetchError;

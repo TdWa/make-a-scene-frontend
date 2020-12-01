@@ -40,12 +40,20 @@ export type Scene = {
   actors: ActorType[];
 };
 
+export type CommentType = {
+  id: number;
+  userId: number;
+  userName: string;
+  text: string;
+};
+
 export type AuthorScene = {
   id: number;
   name: string;
   description: string | null;
+  authorId: number;
+  authorName: string;
+  authorAbout: string | null;
   actors: ActorType[];
-  userId: number;
-  userName: string;
-  userAbout: string | null;
+  comments: CommentType[];
 };
