@@ -11,6 +11,11 @@ export type AuthorsState = {
 export const LOADING_SCENES = "LOADING_SCENES";
 export const SCENESFETCH_SUCCESS = "SCENESFETCH_SUCCESS";
 export const SCENESFETCH_ERROR = "SCENESFETCH_ERROR";
+export const CLEAR_SCENESFETCH_ERROR = "CLEAR_SCENESFETCH_ERROR";
+
+type ClearScenesFetchError = {
+  type: typeof CLEAR_SCENESFETCH_ERROR;
+};
 
 type SetLoadingScenes = {
   type: typeof LOADING_SCENES;
@@ -27,6 +32,7 @@ type ScenesFetchError = {
 };
 
 export type AuthorsActionTypes =
+  | ClearScenesFetchError
   | SetLoadingScenes
   | ScenesFetchSuccess
   | ScenesFetchError;

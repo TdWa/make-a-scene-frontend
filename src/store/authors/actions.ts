@@ -6,6 +6,7 @@ import {
   LOADING_SCENES,
   SCENESFETCH_SUCCESS,
   SCENESFETCH_ERROR,
+  CLEAR_SCENESFETCH_ERROR,
 } from "./types";
 
 const loadingScenes = (): AuthorsActionTypes => ({ type: LOADING_SCENES });
@@ -18,6 +19,10 @@ const scenesFetchSuccess = (scenes: AuthorScene[]): AuthorsActionTypes => ({
 const scenesFetchError = (error: string): AuthorsActionTypes => ({
   type: SCENESFETCH_ERROR,
   payload: error,
+});
+
+export const clearScenesFetchError = (): AuthorsActionTypes => ({
+  type: CLEAR_SCENESFETCH_ERROR,
 });
 
 export const getScenes: AppThunk = async (dispatch, getState) => {
@@ -34,7 +39,7 @@ export const getScenes: AppThunk = async (dispatch, getState) => {
 
     dispatch(scenesFetchSuccess(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(scenesFetchError(error.response.data.message));
     } else {

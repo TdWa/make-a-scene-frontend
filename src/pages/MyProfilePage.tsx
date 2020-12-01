@@ -78,6 +78,11 @@ export default function MyProfilePage() {
         </AboutDescriptionEditStyle>
       </div>
       <div className="pageRow">
+        <Link to={`/author/${user.id}`}>
+          <Button>Go to my public page</Button>
+        </Link>
+      </div>
+      <div className="pageRow">
         <Link to="/myScenes/new">
           <Button right>Make a new scene!</Button>
         </Link>

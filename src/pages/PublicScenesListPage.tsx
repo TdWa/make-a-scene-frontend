@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ScenesList from "../components/ScenesList";
 import { PageTitle } from "../general-styles/styledElements";
 import { getScenes } from "../store/authors/actions";
 import { selectAllScenes } from "../store/authors/selectors";
@@ -12,11 +13,14 @@ export default function PublicScenesListPage() {
     dispatch(getScenes);
   }, [dispatch]);
 
-  console.log(scenes);
-
   return (
     <div>
       <PageTitle>Discover Scenes</PageTitle>
+      <div className="pageRow">
+        {scenes.map((scene) => (
+          <ScenesList key={scene.id} profilePage={false} {...scene} />
+        ))}
+      </div>
     </div>
   );
 }

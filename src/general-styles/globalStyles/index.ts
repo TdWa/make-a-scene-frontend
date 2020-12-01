@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     padding: 5px;
   }
 
+  h4 {
+    margin-bottom: 5px;
+  }
+
   .pageRow {
     margin-bottom: 10px;
   }

@@ -76,7 +76,7 @@ export const deleteScene = (sceneId: number): AppThunk => async (
     });
     dispatch(removeScene(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -109,7 +109,7 @@ export const updateScene = (
     );
     dispatch(setUpdatedScene(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -138,7 +138,7 @@ export const createNewScene = (
       );
       dispatch(setNewScene(response.data));
     } catch (error) {
-      if (error.response) {
+      if (error.response.data.message) {
         console.log(error.response.data.message);
         dispatch(setUserFeedbackMessage(error.response.data.message));
       } else {
@@ -167,7 +167,7 @@ export const editAbout = (about: string): AppThunk => async (
     );
     dispatch(setAbout(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -200,7 +200,7 @@ export const signUp = (
       feedbackMessageDuration
     );
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -236,7 +236,7 @@ export const login = (email: string, password: string): AppThunk => async (
       feedbackMessageDuration
     );
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -269,7 +269,7 @@ export const getUserWithStoredToken = (): AppThunk => async (
 
     dispatch(tokenStillValid(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
     } else {
       console.log(error.message);
