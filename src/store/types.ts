@@ -39,3 +39,13 @@ export type Scene = {
   description: string | null;
   actors: ActorType[];
 };
+
+export type AuthorScene = {
+  id: number;
+  name: string;
+  description: string | null;
+  actors: ActorType[];
+  userId: number;
+  userName: string;
+  userAbout: string | null;
+};
