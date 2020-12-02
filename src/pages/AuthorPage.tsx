@@ -8,7 +8,7 @@ import {
   PageTitle,
 } from "../general-styles/styledElements";
 import ScenesList from "../components/ScenesList";
-import { Scene } from "../store/types";
+import { ActorType, Scene } from "../store/types";
 
 export default function AuthorPage() {
   const params = useParams<{ id: string }>();
@@ -42,6 +42,17 @@ export default function AuthorPage() {
           loading: true,
         }));
         const response = await axios.get(`${apiUrl}/users/${authorId}`);
+
+        console.log(response.data);
+
+        // Sort the scenes and actors by Id so they always stay in the same order
+        response.data.scenes
+          .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
+          .map((scene: Scene) =>
+            scene.actors.sort((a: ActorType, b: ActorType) =>
+              a.id && b.id ? a.id - b.id : 0
+            )
+          );
 
         setAuthorState((previousState) => ({
           ...previousState,

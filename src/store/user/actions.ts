@@ -221,7 +221,7 @@ export const login = (email: string, password: string): AppThunk => async (
       password,
     });
 
-    // Sort the actors by Id so they always stay in the same order
+    // Sort the scenes and actors by Id so they always stay in the same order
     response.data.scenes
       .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
       .map((scene: Scene) => ({
@@ -259,7 +259,7 @@ export const getUserWithStoredToken = (): AppThunk => async (
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    // Sort the actors by Id so they always stay in the same order
+    // Sort the scenes and actors by Id so they always stay in the same order
     response.data.scenes
       .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
       .map((scene: Scene) => ({

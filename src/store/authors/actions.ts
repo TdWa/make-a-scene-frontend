@@ -1,6 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { ActorType, AppThunk, AuthorScene, CommentType } from "../types";
+import { ActorType, AppThunk, AuthorScene, CommentType, Scene } from "../types";
 import {
   AuthorsActionTypes,
   LOADING_SCENES,
@@ -99,12 +99,14 @@ export const getScenes: AppThunk = async (dispatch, getState) => {
   try {
     const response = await axios.get(`${apiUrl}/scenes`);
 
-    // Sort the actors by Id so they always stay in the same order
-    response.data.map((scene: AuthorScene) =>
-      scene.actors.sort((a: ActorType, b: ActorType) =>
-        a.id && b.id ? a.id - b.id : 0
-      )
-    );
+    // Sort the scenes and actors by Id so they always stay in the same order
+    response.data
+      .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
+      .map((scene: AuthorScene) =>
+        scene.actors.sort((a: ActorType, b: ActorType) =>
+          a.id && b.id ? a.id - b.id : 0
+        )
+      );
 
     dispatch(scenesFetchSuccess(response.data));
   } catch (error) {
