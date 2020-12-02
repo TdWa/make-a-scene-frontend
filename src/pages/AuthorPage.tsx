@@ -1,42 +1,95 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { apiUrl } from "../config/constants";
+import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {
   AboutDescriptionEditStyle,
+  PageFeedback,
   PageTitle,
 } from "../general-styles/styledElements";
-import { selectAuthorScenes } from "../store/authors/selectors";
-import { getScenes } from "../store/authors/actions";
 import ScenesList from "../components/ScenesList";
+import { Scene } from "../store/types";
 
 export default function AuthorPage() {
-  const dispatch = useDispatch();
   const params = useParams<{ id: string }>();
   const authorId = Number(params.id);
-  const scenes = useSelector(selectAuthorScenes(authorId));
+
+  // doing this here in local state as experiment and because I only use it for this page
+  type AuthorState = {
+    loading: boolean;
+    message: null;
+    author: {
+      id: number;
+      name: string;
+      about: string | null;
+      scenes: Scene[];
+    } | null;
+  };
+
+  const initialState = {
+    loading: false,
+    message: null,
+    author: null,
+  };
+
+  const [authorState, setAuthorState] = useState<AuthorState>(initialState);
 
   useEffect(() => {
-    if (scenes.length === 0) {
-      dispatch(getScenes);
-    }
-  }, [scenes.length, dispatch]);
+    (async () => {
+      try {
+        setAuthorState((previousState) => ({
+          ...previousState,
+          loading: true,
+        }));
+        const response = await axios.get(`${apiUrl}/users/${authorId}`);
 
-  if (scenes.length === 0) return null; // should be some kind of loading indicator
+        setAuthorState((previousState) => ({
+          ...previousState,
+          loading: false,
+          author: response.data,
+        }));
+      } catch (error) {
+        if (error.response?.data?.message) {
+          console.log(error.response.data.message);
+          setAuthorState((previousState) => ({
+            ...previousState,
+            loading: false,
+            message: error.response.data.message,
+          }));
+        } else {
+          console.log(error.message);
+          setAuthorState((previousState) => ({
+            ...previousState,
+            loading: false,
+            message: error.message,
+          }));
+        }
+      }
+    })();
+  }, [authorId]);
+
+  if (!authorState.author) {
+    if (authorState.message) {
+      return <PageFeedback>{authorState.message}</PageFeedback>;
+    } else {
+      return <PageFeedback>Loading...</PageFeedback>;
+    }
+  }
 
   return (
     <div>
-      <PageTitle>{scenes[0].authorName}</PageTitle>
-      {scenes[0].authorAbout && (
+      <PageTitle>{authorState.author.name}</PageTitle>
+      {authorState.author.about && (
         <div className="pageRow">
           <AboutDescriptionEditStyle>
             <h2>About</h2>
-            <p>{scenes[0].authorAbout}</p>
+            <p>{authorState.author.about}</p>
           </AboutDescriptionEditStyle>
         </div>
       )}
       <div className="pageRow">
         <h2>Scenes</h2>
-        {scenes.map((scene) => (
+        {authorState.author.scenes.map((scene) => (
           <ScenesList key={scene.id} authorPage={true} {...scene} />
         ))}
       </div>

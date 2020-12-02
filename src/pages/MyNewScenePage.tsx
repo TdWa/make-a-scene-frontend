@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, PageTitle } from "../general-styles/styledElements";
+import {
+  Button,
+  PageFeedback,
+  PageTitle,
+} from "../general-styles/styledElements";
 import { ActorsToCreate } from "../store/types";
 import ActorCreater from "../components/ActorCreater";
 import { MyNewScenePageStyle } from "./MyNewScenePageStyle";
 import { createNewScene } from "../store/user/actions";
-import { selectUserScenes } from "../store/user/selectors";
-import { useHistory } from "react-router-dom";
+import { selectUser, selectUserScenes } from "../store/user/selectors";
+import { Redirect, useHistory } from "react-router-dom";
 
 export default function MyNewScenePage() {
   const dispatch = useDispatch();
@@ -27,11 +31,21 @@ export default function MyNewScenePage() {
     }
   }, [userScenes, history, initialScenesAmount]);
 
-  function submitForm(event: React.FormEvent<HTMLFormElement>) {
+  const user = useSelector(selectUser);
+
+  if (!user.token) {
+    // visitor is not logged in
+    return <Redirect to={"/"} />;
+  } else if (!user.name) {
+    // the App.tsx useEffect will go check the token with getUserWithStoredToken (and remove it if it is not valid)
+    return <PageFeedback>Loading...</PageFeedback>;
+  }
+
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(createNewScene(name, actors));
     setHideButton(true);
-  }
+  };
 
   const selectActor = (actor: 1 | 2, type: "man" | "woman"): void => {
     if (actor === 1) {

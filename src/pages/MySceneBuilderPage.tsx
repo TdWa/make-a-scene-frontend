@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import {
   AboutDescriptionEditStyle,
   Button,
+  PageFeedback,
   PageTitle,
 } from "../general-styles/styledElements";
-import { selectUserSceneById } from "../store/user/selectors";
+import { selectUser, selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
 import { ActorType, Phrase } from "../store/types";
 import ScriptPhrase from "../components/ScriptPhrase";
@@ -59,7 +60,21 @@ export default function MySceneBuilderPage() {
     }
   }, [edit]);
 
-  if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
+  const user = useSelector(selectUser);
+
+  if (!user.token) {
+    // visitor is not logged in
+    return <Redirect to={"/"} />;
+  } else if (!user.name) {
+    // the App.tsx useEffect will go check the token with getUserWithStoredToken (and remove it if it is not valid)
+    return <PageFeedback>Loading...</PageFeedback>;
+  } else if (!user.scenes.some((scene) => scene.id === sceneId)) {
+    // this scene is not of the logged in user
+    return <Redirect to={"/"} />;
+  } else if (!scene || actors.length === 0) {
+    // the scene was not in the store and needs to be fetched OR the actors have not been placed in the local state yet
+    return <PageFeedback>Loading...</PageFeedback>;
+  }
 
   const addPhrase = (id: number, actorId: number, text: string) => {
     setScript([...script, { id, actorId, index: script.length, text }]);

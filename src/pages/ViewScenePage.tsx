@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Form,
+  PageFeedback,
   PageTitle,
   StyledLink,
 } from "../general-styles/styledElements";
-import { selectSceneById } from "../store/authors/selectors";
+import {
+  selectAuthorsLoading,
+  selectSceneById,
+} from "../store/authors/selectors";
 import { getScenes } from "../store/authors/actions";
 import ScenePlayer from "../components/ScenePlayer";
 import Comment from "../components/Comment";
@@ -27,6 +31,8 @@ export default function ViewScenePage() {
   const actorText = useRef("");
   const [newComment, setNewComment] = useState("");
   const user = useSelector(selectUser);
+  const loading = useSelector(selectAuthorsLoading);
+  const loadingHappened = useRef(false);
 
   useEffect(() => {
     if (!scene) {
@@ -41,7 +47,16 @@ export default function ViewScenePage() {
     }
   }, [scene, dispatch]);
 
-  if (!scene) return null; // should be some kind of loading indicator
+  if (!scene) {
+    if (loading) {
+      loadingHappened.current = true;
+      return <PageFeedback>Loading...</PageFeedback>;
+    } else if (!loading && loadingHappened.current) {
+      return <PageFeedback>404 Scene not found</PageFeedback>;
+    } else {
+      return <PageFeedback>Loading...</PageFeedback>;
+    }
+  }
 
   return (
     <ViewScenePageStyle>
@@ -54,6 +69,12 @@ export default function ViewScenePage() {
         >
           Play
         </Button>
+      </div>
+      <div className="pageRow">
+        <h2>Author: {scene.authorName}</h2>
+        <Link to={`/author/${scene.authorId}`}>
+          <Button>Go to author page</Button>
+        </Link>
       </div>
       {scene.description && (
         <div className="pageRow">

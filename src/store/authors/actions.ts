@@ -50,13 +50,13 @@ export const deleteComment = (commentId: number): AppThunk => async (
   const token = selectToken(getState());
   if (token === null) return;
   try {
-    const response = await axios.delete(`${apiUrl}/comments`, {
+    const response = await axios.delete(`${apiUrl}/comments/${commentId}`, {
       data: { commentId },
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(removeComment(response.data.id, response.data.sceneId));
   } catch (error) {
-    if (error.response.data.message) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -83,7 +83,7 @@ export const createComment = (comment: CommentType): AppThunk => async (
     );
     dispatch(addComment(response.data));
   } catch (error) {
-    if (error.response.data.message) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -108,7 +108,7 @@ export const getScenes: AppThunk = async (dispatch, getState) => {
 
     dispatch(scenesFetchSuccess(response.data));
   } catch (error) {
-    if (error.response.data.message) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(scenesFetchError(error.response.data.message));
     } else {
