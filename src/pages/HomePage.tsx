@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import ScenePlayer from "../components/ScenePlayer";
 import { playScene } from "../functions";
 import {
@@ -47,9 +48,13 @@ export default function HomePage() {
         </p>
       </div>
       <div className="homeNav">
-        <Button>Discover Scenes</Button>
+        <Link to="/scenes">
+          <Button>Discover Scenes</Button>
+        </Link>
         {user.name ? (
-          <Button>Let's Make a Scene!</Button>
+          <Link to="/myScenes/new">
+            <Button>Let's Make a Scene!</Button>
+          </Link>
         ) : (
           <div>
             <p>
