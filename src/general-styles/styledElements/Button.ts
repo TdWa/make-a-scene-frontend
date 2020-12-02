@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
+import { ThemeType } from "../theme";
 
 type ButtonProp = {
   center?: boolean;
   right?: boolean;
   invert?: boolean;
+  theme: ThemeType;
 };
 
 export const Button = styled.button<ButtonProp>`
@@ -19,7 +21,8 @@ export const Button = styled.button<ButtonProp>`
   border-radius: 5px;
 
   &:hover {
-    background-color: ${({ invert }) => (invert ? "lightblue" : "#01135c")};
+    background-color: ${({ invert, theme }) =>
+      invert ? theme.colors.lightAccent : "#01135c"};
     cursor: pointer;
     transform: scale(1.03);
   }

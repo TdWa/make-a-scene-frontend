@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { ThemeType } from "../general-styles/theme";
 
-export const HomePageStyle = styled.div`
+export const HomePageStyle = styled.div<{ theme: ThemeType }>`
   width: 100%;
 
   > div {
@@ -17,7 +18,7 @@ export const HomePageStyle = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.lightAccent};
     border-radius: 8px;
     text-align: center;
 

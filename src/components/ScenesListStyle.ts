@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import { ThemeType } from "../general-styles/theme";
 
-export const ScenesListStyle = styled.div<{ profilePage?: boolean }>`
+type ScenesListStyleProp = {
+  profilePage?: boolean;
+  theme: ThemeType;
+};
+
+export const ScenesListStyle = styled.div<ScenesListStyleProp>`
   position: relative;
-  background-color: lightblue;
+  background-color: ${({ theme }) => theme.colors.lightAccent};
   margin: 20px auto;
   border-radius: 5px;
   padding: 10px;

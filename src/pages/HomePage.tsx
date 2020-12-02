@@ -41,7 +41,7 @@ export default function HomePage() {
         <h2>Welcome</h2>
         <p>
           Make a Scene is a platform for creating, sharing and discussing
-          conversation scenes. You can create animated scripts and watch your
+          conversation scenes. You can create animated scripts and watch our
           actors make your ideas come to life. Go to Discover Scenes to see the
           work of other authors, or sign up and create your own!
         </p>
