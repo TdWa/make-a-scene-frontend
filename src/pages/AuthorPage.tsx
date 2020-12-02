@@ -43,8 +43,6 @@ export default function AuthorPage() {
         }));
         const response = await axios.get(`${apiUrl}/users/${authorId}`);
 
-        console.log(response.data);
-
         // Sort the scenes and actors by Id so they always stay in the same order
         response.data.scenes
           .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
