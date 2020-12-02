@@ -41,12 +41,6 @@ export default function MyNewScenePage() {
     return <PageFeedback>Loading...</PageFeedback>;
   }
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(createNewScene(name, actors));
-    setHideButton(true);
-  };
-
   const selectActor = (actor: 1 | 2, type: "man" | "woman"): void => {
     if (actor === 1) {
       setActors({
@@ -133,6 +127,13 @@ export default function MyNewScenePage() {
         actor1: actors.actor1,
       });
     }
+  };
+
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    initialScenesAmount.current = userScenes.length;
+    dispatch(createNewScene(name, actors));
+    setHideButton(true);
   };
 
   // MAYBE CHANGE STYLING AND HTML STRUCTURE WITH THE FORM.. :D
