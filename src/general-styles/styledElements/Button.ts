@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 type ButtonProp = {
   center?: boolean;
   right?: boolean;
+  invert?: boolean;
 };
 
 export const Button = styled.button<ButtonProp>`
@@ -12,13 +13,13 @@ export const Button = styled.button<ButtonProp>`
   ${({ center }) => center && "display: block;"}
   padding: 0 10px;
   font-size: 1rem;
-  background-color: black;
-  color: white;
+  background-color: ${({ invert }) => (invert ? "white" : "black")};
+  color: ${({ invert }) => (invert ? "black" : "white")};
   border: none;
   border-radius: 5px;
 
   &:hover {
-    background-color: #01135c;
+    background-color: ${({ invert }) => (invert ? "lightblue" : "#01135c")};
     cursor: pointer;
     transform: scale(1.03);
   }

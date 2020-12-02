@@ -11,6 +11,9 @@ export const theme = {
     medium: "1rem",
     large: "1.5rem",
   },
+  widths: {
+    maxPageWidth: "900px",
+  },
   mediaQueries: {},
 };
 

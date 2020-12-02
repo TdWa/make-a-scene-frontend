@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserFeedbackMessage } from "../store/user/selectors";
 import { clearUserFeedbackMessage } from "../store/user/actions";
-import { FeedbackWrapper } from "../general-styles/styledElements";
+import { MessageBoxWrapper } from "./MessageBoxStyle";
 import { selectAuthorsFeedbackMessage } from "../store/authors/selectors";
 import { clearScenesFetchError } from "../store/authors/actions";
 
@@ -14,7 +14,7 @@ export default function MessageBox() {
   if (!showMessage) return null;
 
   return (
-    <FeedbackWrapper
+    <MessageBoxWrapper
       type={
         message === "Welcome back!" || message === "Account created!"
           ? "positive"
@@ -37,6 +37,6 @@ export default function MessageBox() {
           <button onClick={() => dispatch(clearScenesFetchError())}>X</button>{" "}
         </p>
       )}
-    </FeedbackWrapper>
+    </MessageBoxWrapper>
   );
 }
