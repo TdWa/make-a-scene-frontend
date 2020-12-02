@@ -5,7 +5,6 @@ export const FooterStyle = styled.footer<{ theme: ThemeType }>`
   background-color: black;
   color: white;
   height: 50px;
-  margin-top: 60px;
 
   > div {
     height: 100%;

@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
-    main: "#f75a3f",
-    lightAccent: "#ced8d8",
+    main: "#e0e0e0",
+    lightAccent: "#adc7c7",
   },
   fontFamilies: {
     arial: "Arial, Helvetica, sans-serif",

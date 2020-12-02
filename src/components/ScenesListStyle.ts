@@ -72,8 +72,8 @@ export const ScenesListStyle = styled.div<ScenesListStyleProp>`
     padding: 0;
     border-radius: 0 0 5px 5px;
     height: 0;
-    transition: height 1s;
-    transition: padding 0.3s;
+    transition: height 0.5s ease;
+    transition: padding 0.5s ease;
     overflow: hidden;
   }
 
@@ -81,7 +81,7 @@ export const ScenesListStyle = styled.div<ScenesListStyleProp>`
   .sceneDescription:hover {
     height: 100px;
     padding: 10px;
-    transition: height 0.3s;
+    transition: height 0.5s ease;
   }
 
   .delete {

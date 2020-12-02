@@ -54,11 +54,6 @@ export default function MyProfilePage() {
           <h2>About</h2>
           {edit ? (
             <div>
-              <textarea
-                value={about}
-                onChange={(e) => setAbout(e.target.value)}
-                ref={textareaRef}
-              ></textarea>
               <Button onClick={handleSave}>Save</Button>
               <Button
                 onClick={() => {
@@ -68,10 +63,14 @@ export default function MyProfilePage() {
               >
                 Cancel
               </Button>
+              <textarea
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                ref={textareaRef}
+              ></textarea>
             </div>
           ) : (
             <div>
-              <p>{about}</p>
               <Button
                 onClick={() => {
                   setEdit(true);
@@ -80,6 +79,7 @@ export default function MyProfilePage() {
               >
                 Edit
               </Button>
+              <p>{about}</p>
             </div>
           )}
         </AboutDescriptionEditStyle>
