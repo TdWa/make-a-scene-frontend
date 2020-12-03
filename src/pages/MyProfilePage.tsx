@@ -54,15 +54,20 @@ export default function MyProfilePage() {
           <h2>About</h2>
           {edit ? (
             <div>
-              <Button onClick={handleSave}>Save</Button>
-              <Button
-                onClick={() => {
-                  setAbout(textBeforeEdit.current);
-                  setEdit(false);
-                }}
-              >
-                Cancel
-              </Button>
+              <div className="saveOrCancel">
+                <Button className="editAbout" onClick={handleSave}>
+                  Save
+                </Button>
+                <Button
+                  className="editAbout"
+                  onClick={() => {
+                    setAbout(textBeforeEdit.current);
+                    setEdit(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
               <textarea
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
@@ -72,6 +77,7 @@ export default function MyProfilePage() {
           ) : (
             <div>
               <Button
+                className="editAbout"
                 onClick={() => {
                   setEdit(true);
                   textBeforeEdit.current = about;

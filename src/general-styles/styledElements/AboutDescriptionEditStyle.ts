@@ -20,4 +20,13 @@ export const AboutDescriptionEditStyle = styled.div`
   div {
     display: flex;
   }
+
+  .saveOrCancel {
+    flex-direction: column;
+  }
+
+  .editAbout {
+    width: 70px;
+    margin-right: 5px;
+  }
 `;
