@@ -33,7 +33,16 @@ export default function ViewScenePage() {
   const user = useSelector(selectUser);
   const loading = useSelector(selectAuthorsLoading);
   const loadingHappened = useRef(false);
+
   const [playable, setPlayable] = useState(true);
+  const timeoutRefs = useRef<number[]>([]);
+
+  useEffect(() => {
+    const allTimeouts = timeoutRefs.current;
+    return () => {
+      allTimeouts.forEach((timeout) => clearTimeout(timeout));
+    };
+  }, []);
 
   useEffect(() => {
     if (!scene) {
@@ -62,14 +71,22 @@ export default function ViewScenePage() {
   return (
     <ViewScenePageStyle>
       <PageTitle>{scene.name}</PageTitle>
-      <ScenePlayer actors={actors} />
+      <ScenePlayer actors={actors} background={scene.backgroundColor} />
       <div className="pageRow">
         {playable && (
           <Button
             center
-            onClick={() =>
-              playScene(script, actors, actorText, setActors, setPlayable)
-            }
+            onClick={() => {
+              playScene(
+                script,
+                actors,
+                actorText,
+                setActors,
+                setPlayable,
+                timeoutRefs
+              );
+              setPlayable(false);
+            }}
           >
             Play
           </Button>

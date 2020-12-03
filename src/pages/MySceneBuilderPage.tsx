@@ -34,8 +34,15 @@ export default function MySceneBuilderPage() {
     save: false,
   });
 
-  /* TESTING */
   const [playable, setPlayable] = useState(true);
+  const timeoutRefs = useRef<number[]>([]);
+
+  useEffect(() => {
+    const allTimeouts = timeoutRefs.current;
+    return () => {
+      allTimeouts.forEach((timeout) => clearTimeout(timeout));
+    };
+  }, []);
 
   useEffect(() => {
     if (scene) {
@@ -136,6 +143,7 @@ export default function MySceneBuilderPage() {
               updateScene(
                 scene.id,
                 sceneName,
+                scene.backgroundColor,
                 sceneDescription,
                 script,
                 actorIds
@@ -201,15 +209,23 @@ export default function MySceneBuilderPage() {
         </AboutDescriptionEditStyle>
       </div>
       <div className="pageRow">
-        <ScenePlayer actors={actors} />
+        <ScenePlayer actors={actors} background={scene.backgroundColor} />
       </div>
       <div className="pageRow">
         {playable && (
           <Button
             center
-            onClick={() =>
-              playScene(script, actors, actorText, setActors, setPlayable)
-            }
+            onClick={() => {
+              playScene(
+                script,
+                actors,
+                actorText,
+                setActors,
+                setPlayable,
+                timeoutRefs
+              );
+              setPlayable(false);
+            }}
           >
             Play
           </Button>
