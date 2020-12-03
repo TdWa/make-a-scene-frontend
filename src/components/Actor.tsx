@@ -8,76 +8,164 @@ export default function Actor(props: ActorType) {
     leftEye: "o",
     rightEye: "o",
     moustache: "{",
-    mouth: "o",
+    mouth: "(",
   });
 
   return (
-    <ActorWrapper>
-      <ActorBody bg={props.backgroundColor} color={props.color}>
-        <div className="head">
-          <div className="eyes">
-            <div>{body.leftEye}</div>
-            <div>{body.rightEye}</div>
+    <ActorWrapper className="personContainer">
+      <ActorBody
+        // className="person"
+        type={props.type}
+      >
+        {/* ///// HEAD ///// */}
+        <div
+          style={{ backgroundColor: props.backgroundColor, color: props.color }}
+          className="bodypart head"
+        >
+          <div
+            style={{
+              backgroundColor: props.backgroundColor,
+            }}
+            className="bodypart eye1"
+          >
+            {body.leftEye}
           </div>
-          <div className="moustache">
-            {props.type === "man" && body.moustache}
+          <div
+            style={{
+              backgroundColor: props.backgroundColor,
+            }}
+            className="bodypart eye2"
+          >
+            {body.rightEye}
           </div>
-          <div className="mouth">{body.mouth}</div>
+          {props.type === "man" && (
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart moustache"
+            >
+              {body.moustache}
+            </div>
+          )}
+          <div
+            style={{
+              backgroundColor: props.backgroundColor,
+            }}
+            className="bodypart mouth"
+          >
+            {body.mouth}
+          </div>
         </div>
-        <div className="chest">{props.name}</div>
+
+        {/* ///// UPPER BODY ///// */}
+        <div
+          style={{ backgroundColor: props.backgroundColor }}
+          className="bodypart upperBody"
+        ></div>
+        <div
+          style={{
+            backgroundColor: props.backgroundColor,
+          }}
+          className="bodypart arm1a"
+        ></div>
+        <div
+          style={{
+            backgroundColor: props.backgroundColor,
+          }}
+          className="bodypart arm1b"
+        ></div>
+        <div
+          style={{
+            backgroundColor: props.backgroundColor,
+          }}
+          className="bodypart hand1"
+        ></div>
+        {props.type === "man" ? (
+          <div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart arm2a"
+            ></div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart arm2b"
+            ></div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart hand2"
+            ></div>
+          </div>
+        ) : (
+          <div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart womanArm2a"
+            ></div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart womanArm2b"
+            ></div>
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart womanHand2"
+            ></div>
+          </div>
+        )}
+
+        {/* ///// LEGS ///// */}
+        <div>
+          <div
+            style={{
+              backgroundColor: props.backgroundColor,
+            }}
+            className="bodypart leg1"
+          >
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart foot1"
+            ></div>
+          </div>
+          <div
+            style={{
+              backgroundColor: props.backgroundColor,
+            }}
+            className="bodypart leg2"
+          >
+            <div
+              style={{
+                backgroundColor: props.backgroundColor,
+              }}
+              className="bodypart foot2"
+            ></div>
+          </div>
+          {props.type === "woman" && (
+            <div
+              style={{
+                borderBottom: `100px solid ${props.backgroundColor}`,
+              }}
+              className="bodypart skirt"
+            ></div>
+          )}
+        </div>
       </ActorBody>
+      <div>
+        <p>{props.name}</p>
+      </div>
     </ActorWrapper>
   );
 }
-
-/*
-export default function Actor({ gender }) {
-  const man = gender === "man";
-  return (
-    <div className={`personContainer ${gender}`}>
-      <div className="speechBoxContainer">
-        {man ? (
-          <div id="manText" className="speechBox"></div>
-        ) : (
-          <div id="womanText" className="speechBox"></div>
-        )}
-      </div>
-      <div className={`person`}>
-        <div className="head">
-          <div className="eye1">{man ? "o" : "("}</div>
-          <div className="eye2">{man ? "o" : "("}</div>
-          {man ? <div className="moustache">{"{"}</div> : <div></div>}
-          <div className="mouth">o</div>
-        </div>
-        <div className="upperBody">
-          <div className="arm1a"></div>
-          <div className="arm1b"></div>
-          <div className="hand1"></div>
-          {man ? (
-            <div>
-              <div className="arm2a"></div>
-              <div className="arm2b"></div>
-              <div className="hand2"></div>
-            </div>
-          ) : (
-            <div>
-              <div className="womanArm2a"></div>
-              <div className="womanArm2b"></div>
-              <div className="womanHand2"></div>
-            </div>
-          )}
-        </div>
-        <div className="legs">
-          <div className="leg1">
-            <div className="foot1"></div>
-          </div>
-          <div className="leg2">
-            <div className="foot2"></div>
-          </div>
-          {man ? <div></div> : <div className="skirt"></div>}
-        </div>
-      </div>
-    </div>
-  );
-}
-*/

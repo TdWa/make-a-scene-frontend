@@ -204,14 +204,16 @@ export default function MySceneBuilderPage() {
         <ScenePlayer actors={actors} />
       </div>
       <div className="pageRow">
-        <Button
-          center
-          onClick={() =>
-            playScene(script, actors, actorText, setActors, setPlayable)
-          }
-        >
-          Play
-        </Button>
+        {playable && (
+          <Button
+            center
+            onClick={() =>
+              playScene(script, actors, actorText, setActors, setPlayable)
+            }
+          >
+            Play
+          </Button>
+        )}
       </div>
       <div className="pageRow">
         {script.map((phrase) => {

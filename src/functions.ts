@@ -35,13 +35,3 @@ export const playScene = (
     setPlayable(true);
   }
 };
-
-/*
-      // document.getElementById("startButton").style.visibility = "hidden";
-      // if (script.length === 1) {
-      //   setTimeout(() => {
-      //     document.getElementById("startButton").style.visibility = "visible";
-      //   }, 1000 + 50 * text.length);
-      // }
-
-  */
