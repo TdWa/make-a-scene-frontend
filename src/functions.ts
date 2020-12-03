@@ -4,7 +4,8 @@ export const playScene = (
   script: Phrase[],
   actors: ActorType[],
   actorTextRef: React.MutableRefObject<string>,
-  setActors: React.Dispatch<React.SetStateAction<ActorType[]>>
+  setActors: React.Dispatch<React.SetStateAction<ActorType[]>>,
+  setPlayable: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   if (script.length > 0) {
     const text = script[0].text;
@@ -27,10 +28,11 @@ export const playScene = (
 
     setTimeout(() => {
       // mouth.textContent = "o";
-      playScene(script.slice(1), actors, actorTextRef, setActors);
+      playScene(script.slice(1), actors, actorTextRef, setActors, setPlayable);
     }, 1000 + 50 * text.length);
   } else {
     setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
+    setPlayable(true);
   }
 };
 

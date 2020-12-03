@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ScenePlayer from "../components/ScenePlayer";
 import { playScene } from "../functions";
@@ -8,32 +8,17 @@ import {
   PageTitle,
   StyledLink,
 } from "../general-styles/styledElements";
-import { getScenes } from "../store/authors/actions";
-import { selectSceneById } from "../store/authors/selectors";
-import { ActorType, Phrase } from "../store/types";
+import { ActorType } from "../store/types";
 import { selectUser } from "../store/user/selectors";
 import { HomePageStyle } from "./HomePageStyle";
+import { demoScript, demoActors } from "./HomePageDemoScene";
 
 export default function HomePage() {
-  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const scene = useSelector(selectSceneById(1));
-  const [script, setScript] = useState<Phrase[]>([]);
-  const [actors, setActors] = useState<ActorType[]>([]);
+  const script = demoScript;
+  const [actors, setActors] = useState<ActorType[]>(demoActors);
   const actorText = useRef("");
-
-  useEffect(() => {
-    if (!scene) {
-      dispatch(getScenes);
-    } else {
-      const phrases = scene.actors
-        .flatMap((actor) => (actor.phrases ? actor.phrases : []))
-        .sort((a, b) => (a && b ? a.index - b.index : 0));
-
-      setScript(phrases);
-      setActors(scene.actors);
-    }
-  }, [scene, dispatch]);
+  const [playable, setPlayable] = useState(true);
 
   return (
     <HomePageStyle>
@@ -70,12 +55,17 @@ export default function HomePage() {
           <h2>Demo</h2>
           <ScenePlayer actors={actors} />
           <div className="pageRow">
-            <Button
-              center
-              onClick={() => playScene(script, actors, actorText, setActors)}
-            >
-              Play
-            </Button>
+            {playable && (
+              <Button
+                center
+                onClick={() => {
+                  playScene(script, actors, actorText, setActors, setPlayable);
+                  setPlayable(false);
+                }}
+              >
+                Play
+              </Button>
+            )}
           </div>
         </div>
       )}

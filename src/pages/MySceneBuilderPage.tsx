@@ -34,6 +34,9 @@ export default function MySceneBuilderPage() {
     save: false,
   });
 
+  /* TESTING */
+  const [playable, setPlayable] = useState(true);
+
   useEffect(() => {
     if (scene) {
       const phrases = scene.actors
@@ -203,7 +206,9 @@ export default function MySceneBuilderPage() {
       <div className="pageRow">
         <Button
           center
-          onClick={() => playScene(script, actors, actorText, setActors)}
+          onClick={() =>
+            playScene(script, actors, actorText, setActors, setPlayable)
+          }
         >
           Play
         </Button>

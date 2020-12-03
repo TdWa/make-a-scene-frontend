@@ -34,6 +34,9 @@ export default function ViewScenePage() {
   const loading = useSelector(selectAuthorsLoading);
   const loadingHappened = useRef(false);
 
+  /// TESTING
+  const [playable, setPlayable] = useState(true);
+
   useEffect(() => {
     if (!scene) {
       dispatch(getScenes);
@@ -65,7 +68,9 @@ export default function ViewScenePage() {
       <div className="pageRow">
         <Button
           center
-          onClick={() => playScene(script, actors, actorText, setActors)}
+          onClick={() =>
+            playScene(script, actors, actorText, setActors, setPlayable)
+          }
         >
           Play
         </Button>
