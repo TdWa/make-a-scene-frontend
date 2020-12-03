@@ -5,9 +5,10 @@ import { selectUser } from "../store/user/selectors";
 import {
   AboutDescriptionEditStyle,
   Button,
+  PageFeedback,
   PageTitle,
 } from "../general-styles/styledElements";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ScenesList from "../components/ScenesList";
 
 export default function MyProfilePage() {
@@ -17,8 +18,6 @@ export default function MyProfilePage() {
   const user = useSelector(selectUser);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textBeforeEdit = useRef("");
-
-  // still need to fix not logged in situation, jwt expired etc
 
   useEffect(() => {
     if (user.about) {
@@ -34,6 +33,14 @@ export default function MyProfilePage() {
     }
   }, [edit]);
 
+  if (!user.token) {
+    // visitor is not logged in
+    return <Redirect to={"/"} />;
+  } else if (!user.name) {
+    // the App.tsx useEffect will go check the token with getUserWithStoredToken (and remove it if it is not valid)
+    return <PageFeedback>Loading...</PageFeedback>;
+  }
+
   const handleSave = () => {
     setEdit(false);
     dispatch(editAbout(about));
@@ -47,25 +54,30 @@ export default function MyProfilePage() {
           <h2>About</h2>
           {edit ? (
             <div>
+              <div className="saveOrCancel">
+                <Button className="editAbout" onClick={handleSave}>
+                  Save
+                </Button>
+                <Button
+                  className="editAbout"
+                  onClick={() => {
+                    setAbout(textBeforeEdit.current);
+                    setEdit(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
               <textarea
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
                 ref={textareaRef}
               ></textarea>
-              <Button onClick={handleSave}>Save</Button>
-              <Button
-                onClick={() => {
-                  setAbout(textBeforeEdit.current);
-                  setEdit(false);
-                }}
-              >
-                Cancel
-              </Button>
             </div>
           ) : (
             <div>
-              <p>{about}</p>
               <Button
+                className="editAbout"
                 onClick={() => {
                   setEdit(true);
                   textBeforeEdit.current = about;
@@ -73,9 +85,15 @@ export default function MyProfilePage() {
               >
                 Edit
               </Button>
+              <p>{about}</p>
             </div>
           )}
         </AboutDescriptionEditStyle>
+      </div>
+      <div className="pageRow">
+        <Link to={`/author/${user.id}`}>
+          <Button>Go to my public page</Button>
+        </Link>
       </div>
       <div className="pageRow">
         <Link to="/myScenes/new">

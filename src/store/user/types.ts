@@ -5,7 +5,7 @@ export type UserState = {
   loading: boolean;
   message: string | null;
   token: string | null;
-  id?: number; // should I just delete it from the response?
+  id?: number;
   name: string | null;
   email: string | null;
   scenes: Scene[];

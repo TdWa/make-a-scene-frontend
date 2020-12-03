@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
-    main: "tomato",
-    accent: "teal",
+    main: "#e0e0e0",
+    lightAccent: "#adc7c7",
   },
   fontFamilies: {
     arial: "Arial, Helvetica, sans-serif",
@@ -10,6 +10,9 @@ export const theme = {
     small: "0.75rem",
     medium: "1rem",
     large: "1.5rem",
+  },
+  widths: {
+    maxPageWidth: "900px",
   },
   mediaQueries: {},
 };

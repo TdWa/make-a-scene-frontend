@@ -41,7 +41,7 @@ const setAbout = (about: string): UserActionTypes => ({
 
 const loadingUser = (): UserActionTypes => ({ type: LOADING_USER });
 
-const setUserFeedbackMessage = (message: string): UserActionTypes => ({
+export const setUserFeedbackMessage = (message: string): UserActionTypes => ({
   type: USER_FEEDBACK_MESSAGE,
   payload: message,
 });
@@ -70,13 +70,13 @@ export const deleteScene = (sceneId: number): AppThunk => async (
   const token = selectToken(getState());
   if (token === null) return;
   try {
-    const response = await axios.delete(`${apiUrl}/scenes`, {
+    const response = await axios.delete(`${apiUrl}/scenes/${sceneId}`, {
       data: { sceneId },
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(removeScene(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -97,7 +97,7 @@ export const updateScene = (
   if (token === null) return;
   try {
     const response = await axios.patch(
-      `${apiUrl}/scenes`,
+      `${apiUrl}/scenes/${sceneId}`,
       {
         sceneId,
         sceneName,
@@ -109,7 +109,7 @@ export const updateScene = (
     );
     dispatch(setUpdatedScene(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -138,7 +138,7 @@ export const createNewScene = (
       );
       dispatch(setNewScene(response.data));
     } catch (error) {
-      if (error.response) {
+      if (error.response?.data?.message) {
         console.log(error.response.data.message);
         dispatch(setUserFeedbackMessage(error.response.data.message));
       } else {
@@ -167,7 +167,7 @@ export const editAbout = (about: string): AppThunk => async (
     );
     dispatch(setAbout(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -200,7 +200,7 @@ export const signUp = (
       feedbackMessageDuration
     );
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -221,7 +221,7 @@ export const login = (email: string, password: string): AppThunk => async (
       password,
     });
 
-    // Sort the actors by Id so they always stay in the same order
+    // Sort the scenes and actors by Id so they always stay in the same order
     response.data.scenes
       .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
       .map((scene: Scene) => ({
@@ -236,7 +236,7 @@ export const login = (email: string, password: string): AppThunk => async (
       feedbackMessageDuration
     );
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
       dispatch(setUserFeedbackMessage(error.response.data.message));
     } else {
@@ -259,7 +259,7 @@ export const getUserWithStoredToken = (): AppThunk => async (
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    // Sort the actors by Id so they always stay in the same order
+    // Sort the scenes and actors by Id so they always stay in the same order
     response.data.scenes
       .sort((a: Scene, b: Scene) => (a.id && b.id ? a.id - b.id : 0))
       .map((scene: Scene) => ({
@@ -269,7 +269,7 @@ export const getUserWithStoredToken = (): AppThunk => async (
 
     dispatch(tokenStillValid(response.data));
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data?.message) {
       console.log(error.response.data.message);
     } else {
       console.log(error.message);

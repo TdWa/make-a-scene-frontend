@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUp } from "../store/user/actions";
-import { selectToken } from "../store/user/selectors";
+import { selectToken, selectUserLoading } from "../store/user/selectors";
 
 import {
   Button,
   Form,
   StyledLink,
   PageTitle,
+  PageFeedback,
 } from "../general-styles/styledElements";
 
 export default function SignupPage() {
@@ -17,6 +18,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
+  const loading = useSelector(selectUserLoading);
   const history = useHistory();
 
   useEffect(() => {
@@ -33,6 +35,10 @@ export default function SignupPage() {
     setEmail("");
     setPassword("");
     setName("");
+  }
+
+  if (loading) {
+    return <PageFeedback>Loading...</PageFeedback>;
   }
 
   return (

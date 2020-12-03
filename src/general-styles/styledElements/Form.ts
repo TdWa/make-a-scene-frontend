@@ -39,39 +39,3 @@ export const Form = styled.form<FormProp>`
     width: 90%;
   }
 `;
-
-/*
-FROM ADDPHRASE FORM
-#formContainer {
-  background-color: tomato;
-  padding: 5px 0;
-  color: white;
-  font-weight: bold;
-
-  input,
-  select {
-    min-height: 25px;
-  }
-}
-
-#textInput {
-  height: 70px;
-  resize: vertical;
-  font-size: 16px;
-  margin: 5px 0;
-}
-
-#target {
-  font-size: 16px;
-  margin: 5px 0;
-}
-
-.row {
-  display: flex;
-  flex-direction: column;
-  min-width: 400px;
-  max-width: 600px;
-  width: 60%;
-  margin: 20px auto;
-}
-*/

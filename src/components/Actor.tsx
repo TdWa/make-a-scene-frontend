@@ -22,7 +22,7 @@ export default function Actor(props: ActorType) {
           <div className="moustache">
             {props.type === "man" && body.moustache}
           </div>
-          <div>{body.mouth}</div>
+          <div className="mouth">{body.mouth}</div>
         </div>
         <div className="chest">{props.name}</div>
       </ActorBody>

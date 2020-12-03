@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import {
   AboutDescriptionEditStyle,
   Button,
+  PageFeedback,
   PageTitle,
 } from "../general-styles/styledElements";
-import { selectUserSceneById } from "../store/user/selectors";
+import { selectUser, selectUserSceneById } from "../store/user/selectors";
 import ScenePlayer from "../components/ScenePlayer";
 import { ActorType, Phrase } from "../store/types";
 import ScriptPhrase from "../components/ScriptPhrase";
 import AddPhraseForm from "../components/AddPhraseForm";
 import { updateScene } from "../store/user/actions";
+import { playScene } from "../functions";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
@@ -32,11 +34,14 @@ export default function MySceneBuilderPage() {
     save: false,
   });
 
+  /* TESTING */
+  const [playable, setPlayable] = useState(true);
+
   useEffect(() => {
     if (scene) {
       const phrases = scene.actors
         .flatMap((actor) => (actor.phrases ? actor.phrases : []))
-        ?.sort((a, b) => (a && b ? a.index - b.index : 0));
+        .sort((a, b) => (a && b ? a.index - b.index : 0));
 
       setScript(phrases);
       setActors(scene.actors);
@@ -58,36 +63,21 @@ export default function MySceneBuilderPage() {
     }
   }, [edit]);
 
-  if (!scene || actors.length === 0) return <p>Loading or whatever..</p>; // change this ;)
+  const user = useSelector(selectUser);
 
-  const playScene = (script: Phrase[]) => {
-    if (script.length > 0) {
-      const text = script[0].text;
-      actorText.current = "";
-      for (let i = 0; i < text.length; i++) {
-        setTimeout(() => {
-          // mouth.textContent = i % 5 === 0 ? "O" : "o";
-          actorText.current += text[i];
-          setActors(
-            actors.map((actor) => {
-              if (actor.id !== script[0].actorId) {
-                return { ...actor, currentText: "" };
-              } else {
-                return { ...actor, currentText: actorText.current };
-              }
-            })
-          );
-        }, 50 * i);
-      }
-
-      setTimeout(() => {
-        // mouth.textContent = "o";
-        playScene(script.slice(1));
-      }, 1000 + 50 * text.length);
-    } else {
-      setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
-    }
-  };
+  if (!user.token) {
+    // visitor is not logged in
+    return <Redirect to={"/"} />;
+  } else if (!user.name) {
+    // the App.tsx useEffect will go check the token with getUserWithStoredToken (and remove it if it is not valid)
+    return <PageFeedback>Loading...</PageFeedback>;
+  } else if (!user.scenes.some((scene) => scene.id === sceneId)) {
+    // this scene is not of the logged in user
+    return <Redirect to={"/"} />;
+  } else if (!scene || actors.length === 0) {
+    // the scene was not in the store and needs to be fetched OR the actors have not been placed in the local state yet
+    return <PageFeedback>Loading...</PageFeedback>;
+  }
 
   const addPhrase = (id: number, actorId: number, text: string) => {
     setScript([...script, { id, actorId, index: script.length, text }]);
@@ -214,7 +204,12 @@ export default function MySceneBuilderPage() {
         <ScenePlayer actors={actors} />
       </div>
       <div className="pageRow">
-        <Button center onClick={() => playScene(script)}>
+        <Button
+          center
+          onClick={() =>
+            playScene(script, actors, actorText, setActors, setPlayable)
+          }
+        >
           Play
         </Button>
       </div>
@@ -255,13 +250,3 @@ export default function MySceneBuilderPage() {
     </div>
   );
 }
-
-/*
-      // document.getElementById("startButton").style.visibility = "hidden";
-      // if (script.length === 1) {
-      //   setTimeout(() => {
-      //     document.getElementById("startButton").style.visibility = "visible";
-      //   }, 1000 + 50 * text.length);
-      // }
-
-  */

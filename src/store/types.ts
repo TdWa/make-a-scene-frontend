@@ -39,3 +39,23 @@ export type Scene = {
   description: string | null;
   actors: ActorType[];
 };
+
+export type CommentType = {
+  id?: number;
+  sceneId: number;
+  userId: number;
+  userName?: string;
+  text: string;
+  createdAt?: string;
+};
+
+export type AuthorScene = {
+  id: number;
+  name: string;
+  description: string | null;
+  authorId: number;
+  authorName: string;
+  authorAbout: string | null;
+  actors: ActorType[];
+  comments: CommentType[];
+};

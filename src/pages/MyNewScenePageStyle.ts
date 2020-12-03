@@ -6,7 +6,7 @@ export const MyNewScenePageStyle = styled.div`
   }
 
   p {
-    margin-left: 10px;
+    margin-left: 15px;
   }
 
   input,
@@ -17,6 +17,7 @@ export const MyNewScenePageStyle = styled.div`
 
   .actorCreaterContainer {
     display: flex;
+    margin-left: 5px;
   }
 
   .actorCreater {

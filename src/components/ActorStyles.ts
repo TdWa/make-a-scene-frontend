@@ -47,4 +47,24 @@ export const ActorBody = styled.div.attrs((props: ActorBodyProps) => ({
   width: 70%;
   height: 80%;
   border: 1px solid black;
+
+  .moustache {
+    font-size: 1.5rem;
+  }
+
+  .eyes {
+    animation: mymove 5s infinite;
+  }
+
+  @keyframes mymove {
+    0% {
+      font-size: 1rem;
+    }
+    50% {
+      font-size: 1.3rem;
+    }
+    100% {
+      font-size: 1rem;
+    }
+  }
 `;

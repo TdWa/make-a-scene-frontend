@@ -1,26 +1,32 @@
 import styled from "styled-components";
+import { ThemeType } from "../general-styles/theme";
 
-export const Header = styled.header`
+export const Header = styled.header<{ theme: ThemeType }>`
   display: flex;
-  background-color: lightblue;
+  background-color: black;
+  color: white;
 
   nav {
     margin: 0 auto;
     display: flex;
     height: 50px;
     width: 100%;
-    max-width: 900px;
+    max-width: ${({ theme }) => theme.widths.maxPageWidth};
 
     > div {
-      flex: 1;
+      flex: 1 1 auto;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
+    > div.login {
+      max-width: 250px;
+    }
   }
 
   a {
-    color: black;
+    color: white;
     text-decoration: none;
   }
 
