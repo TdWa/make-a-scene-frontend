@@ -1,5 +1,7 @@
 import { ActorType, Phrase } from "../store/types";
 
+export const demoBackground = "#adc7c7";
+
 export const demoScript: Phrase[] = [
   {
     actorId: 1,
@@ -17,7 +19,7 @@ export const demoActors: ActorType[] = [
   {
     id: 1,
     type: "man",
-    name: '"<div id="Antonio" >"',
+    name: '<div id="Antonio">',
     backgroundColor: "#ffffff",
     color: "#000000",
     phrases: [

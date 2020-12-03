@@ -36,6 +36,7 @@ export type ActorsToCreate = {
 export type Scene = {
   id: number;
   name: string;
+  backgroundColor: string;
   description: string | null;
   actors: ActorType[];
 };
@@ -52,6 +53,7 @@ export type CommentType = {
 export type AuthorScene = {
   id: number;
   name: string;
+  backgroundColor: string;
   description: string | null;
   authorId: number;
   authorName: string;

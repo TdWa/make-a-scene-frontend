@@ -89,6 +89,7 @@ export const deleteScene = (sceneId: number): AppThunk => async (
 export const updateScene = (
   sceneId: number,
   sceneName: string,
+  sceneBackgroundColor: string,
   sceneDescription: string,
   script: Phrase[],
   actorIds: number[]
@@ -101,6 +102,7 @@ export const updateScene = (
       {
         sceneId,
         sceneName,
+        sceneBackgroundColor,
         sceneDescription,
         script,
         actorIds,
@@ -121,6 +123,7 @@ export const updateScene = (
 
 export const createNewScene = (
   sceneName: string,
+  sceneBackgroundColor: string,
   actors: ActorsToCreate
 ): AppThunk => {
   return async (dispatch, getState) => {
@@ -132,6 +135,7 @@ export const createNewScene = (
         `${apiUrl}/scenes`,
         {
           sceneName,
+          sceneBackgroundColor,
           actors,
         },
         { headers: { Authorization: `Bearer ${token}` } }

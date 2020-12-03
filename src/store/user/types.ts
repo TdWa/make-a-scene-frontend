@@ -44,6 +44,7 @@ export type SceneUpdate = {
   scene: {
     id: number;
     name: string;
+    backgroundColor: string;
     description: string;
   };
   script: Phrase[];

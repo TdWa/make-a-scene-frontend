@@ -20,6 +20,7 @@ export default function MyNewScenePage() {
     actor1: null,
     actor2: null,
   });
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const userScenes = useSelector(selectUserScenes);
   const initialScenesAmount = useRef(userScenes.length);
   const history = useHistory();
@@ -41,27 +42,44 @@ export default function MyNewScenePage() {
     return <PageFeedback>Loading...</PageFeedback>;
   }
 
-  const selectActor = (actor: 1 | 2, type: "man" | "woman"): void => {
+  const selectActor = (
+    actor: 1 | 2,
+    type: "man" | "woman" | "select"
+  ): void => {
     if (actor === 1) {
-      setActors({
-        actor1: {
-          type: type === "man" ? "man" : "woman",
-          name: "",
-          backgroundColor: "#31c5ff",
-          color: "#000000",
-        },
-        actor2: actors.actor2,
-      });
+      if (type === "select") {
+        setActors({
+          actor1: null,
+          actor2: null,
+        });
+      } else {
+        setActors({
+          actor1: {
+            type: type === "man" ? "man" : "woman",
+            name: "",
+            backgroundColor: "#31c5ff",
+            color: "#000000",
+          },
+          actor2: actors.actor2,
+        });
+      }
     } else {
-      setActors({
-        actor2: {
-          type: type === "man" ? "man" : "woman",
-          name: "",
-          backgroundColor: "#ffee00",
-          color: "#000000",
-        },
-        actor1: actors.actor1,
-      });
+      if (type === "select") {
+        setActors({
+          actor2: null,
+          actor1: actors.actor1,
+        });
+      } else {
+        setActors({
+          actor2: {
+            type: type === "man" ? "man" : "woman",
+            name: "",
+            backgroundColor: "#ffee00",
+            color: "#000000",
+          },
+          actor1: actors.actor1,
+        });
+      }
     }
   };
 
@@ -132,11 +150,10 @@ export default function MyNewScenePage() {
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     initialScenesAmount.current = userScenes.length;
-    dispatch(createNewScene(name, actors));
+    dispatch(createNewScene(name, backgroundColor, actors));
     setHideButton(true);
   };
 
-  // MAYBE CHANGE STYLING AND HTML STRUCTURE WITH THE FORM.. :D
   return (
     <form onSubmit={submitForm}>
       <MyNewScenePageStyle>
@@ -153,6 +170,19 @@ export default function MyNewScenePage() {
         <div>
           <h2>Choose actors</h2>
           <div className="actorCreaterContainer">
+            {actors.actor1 && (
+              <div
+                style={{
+                  position: "absolute",
+                  backgroundColor: backgroundColor,
+                  width: `${actors.actor2 ? "420px" : "200px"}`,
+                  height: 275,
+                  top: 165,
+                  borderRadius: 8,
+                  zIndex: -1,
+                }}
+              ></div>
+            )}
             <ActorCreater
               number={1}
               actor={actors.actor1}
@@ -169,8 +199,20 @@ export default function MyNewScenePage() {
                 editActorName={editActorName}
               />
             )}
-            {actors.actor1 && !hideButton && <Button>Next</Button>}
           </div>
+          {actors.actor1 && (
+            <div className="backgroundInput">
+              <div>
+                <p>Background Color:</p>
+                <input
+                  type="color"
+                  value={backgroundColor}
+                  onChange={(e) => setBackgroundColor(e.target.value)}
+                />
+              </div>
+              {!hideButton && <Button>Next</Button>}
+            </div>
+          )}
         </div>
         <p>
           You can always change things later! (If I have time to implement that

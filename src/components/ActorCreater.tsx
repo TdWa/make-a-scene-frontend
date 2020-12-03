@@ -40,7 +40,7 @@ export default function ActorCreater(props: ActorCreaterProp) {
       </div>
       {actor && (
         <div>
-          <div>
+          <div className="actorNameInput">
             <p>Name:</p>
             <input
               value={actor.name}

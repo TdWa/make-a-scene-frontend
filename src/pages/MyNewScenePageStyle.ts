@@ -16,8 +16,13 @@ export const MyNewScenePageStyle = styled.div`
   }
 
   .actorCreaterContainer {
+    position: relative;
     display: flex;
     margin-left: 5px;
+
+    .actorNameInput {
+      margin-bottom: 40px;
+    }
   }
 
   .actorCreater {
@@ -25,6 +30,19 @@ export const MyNewScenePageStyle = styled.div`
 
     p {
       margin: 15px 0 3px 0;
+    }
+  }
+
+  .backgroundInput {
+    display: flex;
+    margin: 20px 20px 20px 5px;
+
+    p {
+      margin: 3px 0;
+    }
+
+    > div {
+      width: 420px;
     }
   }
 

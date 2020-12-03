@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { ActorWrapper, ActorBody } from "./ActorStyles";
+import { ActorWrapper } from "./ActorStyle";
 import { ActorType } from "../store/types";
 
-export default function Actor(props: ActorType) {
+export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
   // PROBABLY THESE BODY PARTS WILL BE MANAGED SOMEWHERE ELSE LATER...
   const [body] = useState({
     leftEye: "o",
@@ -12,11 +12,12 @@ export default function Actor(props: ActorType) {
   });
 
   return (
-    <ActorWrapper className="personContainer">
-      <ActorBody
-        // className="person"
-        type={props.type}
-      >
+    <ActorWrapper
+      className="personContainer"
+      type={props.type}
+      scenePlayer={props.scenePlayer}
+    >
+      <div className="actorBody">
         {/* ///// HEAD ///// */}
         <div
           style={{ backgroundColor: props.backgroundColor, color: props.color }}
@@ -162,9 +163,11 @@ export default function Actor(props: ActorType) {
             ></div>
           )}
         </div>
-      </ActorBody>
-      <div>
-        <p>{props.name}</p>
+      </div>
+      <div className="actorName">
+        <p>
+          <strong>{props.name}</strong>
+        </p>
       </div>
     </ActorWrapper>
   );

@@ -39,9 +39,7 @@ export default function ViewScenePage() {
 
   useEffect(() => {
     const allTimeouts = timeoutRefs.current;
-    return () => {
-      allTimeouts.forEach((timeout) => clearTimeout(timeout));
-    };
+    return () => allTimeouts.forEach((timeout) => clearTimeout(timeout));
   }, []);
 
   useEffect(() => {

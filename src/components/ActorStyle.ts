@@ -1,29 +1,34 @@
 import styled from "styled-components";
 
-export const ActorWrapper = styled.div`
+type ActorWrapperProps = {
+  type: "man" | "woman";
+  scenePlayer?: boolean;
+};
+
+export const ActorWrapper = styled.div<ActorWrapperProps>`
   width: 200px;
   height: 250px;
-  margin: 50px auto;
+  margin: ${({ scenePlayer }) => (scenePlayer ? "100px 0 10px 0" : "10px 0")};
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
-type ActorBodyProps = {
-  type: "man" | "woman";
-};
+  .actorName {
+    max-width: 180px;
+    z-index: 98;
+  }
 
-export const ActorBody = styled.div.attrs((props: ActorBodyProps) => ({}))<{
-  type: "man" | "woman";
-}>`
-  position: relative;
-  width: 164px;
-  width: ${({ type }) => (type === "man" ? "164px" : "131px")};
-  position: relative;
-  height: 215px;
+  .actorBody {
+    position: relative;
+    width: 164px;
+    width: ${({ type }) => (type === "man" ? "164px" : "131px")};
+    position: relative;
+    height: 215px;
+  }
 
   .bodypart {
     position: absolute;
+    z-index: 97;
   }
 
   /* ///// HEAD ///// */
@@ -31,7 +36,7 @@ export const ActorBody = styled.div.attrs((props: ActorBodyProps) => ({}))<{
     width: 50px;
     height: 55px;
     border-radius: 50%;
-    top: 2px;
+    top: 1px;
     left: 43px;
   }
 
