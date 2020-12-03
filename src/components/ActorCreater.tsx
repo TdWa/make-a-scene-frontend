@@ -5,7 +5,7 @@ import { ActorType } from "../store/types";
 type ActorCreaterProp = {
   number: 1 | 2;
   actor: ActorType | null;
-  selectActor: (actor: 1 | 2, type: "man" | "woman") => void;
+  selectActor: (actor: 1 | 2, type: "man" | "woman" | "select") => void;
   editActorColors: (
     actor: 1 | 2,
     property: "color" | "backgroundColor",
@@ -22,14 +22,18 @@ export default function ActorCreater(props: ActorCreaterProp) {
       <div>
         <p>Type:</p>
         <select
-          defaultValue={"Select"}
+          defaultValue={"select"}
           onChange={(e) => {
-            if (e.target.value === "man" || e.target.value === "woman") {
+            if (
+              e.target.value === "man" ||
+              e.target.value === "woman" ||
+              e.target.value === "select"
+            ) {
               selectActor(number, e.target.value);
             }
           }}
         >
-          <option disabled>Select</option>
+          <option value="select">select</option>
           <option value="man">man</option>
           <option value="woman">woman</option>
         </select>
