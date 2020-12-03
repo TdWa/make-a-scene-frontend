@@ -14,6 +14,7 @@ import ScriptPhrase from "../components/ScriptPhrase";
 import AddPhraseForm from "../components/AddPhraseForm";
 import { updateScene } from "../store/user/actions";
 import { playScene } from "../functions";
+import SceneSettingsEditor from "../components/SceneSettingsEditor";
 
 // still need to fix not logged in situation, jwt expired etc
 export default function MySceneBuilderPage() {
@@ -23,6 +24,7 @@ export default function MySceneBuilderPage() {
   const [actors, setActors] = useState<ActorType[]>([]);
   const [script, setScript] = useState<Phrase[]>([]);
   const actorText = useRef("");
+  const [sceneBackground, setSceneBackground] = useState("#ffffff");
 
   const [sceneName, setSceneName] = useState("");
   const sceneNameInputRef = useRef<HTMLInputElement>(null);
@@ -52,6 +54,7 @@ export default function MySceneBuilderPage() {
       setActors(scene.actors);
       setSceneName(scene.name);
       setSceneDescription(scene.description ? scene.description : "");
+      setSceneBackground(scene.backgroundColor);
     }
   }, [scene]);
 
@@ -128,6 +131,37 @@ export default function MySceneBuilderPage() {
 
   const setSaveableTrue = () => setEdit({ ...edit, save: true });
 
+  const editActorColors = (
+    actorId: number,
+    property: "color" | "backgroundColor",
+    color: string
+  ) => {
+    setSaveableTrue();
+    property === "color"
+      ? setActors(
+          actors.map((actor) =>
+            actor.id === actorId ? { ...actor, color: color } : actor
+          )
+        )
+      : setActors(
+          actors.map((actor) =>
+            actor.id === actorId ? { ...actor, backgroundColor: color } : actor
+          )
+        );
+  };
+
+  const editActorName = (actorId: number, name: string) => {
+    setSaveableTrue();
+    setActors(
+      actors.map((actor) => (actor.id === actorId ? { ...actor, name } : actor))
+    );
+  };
+
+  const editBackgroundColor = (color: string) => {
+    setSaveableTrue();
+    setSceneBackground(color);
+  };
+
   return (
     <div>
       {edit.save && (
@@ -141,9 +175,10 @@ export default function MySceneBuilderPage() {
               updateScene(
                 scene.id,
                 sceneName,
-                scene.backgroundColor,
+                sceneBackground,
                 sceneDescription,
                 script,
+                actors,
                 actorIds
               )
             );
@@ -207,7 +242,16 @@ export default function MySceneBuilderPage() {
         </AboutDescriptionEditStyle>
       </div>
       <div className="pageRow">
-        <ScenePlayer actors={actors} background={scene.backgroundColor} />
+        <SceneSettingsEditor
+          actors={actors}
+          editActorColors={editActorColors}
+          editActorName={editActorName}
+          backgroundColor={sceneBackground}
+          editBackgroundColor={editBackgroundColor}
+        />
+      </div>
+      <div className="pageRow">
+        <ScenePlayer actors={actors} background={sceneBackground} />
       </div>
       <div className="pageRow">
         {playable && (

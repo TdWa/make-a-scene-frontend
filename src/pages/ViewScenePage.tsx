@@ -69,7 +69,9 @@ export default function ViewScenePage() {
   return (
     <ViewScenePageStyle>
       <PageTitle>{scene.name}</PageTitle>
-      <ScenePlayer actors={actors} background={scene.backgroundColor} />
+      <div className="pageRow">
+        <ScenePlayer actors={actors} background={scene.backgroundColor} />
+      </div>
       <div className="pageRow">
         {playable && (
           <Button

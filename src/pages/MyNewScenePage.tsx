@@ -214,10 +214,7 @@ export default function MyNewScenePage() {
             </div>
           )}
         </div>
-        <p>
-          You can always change things later! (If I have time to implement that
-          feature ;))
-        </p>
+        <p>You can always change things later!</p>
       </MyNewScenePageStyle>
     </form>
   );

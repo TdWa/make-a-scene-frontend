@@ -17,7 +17,7 @@ import {
   SceneUpdate,
   REMOVE_SCENE,
 } from "./types";
-import { AppThunk, ActorsToCreate, Scene, Phrase } from "../types";
+import { AppThunk, ActorsToCreate, Scene, Phrase, ActorType } from "../types";
 
 const removeScene = (sceneId: number): UserActionTypes => ({
   type: REMOVE_SCENE,
@@ -92,6 +92,7 @@ export const updateScene = (
   sceneBackgroundColor: string,
   sceneDescription: string,
   script: Phrase[],
+  actors: ActorType[],
   actorIds: number[]
 ): AppThunk => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -105,6 +106,7 @@ export const updateScene = (
         sceneBackgroundColor,
         sceneDescription,
         script,
+        actors,
         actorIds,
       },
       { headers: { Authorization: `Bearer ${token}` } }

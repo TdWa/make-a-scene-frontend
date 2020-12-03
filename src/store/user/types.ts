@@ -1,4 +1,4 @@
-import { Phrase, Scene } from "../types";
+import { ActorType, Scene } from "../types";
 
 // state type
 export type UserState = {
@@ -47,7 +47,7 @@ export type SceneUpdate = {
     backgroundColor: string;
     description: string;
   };
-  script: Phrase[];
+  actors: ActorType[];
 };
 
 type UpdateScene = {

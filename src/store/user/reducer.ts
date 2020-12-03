@@ -41,12 +41,7 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
                 name: action.payload.scene.name,
                 backgroundColor: action.payload.scene.backgroundColor,
                 description: action.payload.scene.description,
-                actors: scene.actors.map((actor) => ({
-                  ...actor,
-                  phrases: action.payload.script.filter(
-                    (phrase) => phrase.actorId === actor.id
-                  ),
-                })),
+                actors: action.payload.actors,
               }
         ),
       };

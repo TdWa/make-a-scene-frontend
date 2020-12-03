@@ -5,10 +5,10 @@ import { ActorType } from "../store/types";
 export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
   // PROBABLY THESE BODY PARTS WILL BE MANAGED SOMEWHERE ELSE LATER...
   const [body] = useState({
-    leftEye: "o",
-    rightEye: "o",
+    leftEye: props.type === "man" ? "o" : "(",
+    rightEye: props.type === "man" ? "o" : "(",
     moustache: "{",
-    mouth: "(",
+    mouth: "l",
   });
 
   return (

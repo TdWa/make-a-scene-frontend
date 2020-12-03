@@ -57,8 +57,10 @@ export default function HomePage() {
       </div>
       {actors.length !== 0 && (
         <div className="demo">
-          <h2>Demo</h2>
-          <ScenePlayer actors={actors} background={demoBackground} />
+          <div className="pageRow">
+            <h2>Demo</h2>
+            <ScenePlayer actors={actors} background={demoBackground} />
+          </div>
           <div className="pageRow">
             {playable && (
               <Button

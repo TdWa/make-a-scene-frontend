@@ -14,6 +14,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
   align-items: center;
 
   .actorName {
+    margin-top: 5px;
     max-width: 180px;
     z-index: 98;
   }
@@ -71,10 +72,10 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     border-radius: 40%;
     left: 34px;
     top: 55px;
-    /* animation: breathe 5s infinite; */
+    animation: breathe 3s infinite;
   }
 
-  /* @keyframes breathe {
+  @keyframes breathe {
     0% {
       transform: scale(1);
     }
@@ -84,7 +85,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     100% {
       transform: scale(1);
     }
-  } */
+  }
 
   .arm1a {
     width: 50px;
@@ -186,6 +187,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     border-top-left-radius: 50%;
     left: -22px;
     top: 70px;
+    ${({ type }) => type === "woman" && "animation: tapfoot 1s infinite;"}
   }
 
   .foot2 {
@@ -194,5 +196,17 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     border-top-right-radius: 50%;
     left: 0px;
     top: 70px;
+  }
+
+  @keyframes tapfoot {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(8deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
 `;
