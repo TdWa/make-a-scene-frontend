@@ -7,17 +7,11 @@ type ActorWrapperProps = {
 
 export const ActorWrapper = styled.div<ActorWrapperProps>`
   width: 200px;
-  height: 250px;
+  height: 280px;
   margin: ${({ scenePlayer }) => (scenePlayer ? "100px 0 10px 0" : "10px 0")};
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .actorName {
-    margin-top: 5px;
-    max-width: 180px;
-    z-index: 98;
-  }
 
   .actorBody {
     position: relative;
@@ -25,6 +19,17 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     width: ${({ type }) => (type === "man" ? "164px" : "131px")};
     position: relative;
     height: 215px;
+  }
+
+  .actorName {
+    width: 200px;
+    height: 60px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 5px;
+    z-index: 98;
   }
 
   /* ///// HEAD ///// */
