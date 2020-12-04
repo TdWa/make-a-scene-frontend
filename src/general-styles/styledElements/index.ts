@@ -6,6 +6,8 @@ import { PageTitle } from "./PageTitle";
 import { AboutDescriptionEditStyle } from "./AboutDescriptionEditStyle";
 import { ConfirmPopup } from "./ConfirmPopup";
 import { PageFeedback } from "./PageFeedback";
+import { BodyPart } from "./BodyPart";
+import { AbsoluteDiv } from "./AbsoluteDiv";
 
 export {
   Button,
@@ -16,4 +18,6 @@ export {
   AboutDescriptionEditStyle,
   ConfirmPopup,
   PageFeedback,
+  BodyPart,
+  AbsoluteDiv,
 };

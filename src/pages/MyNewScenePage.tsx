@@ -4,6 +4,7 @@ import {
   Button,
   PageFeedback,
   PageTitle,
+  AbsoluteDiv,
 } from "../general-styles/styledElements";
 import { ActorsToCreate } from "../store/types";
 import ActorCreater from "../components/ActorCreater";
@@ -171,17 +172,10 @@ export default function MyNewScenePage() {
           <h2>Choose actors</h2>
           <div className="actorCreaterContainer">
             {actors.actor1 && (
-              <div
-                style={{
-                  position: "absolute",
-                  backgroundColor: backgroundColor,
-                  width: `${actors.actor2 ? "420px" : "200px"}`,
-                  height: 275,
-                  top: 165,
-                  borderRadius: 8,
-                  zIndex: -1,
-                }}
-              ></div>
+              <AbsoluteDiv
+                backgroundColor={backgroundColor}
+                twoActors
+              ></AbsoluteDiv>
             )}
             <ActorCreater
               number={1}

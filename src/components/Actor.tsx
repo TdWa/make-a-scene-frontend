@@ -1,6 +1,7 @@
 import React from "react";
 import { ActorWrapper } from "./ActorStyle";
 import { ActorType } from "../store/types";
+import { BodyPart } from "../general-styles/styledElements";
 
 export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
   const face = {
@@ -17,150 +18,100 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
     >
       <div className="actorBody">
         {/* ///// HEAD ///// */}
-        <div
-          style={{ backgroundColor: props.backgroundColor, color: props.color }}
-          className="bodypart head"
+        <BodyPart
+          backgroundColor={props.backgroundColor}
+          color={props.color}
+          className="head"
         >
-          <div
-            style={{
-              backgroundColor: props.backgroundColor,
-            }}
-            className="bodypart eye1"
-          >
+          <BodyPart backgroundColor={props.backgroundColor} className="eye1">
             {face.eye}
-          </div>
-          <div
-            style={{
-              backgroundColor: props.backgroundColor,
-            }}
-            className="bodypart eye2"
-          >
+          </BodyPart>
+          <BodyPart backgroundColor={props.backgroundColor} className="eye2">
             {face.eye}
-          </div>
+          </BodyPart>
           {props.type === "man" && (
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart moustache"
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="moustache"
             >
               {face.moustache}
-            </div>
+            </BodyPart>
           )}
-          <div
-            style={{
-              backgroundColor: props.backgroundColor,
-            }}
-            className="bodypart mouth"
-          >
+          <BodyPart backgroundColor={props.backgroundColor} className="mouth">
             {face.mouth}
-          </div>
-        </div>
+          </BodyPart>
+        </BodyPart>
 
         {/* ///// UPPER BODY ///// */}
-        <div
-          style={{ backgroundColor: props.backgroundColor }}
-          className="bodypart upperBody"
-        ></div>
-        <div
-          style={{
-            backgroundColor: props.backgroundColor,
-          }}
-          className="bodypart arm1a"
-        ></div>
-        <div
-          style={{
-            backgroundColor: props.backgroundColor,
-          }}
-          className="bodypart arm1b"
-        ></div>
-        <div
-          style={{
-            backgroundColor: props.backgroundColor,
-          }}
-          className="bodypart hand1"
-        ></div>
+        <BodyPart
+          backgroundColor={props.backgroundColor}
+          className="upperBody"
+        ></BodyPart>
+        <BodyPart
+          backgroundColor={props.backgroundColor}
+          className="arm1a"
+        ></BodyPart>
+        <BodyPart
+          backgroundColor={props.backgroundColor}
+          className="arm1b"
+        ></BodyPart>
+        <BodyPart
+          backgroundColor={props.backgroundColor}
+          className="hand1"
+        ></BodyPart>
         {props.type === "man" ? (
           <div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart arm2a"
-            ></div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart arm2b"
-            ></div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart hand2"
-            ></div>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="arm2a"
+            ></BodyPart>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="arm2b"
+            ></BodyPart>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="hand2"
+            ></BodyPart>
           </div>
         ) : (
           <div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart womanArm2a"
-            ></div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart womanArm2b"
-            ></div>
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart womanHand2"
-            ></div>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="womanArm2a"
+            ></BodyPart>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="womanArm2b"
+            ></BodyPart>
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="womanHand2"
+            ></BodyPart>
           </div>
         )}
 
         {/* ///// LEGS ///// */}
-        <div>
-          <div
-            style={{
-              backgroundColor: props.backgroundColor,
-            }}
-            className="bodypart leg1"
-          >
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart foot1"
-            ></div>
-          </div>
-          <div
-            style={{
-              backgroundColor: props.backgroundColor,
-            }}
-            className="bodypart leg2"
-          >
-            <div
-              style={{
-                backgroundColor: props.backgroundColor,
-              }}
-              className="bodypart foot2"
-            ></div>
-          </div>
+        <BodyPart>
+          <BodyPart backgroundColor={props.backgroundColor} className="leg1">
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="foot1"
+            ></BodyPart>
+          </BodyPart>
+          <BodyPart backgroundColor={props.backgroundColor} className="leg2">
+            <BodyPart
+              backgroundColor={props.backgroundColor}
+              className="foot2"
+            ></BodyPart>
+          </BodyPart>
           {props.type === "woman" && (
-            <div
-              style={{
-                borderBottom: `100px solid ${props.backgroundColor}`,
-              }}
-              className="bodypart skirt"
-            ></div>
+            <BodyPart
+              borderBottom={props.backgroundColor}
+              className="skirt"
+            ></BodyPart>
           )}
-        </div>
+        </BodyPart>
       </div>
       <div className="actorName">
         <p>
