@@ -69,8 +69,12 @@ export default function ScenesList(props: SceneListProp) {
         )}
         <div>
           <div className="actorContainer">
-            {actors.map((actor) => (
-              <Actor key={actor.id} {...actor} />
+            {actors.map((actor, i) => (
+              <Actor
+                key={actor.id}
+                {...actor}
+                position={i === 0 ? "left" : "right"}
+              />
             ))}
           </div>
           <div className="sceneLinksContainer">

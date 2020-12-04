@@ -49,7 +49,7 @@ export default function ActorCreater(props: ActorCreaterProp) {
               required
             />
           </div>
-          <Actor {...actor} />
+          <Actor {...actor} position={number === 1 ? "left" : "right"} />
           <div>
             <p>Body color:</p>
             <input
