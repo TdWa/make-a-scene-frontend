@@ -1,23 +1,18 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type ActorWrapperProps = {
   type: "man" | "woman";
+  position: "left" | "right";
   scenePlayer?: boolean;
 };
 
 export const ActorWrapper = styled.div<ActorWrapperProps>`
   width: 200px;
-  height: 250px;
+  height: 280px;
   margin: ${({ scenePlayer }) => (scenePlayer ? "100px 0 10px 0" : "10px 0")};
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .actorName {
-    margin-top: 5px;
-    max-width: 180px;
-    z-index: 98;
-  }
 
   .actorBody {
     position: relative;
@@ -25,6 +20,17 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     width: ${({ type }) => (type === "man" ? "164px" : "131px")};
     position: relative;
     height: 215px;
+  }
+
+  .actorName {
+    width: 200px;
+    height: 60px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 5px;
+    z-index: 98;
   }
 
   /* ///// HEAD ///// */
@@ -204,4 +210,74 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
       transform: rotate(0deg);
     }
   } */
+
+  ${({ position, type }) => {
+    if (type === "man" && position === "right") {
+      return css`
+        .arm2a {
+          width: 50px;
+          height: 15px;
+          transform: rotate(30deg);
+          border-top-right-radius: 6px;
+          left: 78px;
+          top: 71px;
+        }
+        .arm2b {
+          width: 50px;
+          height: 15px;
+          transform: rotate(130deg);
+          left: 88px;
+          top: 98px;
+        }
+        .hand2 {
+          width: 35px;
+          height: 12px;
+          border-radius: 50%;
+          border-bottom-right-radius: 5px;
+          left: 68px;
+          top: 117px;
+        }
+      `;
+    }
+    if (type === "woman" && position === "left") {
+      return css`
+        .eye1 {
+          top: 17px;
+          left: 11px;
+        }
+        .eye2 {
+          top: 17px;
+          left: 33px;
+        }
+
+        .mouth {
+          top: 35px;
+          left: 23px;
+        }
+
+        .womanArm2a {
+          width: 50px;
+          height: 15px;
+          transform: rotate(50deg);
+          left: 70px;
+          top: 75px;
+        }
+        .womanArm2b {
+          width: 50px;
+          height: 15px;
+          transform: rotate(-50deg);
+          left: 93px;
+          top: 77px;
+        }
+        .womanHand2 {
+          width: 35px;
+          height: 12px;
+          border-radius: 50%;
+          border-bottom-right-radius: 5px;
+          left: 130px;
+          top: 58px;
+        }
+      `;
+    }
+  }}
 `;
