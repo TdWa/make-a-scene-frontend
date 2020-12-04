@@ -36,6 +36,10 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   .pageRow {
     margin-bottom: 10px;
   }
+
+  .playButtonContainer {
+    height: 50px;
+  }
   `;
 
 export default GlobalStyle;

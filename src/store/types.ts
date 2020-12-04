@@ -26,6 +26,12 @@ export type ActorType = {
   color: string;
   phrases?: Phrase[];
   currentText?: string;
+  currentFace?: {
+    // could add eyebrows )>  sweat drop apostrophe '  specify eye left/right, etc
+    // eye: "o" | "(";
+    // moustache?: "{";
+    mouth: "l" | "o" | "O" | "(" | ")";
+  };
 };
 
 export type ActorsToCreate = {

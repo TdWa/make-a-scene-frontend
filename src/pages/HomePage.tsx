@@ -61,7 +61,7 @@ export default function HomePage() {
             <h2>Demo</h2>
             <ScenePlayer actors={actors} background={demoBackground} />
           </div>
-          <div className="pageRow">
+          <div className="pageRow playButtonContainer">
             {playable && (
               <Button
                 center

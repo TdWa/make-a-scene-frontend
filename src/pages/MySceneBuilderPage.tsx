@@ -253,7 +253,7 @@ export default function MySceneBuilderPage() {
       <div className="pageRow">
         <ScenePlayer actors={actors} background={sceneBackground} />
       </div>
-      <div className="pageRow">
+      <div className="pageRow playButtonContainer">
         {playable && (
           <Button
             center

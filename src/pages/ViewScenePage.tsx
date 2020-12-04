@@ -72,7 +72,7 @@ export default function ViewScenePage() {
       <div className="pageRow">
         <ScenePlayer actors={actors} background={scene.backgroundColor} />
       </div>
-      <div className="pageRow">
+      <div className="pageRow playButtonContainer">
         {playable && (
           <Button
             center

@@ -1,5 +1,11 @@
 import { ActorType, Phrase } from "./store/types";
 
+const initialFace: {
+  mouth: "l";
+} = {
+  mouth: "l",
+};
+
 export const playScene = (
   script: Phrase[],
   actors: ActorType[],
@@ -14,14 +20,20 @@ export const playScene = (
     for (let i = 0; i < text.length; i++) {
       timeoutRefs.current.push(
         setTimeout(() => {
-          // mouth.textContent = i % 5 === 0 ? "O" : "o";
           actorTextRef.current += text[i];
           setActors(
             actors.map((actor) => {
               if (actor.id !== script[0].actorId) {
-                return { ...actor, currentText: "" };
+                return { ...actor, currentText: "", currentFace: initialFace };
               } else {
-                return { ...actor, currentText: actorTextRef.current };
+                return {
+                  ...actor,
+                  currentText: actorTextRef.current,
+                  currentFace: {
+                    ...initialFace,
+                    mouth: i % 5 === 0 ? "O" : "o",
+                  },
+                };
               }
             })
           );
@@ -31,7 +43,6 @@ export const playScene = (
 
     timeoutRefs.current.push(
       setTimeout(() => {
-        // mouth.textContent = "o";
         playScene(
           script.slice(1),
           actors,
@@ -43,7 +54,13 @@ export const playScene = (
       }, 1000 + 50 * text.length)
     );
   } else {
-    setActors(actors.map((actor) => ({ ...actor, currentText: "" })));
+    setActors(
+      actors.map((actor) => ({
+        ...actor,
+        currentText: "",
+        currentFace: initialFace,
+      }))
+    );
     setPlayable(true);
   }
 };

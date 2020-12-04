@@ -62,7 +62,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
   .mouth {
     transform: rotate(90deg);
     top: 35px;
-    left: 22px;
+    left: ${({ type }) => (type === "man" ? "21px" : "20px")};
   }
 
   /* ///// UPPER BODY ///// */
@@ -187,7 +187,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     border-top-left-radius: 50%;
     left: -22px;
     top: 70px;
-    ${({ type }) => type === "woman" && "animation: tapfoot 1s infinite;"}
+    /* ${({ type }) => type === "woman" && "animation: tapfoot 1s infinite;"} */
   }
 
   .foot2 {
@@ -198,7 +198,7 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     top: 70px;
   }
 
-  @keyframes tapfoot {
+  /* @keyframes tapfoot {
     0% {
       transform: rotate(0deg);
     }
@@ -208,5 +208,5 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     100% {
       transform: rotate(0deg);
     }
-  }
+  } */
 `;

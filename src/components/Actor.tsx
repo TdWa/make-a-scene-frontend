@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { ActorWrapper } from "./ActorStyle";
 import { ActorType } from "../store/types";
 
 export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
-  // PROBABLY THESE BODY PARTS WILL BE MANAGED SOMEWHERE ELSE LATER...
-  const [body] = useState({
-    leftEye: props.type === "man" ? "o" : "(",
-    rightEye: props.type === "man" ? "o" : "(",
+  const face = {
+    eye: props.type === "man" ? "o" : "(",
     moustache: "{",
-    mouth: "l",
-  });
+    mouth: props.currentFace ? props.currentFace.mouth : "l",
+  };
 
   return (
     <ActorWrapper
@@ -29,7 +27,7 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
             }}
             className="bodypart eye1"
           >
-            {body.leftEye}
+            {face.eye}
           </div>
           <div
             style={{
@@ -37,7 +35,7 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
             }}
             className="bodypart eye2"
           >
-            {body.rightEye}
+            {face.eye}
           </div>
           {props.type === "man" && (
             <div
@@ -46,7 +44,7 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
               }}
               className="bodypart moustache"
             >
-              {body.moustache}
+              {face.moustache}
             </div>
           )}
           <div
@@ -55,7 +53,7 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
             }}
             className="bodypart mouth"
           >
-            {body.mouth}
+            {face.mouth}
           </div>
         </div>
 
