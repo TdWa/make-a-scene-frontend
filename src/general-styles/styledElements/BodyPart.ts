@@ -11,7 +11,7 @@ export const BodyPart = styled.div.attrs((props: BodyPartProp) => ({
     backgroundColor: props.backgroundColor,
     color: props.color,
     borderBottom: `${
-      props.borderBottom && `100px solid ${props.backgroundColor}`
+      props.borderBottom && `100px solid ${props.borderBottom}`
     }`,
   },
 }))<BodyPartProp>`
