@@ -27,11 +27,6 @@ export const ActorWrapper = styled.div<ActorWrapperProps>`
     height: 215px;
   }
 
-  .bodypart {
-    position: absolute;
-    z-index: 97;
-  }
-
   /* ///// HEAD ///// */
   .head {
     width: 50px;
