@@ -13,10 +13,10 @@ export default function ScenePlayer(props: ScenePlayerProp) {
   const { actors, background } = props;
   return (
     <ScenePlayerStyle background={background}>
-      {actors.map((actor) => (
+      {actors.map((actor, i) => (
         <div key={actor.id}>
           <SpeechBox currentText={actor.currentText} />
-          <Actor {...actor} scenePlayer />
+          <Actor {...actor} scenePlayer position={i === 0 ? "left" : "right"} />
         </div>
       ))}
     </ScenePlayerStyle>

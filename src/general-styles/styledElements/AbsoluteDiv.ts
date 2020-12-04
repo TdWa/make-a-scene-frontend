@@ -12,7 +12,7 @@ export const AbsoluteDiv = styled.div.attrs((props: AbsoluteDivProp) => ({
 }))<AbsoluteDivProp>`
   position: absolute;
   width: ${({ twoActors }) => (twoActors ? "420px" : "200px")};
-  height: 275px;
+  height: 299px;
   top: 165px;
   border-radius: 8px;
   z-index: -1;

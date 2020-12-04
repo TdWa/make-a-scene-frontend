@@ -3,7 +3,9 @@ import { ActorWrapper } from "./ActorStyle";
 import { ActorType } from "../store/types";
 import { BodyPart } from "../general-styles/styledElements";
 
-export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
+export default function Actor(
+  props: ActorType & { scenePlayer?: boolean; position: "left" | "right" }
+) {
   const face = {
     eye: props.type === "man" ? "o" : "(",
     moustache: "{",
@@ -14,6 +16,7 @@ export default function Actor(props: ActorType & { scenePlayer?: boolean }) {
     <ActorWrapper
       className="personContainer"
       type={props.type}
+      position={props.position}
       scenePlayer={props.scenePlayer}
     >
       <div className="actorBody">

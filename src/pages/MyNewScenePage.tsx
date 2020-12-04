@@ -21,7 +21,7 @@ export default function MyNewScenePage() {
     actor1: null,
     actor2: null,
   });
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [backgroundColor, setBackgroundColor] = useState("#adc7c7");
   const userScenes = useSelector(selectUserScenes);
   const initialScenesAmount = useRef(userScenes.length);
   const history = useHistory();
@@ -58,8 +58,8 @@ export default function MyNewScenePage() {
           actor1: {
             type: type === "man" ? "man" : "woman",
             name: "",
-            backgroundColor: "#31c5ff",
-            color: "#000000",
+            backgroundColor: "#003246",
+            color: "#ffffff",
           },
           actor2: actors.actor2,
         });
@@ -75,7 +75,7 @@ export default function MyNewScenePage() {
           actor2: {
             type: type === "man" ? "man" : "woman",
             name: "",
-            backgroundColor: "#ffee00",
+            backgroundColor: "#a38523",
             color: "#000000",
           },
           actor1: actors.actor1,
@@ -174,7 +174,7 @@ export default function MyNewScenePage() {
             {actors.actor1 && (
               <AbsoluteDiv
                 backgroundColor={backgroundColor}
-                twoActors
+                twoActors={!!actors.actor2}
               ></AbsoluteDiv>
             )}
             <ActorCreater
