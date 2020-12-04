@@ -6,16 +6,17 @@ import { ScenePlayerStyle } from "./ScenePlayerStyle";
 
 type ScenePlayerProp = {
   actors: ActorType[];
+  background: string;
 };
 
 export default function ScenePlayer(props: ScenePlayerProp) {
-  const { actors } = props;
+  const { actors, background } = props;
   return (
-    <ScenePlayerStyle>
+    <ScenePlayerStyle background={background}>
       {actors.map((actor) => (
         <div key={actor.id}>
           <SpeechBox currentText={actor.currentText} />
-          <Actor {...actor} />
+          <Actor {...actor} scenePlayer />
         </div>
       ))}
     </ScenePlayerStyle>

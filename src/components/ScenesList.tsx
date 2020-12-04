@@ -12,6 +12,7 @@ type SceneListProp = {
   authorPage?: boolean;
   id: number;
   name: string;
+  backgroundColor: string;
   description: string | null;
   actors: ActorType[];
   authorId?: number;
@@ -28,13 +29,17 @@ export default function ScenesList(props: SceneListProp) {
     authorPage,
     id,
     name,
+    backgroundColor,
     description,
     actors,
     authorId,
     authorName,
   } = props;
   return (
-    <ScenesListStyle profilePage={profilePage}>
+    <ScenesListStyle
+      profilePage={profilePage}
+      backgroundColor={backgroundColor}
+    >
       <div className="sceneSimple">
         <h3>
           <strong>{name}</strong>

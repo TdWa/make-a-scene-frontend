@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
-export const ScenePlayerStyle = styled.div`
+export const ScenePlayerStyle = styled.div.attrs(
+  (props: { background: string }) => ({
+    style: {
+      backgroundColor: props.background,
+    },
+  })
+)<{ background: string }>`
   display: flex;
-  background-color: lightgray;
   justify-content: space-around;
+  border-radius: 8px;
 `;

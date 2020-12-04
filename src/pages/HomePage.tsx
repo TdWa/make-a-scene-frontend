@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ScenePlayer from "../components/ScenePlayer";
@@ -11,14 +11,19 @@ import {
 import { ActorType } from "../store/types";
 import { selectUser } from "../store/user/selectors";
 import { HomePageStyle } from "./HomePageStyle";
-import { demoScript, demoActors } from "./HomePageDemoScene";
+import { demoScript, demoActors, demoBackground } from "./HomePageDemoScene";
 
 export default function HomePage() {
   const user = useSelector(selectUser);
-  const script = demoScript;
   const [actors, setActors] = useState<ActorType[]>(demoActors);
   const actorText = useRef("");
   const [playable, setPlayable] = useState(true);
+  const timeoutRefs = useRef<number[]>([]);
+
+  useEffect(() => {
+    const allTimeouts = timeoutRefs.current;
+    return () => allTimeouts.forEach((timeout) => clearTimeout(timeout));
+  }, []);
 
   return (
     <HomePageStyle>
@@ -52,14 +57,23 @@ export default function HomePage() {
       </div>
       {actors.length !== 0 && (
         <div className="demo">
-          <h2>Demo</h2>
-          <ScenePlayer actors={actors} />
           <div className="pageRow">
+            <h2>Demo</h2>
+            <ScenePlayer actors={actors} background={demoBackground} />
+          </div>
+          <div className="pageRow playButtonContainer">
             {playable && (
               <Button
                 center
                 onClick={() => {
-                  playScene(script, actors, actorText, setActors, setPlayable);
+                  playScene(
+                    demoScript,
+                    actors,
+                    actorText,
+                    setActors,
+                    setPlayable,
+                    timeoutRefs
+                  );
                   setPlayable(false);
                 }}
               >

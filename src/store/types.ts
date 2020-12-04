@@ -26,6 +26,12 @@ export type ActorType = {
   color: string;
   phrases?: Phrase[];
   currentText?: string;
+  currentFace?: {
+    // could add eyebrows )>  sweat drop apostrophe '  specify eye left/right, etc
+    // eye: "o" | "(";
+    // moustache?: "{";
+    mouth: "l" | "o" | "O" | "(" | ")";
+  };
 };
 
 export type ActorsToCreate = {
@@ -36,6 +42,7 @@ export type ActorsToCreate = {
 export type Scene = {
   id: number;
   name: string;
+  backgroundColor: string;
   description: string | null;
   actors: ActorType[];
 };
@@ -52,6 +59,7 @@ export type CommentType = {
 export type AuthorScene = {
   id: number;
   name: string;
+  backgroundColor: string;
   description: string | null;
   authorId: number;
   authorName: string;

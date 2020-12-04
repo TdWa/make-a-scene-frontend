@@ -17,7 +17,7 @@ import {
   SceneUpdate,
   REMOVE_SCENE,
 } from "./types";
-import { AppThunk, ActorsToCreate, Scene, Phrase } from "../types";
+import { AppThunk, ActorsToCreate, Scene, Phrase, ActorType } from "../types";
 
 const removeScene = (sceneId: number): UserActionTypes => ({
   type: REMOVE_SCENE,
@@ -89,8 +89,10 @@ export const deleteScene = (sceneId: number): AppThunk => async (
 export const updateScene = (
   sceneId: number,
   sceneName: string,
+  sceneBackgroundColor: string,
   sceneDescription: string,
   script: Phrase[],
+  actors: ActorType[],
   actorIds: number[]
 ): AppThunk => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -101,8 +103,10 @@ export const updateScene = (
       {
         sceneId,
         sceneName,
+        sceneBackgroundColor,
         sceneDescription,
         script,
+        actors,
         actorIds,
       },
       { headers: { Authorization: `Bearer ${token}` } }
@@ -121,6 +125,7 @@ export const updateScene = (
 
 export const createNewScene = (
   sceneName: string,
+  sceneBackgroundColor: string,
   actors: ActorsToCreate
 ): AppThunk => {
   return async (dispatch, getState) => {
@@ -132,6 +137,7 @@ export const createNewScene = (
         `${apiUrl}/scenes`,
         {
           sceneName,
+          sceneBackgroundColor,
           actors,
         },
         { headers: { Authorization: `Bearer ${token}` } }

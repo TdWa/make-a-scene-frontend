@@ -34,8 +34,13 @@ export default function ViewScenePage() {
   const loading = useSelector(selectAuthorsLoading);
   const loadingHappened = useRef(false);
 
-  /// TESTING
   const [playable, setPlayable] = useState(true);
+  const timeoutRefs = useRef<number[]>([]);
+
+  useEffect(() => {
+    const allTimeouts = timeoutRefs.current;
+    return () => allTimeouts.forEach((timeout) => clearTimeout(timeout));
+  }, []);
 
   useEffect(() => {
     if (!scene) {
@@ -64,16 +69,28 @@ export default function ViewScenePage() {
   return (
     <ViewScenePageStyle>
       <PageTitle>{scene.name}</PageTitle>
-      <ScenePlayer actors={actors} />
       <div className="pageRow">
-        <Button
-          center
-          onClick={() =>
-            playScene(script, actors, actorText, setActors, setPlayable)
-          }
-        >
-          Play
-        </Button>
+        <ScenePlayer actors={actors} background={scene.backgroundColor} />
+      </div>
+      <div className="pageRow playButtonContainer">
+        {playable && (
+          <Button
+            center
+            onClick={() => {
+              playScene(
+                script,
+                actors,
+                actorText,
+                setActors,
+                setPlayable,
+                timeoutRefs
+              );
+              setPlayable(false);
+            }}
+          >
+            Play
+          </Button>
+        )}
       </div>
       <div className="pageRow">
         <h2>Author: {scene.authorName}</h2>

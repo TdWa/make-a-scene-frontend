@@ -2,13 +2,14 @@ import styled from "styled-components";
 import { ThemeType } from "../general-styles/theme";
 
 type ScenesListStyleProp = {
+  backgroundColor: string;
   profilePage?: boolean;
   theme: ThemeType;
 };
 
 export const ScenesListStyle = styled.div<ScenesListStyleProp>`
   position: relative;
-  background-color: ${({ theme }) => theme.colors.lightAccent};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   margin: 20px auto;
   border-radius: 5px;
   padding: 10px;
