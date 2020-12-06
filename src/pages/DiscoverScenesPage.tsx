@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScenesList from "../components/ScenesList";
-import { PageTitle } from "../general-styles/styledElements";
+import { PageFeedback, PageTitle } from "../general-styles/styledElements";
 import { getScenes } from "../store/authors/actions";
-import { selectAllScenes } from "../store/authors/selectors";
+import {
+  selectAllScenes,
+  selectAuthorsLoading,
+} from "../store/authors/selectors";
 
 export default function DiscoverScenesPage() {
   const dispatch = useDispatch();
   const scenes = useSelector(selectAllScenes);
+  const loading = useSelector(selectAuthorsLoading);
 
   useEffect(() => {
     dispatch(getScenes);
   }, [dispatch]);
+
+  if (loading) {
+    return <PageFeedback>Loading...</PageFeedback>;
+  }
 
   return (
     <div>
