@@ -4,7 +4,7 @@
 
 [Check out the website here](https://make-a-scene.netlify.app/)
 
-Make a Scene is a platform where you can create scripted conversations and turn them into an animated scene. Once you've created your scene it is listed on the platform so other users can watch it and share their comments 
+Make a Scene is a platform where you can create scripted conversations and turn them into an animated scene. Once you've created your scene it is listed on the platform so other users can watch it and share their comments. 
 
 ### App demo
 
@@ -24,7 +24,7 @@ Make a Scene is a platform where you can create scripted conversations and turn 
 #### Backend
 - Express REST API
 - JWT & Bcrypt Authentication
-- Postgress database
+- PostgreSQL database
 - Sequelize ORM
 
 ### Goals for this project
@@ -75,7 +75,7 @@ See the [database model at dbdiagram.io](https://dbdiagram.io/d/5fbbc5eb3a78976d
 
 ### Backend server repo
 
-[See make-a-scene-backend on GitHub](https://github.com/TdWa/make-a-scene-backend)
+See [make-a-scene-backend on GitHub](https://github.com/TdWa/make-a-scene-backend)
 
 ### Plans to extend project
 
@@ -84,3 +84,5 @@ On my project board I have added a list of features I have in mind to add to the
 - The actor animations are not simple images, but consist of about 20 individual parts (so far) which could be easily manipulated (for example to make the characters walk, wave, tap their foot, etc.) 
 - The faces of the actors are made up of text characters (usually rotated 90deg) which are stored in an object passed down through props. These can be easily changed to make any kind of plain text smiley face you can imagine.
 - The ability to easily manipulate the actors is one of the reasons why I chose to use Styled-Components. They make it very convenient to make and change CSS rules with JavasSript logic and variables.
+
+I believe the concept of the app provides a basis for a lot of potentially fun features, which I hope to add some day when I have the time.
