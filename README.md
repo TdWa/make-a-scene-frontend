@@ -1,99 +1,86 @@
-## App demo
+## Make a Scene
+
+### What is this app about?
+
+[Check out the website here](https://make-a-scene.netlify.app/)
+
+Make a Scene is a platform where you can create scripted conversations and turn them into an animated scene. Once you've created your scene it is listed on the platform so other users can watch it and share their comments 
+
+### App demo
 
 ![App demo](https://github.com/TdWa/make-a-scene-frontend/blob/development/readme-assets/Make%20a%20Scene%20demo.gif)
 
-<!--
-## 😋 Savoristas | A social network for flavor combinations 😋
+### Used technologies and concepts
 
-## What this app is about
+- NodeJS
 
-[Find out here for a working version](https://savoristas.netlify.app/)
+#### Frontend
+- TypeScript
+- React
+- Redux
+- Axios
+- Styled-Components
 
-Savoristas charts the exciting universe of ingredients combinations. This web app allows visitors to create and share 'food palettes' - being color palettes, but than palettes of colorful ingredients (you need to see it, really). Visitor can share recipes too, and palettes work as filters for the recipes. So if you like the apple & cinnamon palette, your favorite apple pie recipe is one click away.
+#### Backend
+- Express REST API
+- JWT & Bcrypt Authentication
+- Postgress database
+- Sequelize ORM
 
-## Table of contents
+### Goals for this project
 
-- [App demo](#App-demo)
-- [Used technologies and concepts](#used-technologies-and-concepts)
-- [Goals for this project](#goals-for-this-project)
-- [User stories](#user-stories)
-- [Project board](#project-board)
-- [Wireframe](#wireframe)
-- [Datamodel](#datamodel)
-- [Git version control](#git-version-control)
-- [Backend server repo](#backend-server-repo)
+- demonstrate the main skills I've learned at the Codaisseur Academy. 
+- build a full-stack web app from a first idea into a working version within a two-week sprint
+- practice planning with user-stories, wireframes, datamodels, a kanban projectboard and git version control
+- extend my coding knowledge and try out new technologies. I chose to use this opportunity to learn TypeScript and Styled-Components. 
 
+### User stories
 
+- As a user I can sign up to make an account and login. This way I can save my data and share my work with other users.
+- As a user I can build a script and play it as a scene.
+  - I can add a description to my scene
+  - I can choose between one or two actors
+  - I can customize the color and names of my scene and my actors
+  - I can add phrases to my script
+  - I can edit my choices
+ - As a user I have a profile page where
+  - I see an overview of the scenes I made
+  - I can delete scenes
+  - I can navigate to edit my scenes or view their public page
+  - I can set an about-text to describe myself or my projects to other users
+ - As a user I can visit a page to discover all the existing scenes
+  - From there I can navigate to the page of an individual scene or of an author
+ - As a user I can navigate to an author page to
+   - Read the about-text of the author (if there is one)
+   - See a list of the scenes of this author
+  - As a user I can go to the view-page of an individual scene and
+   - Play the scene
+   - See a description of the scene (if there is one)
+   - comment on the scene
+   - delete my comments
+   
+### Project Board
 
-## Used technologies and concepts
+See the [Github projects kanban board](https://github.com/TdWa/make-a-scene-frontend/projects/1)
+ 
+### Wireframe
 
-👀👇 **Click links to see code samples in this project** 👇👀
+See the [original wireframes at figma.com](https://www.figma.com/file/OqPtvtb1gbiiSsMcDMCJrv/Make-a-Scene?node-id=0%3A1)
+These are the wireframes I made at the beginning of the project. I stuck with them for the most part, but also ended up adding one additional page.
+I added a "new-scene" page before the "scenebuilder-page" to first create the scene in the database and then navigate to the builder page with the given ID.
 
-- [React for UI building](https://github.com/tdijkmans/savoristas-front/blob/master/src/App.js)
-- [Redux for state management](https://github.com/tdijkmans/savoristas-front/tree/master/src/store)
-- [Authentication](https://github.com/tdijkmans/savoristas-front/tree/master/src/store)
-- [Express as web app framework](https://github.com/tdijkmans/savoristas-back/blob/master/index.js)
-  - [REST API](https://github.com/tdijkmans/savoristas-back/blob/master/routers/recipes.js)
-- [Sequelize as ORM](https://github.com/tdijkmans/savoristas-back/blob/master/index.js)
-- [Many-to-many models](https://github.com/tdijkmans/savoristas-back/tree/master/models) ⭐
-- [Chakra UI as component library](https://github.com/tdijkmans/savoristas-front/blob/master/src/components/Navigation/Drawermenu.js) ⭐
-- [React-Input-Color as input](https://github.com/tdijkmans/savoristas-front/blob/master/src/components/CreatePaletteForm/index.js) ⭐
+### Datamodel
 
-⭐ _New technology learned during this project_
+See the [database model at dbdiagram.io](https://dbdiagram.io/d/5fbbc5eb3a78976d7b7d10ac)
 
-## Goals for this project
+### Backend server repo
 
-The goal of this project is to build a full-stack app, practicing known and exploring _new_ technologies (see above). I learned these new tools independently by reading its documentation, consultin forums like StackExchange and watching online videos.
+[See make-a-scene-backend on GitHub](https://github.com/TdWa/make-a-scene-backend)
 
-- practice full-stack app development
-- build a working prototype in 2 weeks
-- apply what we learned in Codaisseur's bootcamp
-- extend with new technology independently
-- showcase and document development skills using:
-  - wireframes as Minimum Viable Product
-  - conscious data model design
-  - user stories perspective
-  - agile/[kanban project](https://github.com/users/tdijkmans/projects/1) approach
-  - transparant and structured [git version control](#git-version-control)
+### Plans to extend project
 
-## User stories
+On my project board I have added a list of features I have in mind to add to the project. Many of these features were already considered in the design of the project but I did not have time to add everything within two weeks. For example regarding the animation of the actors:
 
-- As a page visitor, I can sign up and log in as a user. I must register before I can post food palettes and recipes
-- As a visitor, I am able see existing food palettes and recipes as a gallery
-- As a user, I am able to post new food palettes
-- As a user, I am able to post new recipes
-- As a visitor, I can see recipes of interest and get their details for cooking.
-- As a visitor, I can select food palettes and filter for corresponding recipes
-- _planned:_ As a user, I can like recipes and foodpaletes
-- _planned:_ As a user, I can bookmark recipes and foodpaletes
-
-_This project is work in progress. Some features still need to be implemented and revised. Any suggestions or feedback is welcome, please let me know [here](https://www.linkedin.com/in/tdijkmans/)_.
-
-## Project Board
-
-Go to [project board](https://github.com/users/tdijkmans/projects/1)
-
-## Wireframe
-
-Go to [wireframe](Wireframe.svg)
-
-## Datamodel
-
-Go to [datamodel](Datamodel.svg)
-
-## Git version control
-
-I recognize the need for solid version control and try to:
-
-- write clear commit messages
-- name branches by feature
-- do pull requests with concise summaries
-
-#### 👀👇 Click links to view samples of pull requests 👇👀
-
-- [Homepage](https://github.com/tdijkmans/savoristas-front/pull/4) pull request
-
-## Backend server repo
-
-The backend side of this project is an Express server using Sequelize to manage the underlying Postgres database. [Click here for more details](https://github.com/tdijkmans/savoristas-back)
--->
+- The actor animations are not simple images, but consist of about 20 individual parts (so far) which could be easily manipulated (for example to make the characters walk, wave, tap their foot, etc.) 
+- The faces of the actors are made up of text characters (usually rotated 90deg) which are stored in an object passed down through props. These can be easily changed to make any kind of plain text smiley face you can imagine.
+- The ability to easily manipulate the actors is one of the reasons why I chose to use Styled-Components. They make it very convenient to make and change CSS rules with JavasSript logic and variables.
