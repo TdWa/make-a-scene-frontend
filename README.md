@@ -44,20 +44,20 @@ Make a Scene is a platform where you can create scripted conversations and turn 
   - I can add phrases to my script
   - I can edit my choices
  - As a user I have a profile page where
-  - I see an overview of the scenes I made
-  - I can delete scenes
-  - I can navigate to edit my scenes or view their public page
-  - I can set an about-text to describe myself or my projects to other users
+   - I see an overview of the scenes I made
+   - I can delete scenes
+   - I can navigate to edit my scenes or view their public page
+   - I can set an about-text to describe myself or my projects to other users
  - As a user I can visit a page to discover all the existing scenes
-  - From there I can navigate to the page of an individual scene or of an author
+   - From there I can navigate to the page of an individual scene or of an author
  - As a user I can navigate to an author page to
-   - Read the about-text of the author (if there is one)
-   - See a list of the scenes of this author
+    - Read the about-text of the author (if there is one)
+    - See a list of the scenes of this author
   - As a user I can go to the view-page of an individual scene and
-   - Play the scene
-   - See a description of the scene (if there is one)
-   - comment on the scene
-   - delete my comments
+    - Play the scene
+    - See a description of the scene (if there is one)
+    - comment on the scene
+    - delete my comments
    
 ### Project Board
 
