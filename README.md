@@ -76,7 +76,7 @@ See the [database model at dbdiagram.io](https://dbdiagram.io/d/5fbbc5eb3a78976d
 
 See [make-a-scene-backend on GitHub](https://github.com/TdWa/make-a-scene-backend)
 
-### Plans to extend project
+### Plans to extend the project
 
 On my project board I have added a list of features I have in mind to add to the project. Many of these features were already considered in the design of the project but I did not have time to add everything within two weeks. For example regarding the animation of the actors:
 
