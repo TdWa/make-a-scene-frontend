@@ -20,7 +20,7 @@ Make a Scene is a platform where you can create scripted conversations and turn 
 - Styled-Components
 
 #### Backend
-- NodeJS
+- Node.js
 - Express REST API
 - JWT & Bcrypt Authentication
 - PostgreSQL database
