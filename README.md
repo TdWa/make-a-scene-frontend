@@ -12,8 +12,6 @@ Make a Scene is a platform where you can create scripted conversations and turn 
 
 ### Used technologies and concepts
 
-- NodeJS
-
 #### Frontend
 - TypeScript
 - React
@@ -22,6 +20,7 @@ Make a Scene is a platform where you can create scripted conversations and turn 
 - Styled-Components
 
 #### Backend
+- NodeJS
 - Express REST API
 - JWT & Bcrypt Authentication
 - PostgreSQL database
