@@ -83,7 +83,7 @@ export default function MyProfilePage() {
                   textBeforeEdit.current = about;
                 }}
               >
-                Edit
+                {about ? "Edit" : "Add"}
               </Button>
               <p>{about}</p>
             </div>
