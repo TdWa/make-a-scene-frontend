@@ -7,7 +7,7 @@ import {
   PageFeedback,
   PageTitle,
 } from "../general-styles/styledElements";
-import ScenesList from "../components/ScenesList";
+import SceneListCard from "../components/SceneListCard";
 import { ActorType, Scene } from "../store/types";
 
 export default function AuthorPage() {
@@ -99,7 +99,7 @@ export default function AuthorPage() {
       <div className="pageRow">
         <h2>Scenes</h2>
         {authorState.author.scenes.map((scene) => (
-          <ScenesList key={scene.id} authorPage={true} {...scene} />
+          <SceneListCard key={scene.id} authorPage={true} {...scene} />
         ))}
       </div>
     </div>

@@ -106,9 +106,11 @@ export default function ViewScenePage() {
       )}
       <div className="pageRow">
         <h2>Comments</h2>
-        {scene.comments.map((comment) => (
-          <Comment key={comment.id} {...comment} />
-        ))}
+        {scene.comments
+          .sort((a, b) => (a.id && b.id ? a.id - b.id : 0))
+          .map((comment) => (
+            <Comment key={comment.id} {...comment} />
+          ))}
       </div>
       {user.name ? (
         <Form

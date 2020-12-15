@@ -8,6 +8,7 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
 } from "./types";
+import { UPDATE_SCENE } from "../user/types";
 
 const initialState: AuthorsState = {
   loading: false,
@@ -17,6 +18,22 @@ const initialState: AuthorsState = {
 
 const authorsReducer = (state = initialState, action: AuthorsActionTypes) => {
   switch (action.type) {
+    case UPDATE_SCENE:
+      return {
+        ...state,
+        scenes: state.scenes.map((scene) =>
+          scene.id !== action.payload.scene.id
+            ? scene
+            : {
+                ...scene,
+                name: action.payload.scene.name,
+                backgroundColor: action.payload.scene.backgroundColor,
+                description: action.payload.scene.description,
+                actors: action.payload.actors,
+              }
+        ),
+      };
+
     case REMOVE_COMMENT:
       return {
         ...state,

@@ -9,7 +9,7 @@ import {
   PageTitle,
 } from "../general-styles/styledElements";
 import { Link, Redirect } from "react-router-dom";
-import ScenesList from "../components/ScenesList";
+import SceneListCard from "../components/SceneListCard";
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ export default function MyProfilePage() {
                   textBeforeEdit.current = about;
                 }}
               >
-                Edit
+                {about ? "Edit" : "Add"}
               </Button>
               <p>{about}</p>
             </div>
@@ -103,7 +103,7 @@ export default function MyProfilePage() {
       <div className="pageRow">
         <h2>My scenes</h2>
         {user.scenes.map((scene) => (
-          <ScenesList key={scene.id} profilePage={true} {...scene} />
+          <SceneListCard key={scene.id} profilePage={true} {...scene} />
         ))}
       </div>
     </div>

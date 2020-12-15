@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ScenesList from "../components/ScenesList";
+import SceneListCard from "../components/SceneListCard";
 import { PageFeedback, PageTitle } from "../general-styles/styledElements";
 import { getScenes } from "../store/authors/actions";
 import {
@@ -26,7 +26,7 @@ export default function DiscoverScenesPage() {
       <PageTitle>Discover Scenes</PageTitle>
       <div className="pageRow">
         {scenes.map((scene) => (
-          <ScenesList key={scene.id} {...scene} />
+          <SceneListCard key={scene.id} {...scene} />
         ))}
       </div>
     </div>
