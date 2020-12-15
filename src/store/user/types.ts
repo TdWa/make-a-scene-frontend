@@ -50,7 +50,7 @@ export type SceneUpdate = {
   actors: ActorType[];
 };
 
-type UpdateScene = {
+export type UpdateScene = {
   type: typeof UPDATE_SCENE;
   payload: SceneUpdate;
 };

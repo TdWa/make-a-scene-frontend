@@ -1,4 +1,5 @@
 import { AuthorScene, CommentType } from "../types";
+import { UpdateScene } from "../user/types";
 
 // state type
 export type AuthorsState = {
@@ -44,6 +45,7 @@ type ScenesFetchError = {
 };
 
 export type AuthorsActionTypes =
+  | UpdateScene
   | RemoveComment
   | AddComment
   | ClearScenesFetchError
