@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, ConfirmPopup } from "../general-styles/styledElements";
 import { ActorType, CommentType } from "../store/types";
 import Actor from "./Actor";
-import { ScenesListStyle } from "./ScenesListStyle";
+import { SceneListCardStyle } from "./SceneListCardStyle";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteScene } from "../store/user/actions";
 
-type SceneListProp = {
+type SceneListCardProp = {
   profilePage?: boolean;
   authorPage?: boolean;
   id: number;
@@ -21,9 +21,11 @@ type SceneListProp = {
   comments?: CommentType[];
 };
 
-export default function ScenesList(props: SceneListProp) {
+export default function SceneListCard(props: SceneListCardProp) {
   const dispatch = useDispatch();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+
   const {
     profilePage,
     authorPage,
@@ -36,11 +38,14 @@ export default function ScenesList(props: SceneListProp) {
     authorName,
   } = props;
   return (
-    <ScenesListStyle
+    <SceneListCardStyle
       profilePage={profilePage}
       backgroundColor={backgroundColor}
     >
-      <div className="sceneSimple">
+      <div
+        className="sceneSimple"
+        onClick={() => setShowDescription(!showDescription)}
+      >
         <h3>
           <strong>{name}</strong>
           {profilePage && (
@@ -105,18 +110,18 @@ export default function ScenesList(props: SceneListProp) {
           </div>
         </div>
       </div>
-      <div className="sceneDescription">
-        <h4>Description</h4>
-        <p>
-          {description
-            ? description.length > 180
-              ? description.slice(0, 180) + "..."
-              : description
-            : "-"}
-        </p>
-      </div>
-    </ScenesListStyle>
+      {showDescription && (
+        <div className="sceneDescription">
+          <h4>Description</h4>
+          <p>
+            {description
+              ? description.length > 180
+                ? description.slice(0, 180) + "..."
+                : description
+              : "-"}
+          </p>
+        </div>
+      )}
+    </SceneListCardStyle>
   );
 }
-
-// onClick={() => dispatch(deleteScene(id))}
