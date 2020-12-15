@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { ThemeType } from "../general-styles/theme";
 
-type ScenesListStyleProp = {
+type SceneListCardStyleProp = {
   backgroundColor: string;
   profilePage?: boolean;
   theme: ThemeType;
 };
 
-export const ScenesListStyle = styled.div<ScenesListStyleProp>`
+export const SceneListCardStyle = styled.div<SceneListCardStyleProp>`
   position: relative;
   background-color: ${({ backgroundColor }) => backgroundColor};
   margin: 20px auto;

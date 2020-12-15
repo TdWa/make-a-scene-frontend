@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, ConfirmPopup } from "../general-styles/styledElements";
 import { ActorType, CommentType } from "../store/types";
 import Actor from "./Actor";
-import { ScenesListStyle } from "./ScenesListStyle";
+import { SceneListCardStyle } from "./SceneListCardStyle";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteScene } from "../store/user/actions";
 
-type SceneListProp = {
+type SceneListCardProp = {
   profilePage?: boolean;
   authorPage?: boolean;
   id: number;
@@ -21,7 +21,7 @@ type SceneListProp = {
   comments?: CommentType[];
 };
 
-export default function ScenesList(props: SceneListProp) {
+export default function SceneListCard(props: SceneListCardProp) {
   const dispatch = useDispatch();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const {
@@ -36,7 +36,7 @@ export default function ScenesList(props: SceneListProp) {
     authorName,
   } = props;
   return (
-    <ScenesListStyle
+    <SceneListCardStyle
       profilePage={profilePage}
       backgroundColor={backgroundColor}
     >
@@ -115,7 +115,7 @@ export default function ScenesList(props: SceneListProp) {
             : "-"}
         </p>
       </div>
-    </ScenesListStyle>
+    </SceneListCardStyle>
   );
 }
 
