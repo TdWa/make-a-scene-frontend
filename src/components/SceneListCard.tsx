@@ -24,6 +24,8 @@ type SceneListCardProp = {
 export default function SceneListCard(props: SceneListCardProp) {
   const dispatch = useDispatch();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+
   const {
     profilePage,
     authorPage,
@@ -40,7 +42,10 @@ export default function SceneListCard(props: SceneListCardProp) {
       profilePage={profilePage}
       backgroundColor={backgroundColor}
     >
-      <div className="sceneSimple">
+      <div
+        className="sceneSimple"
+        onClick={() => setShowDescription(!showDescription)}
+      >
         <h3>
           <strong>{name}</strong>
           {profilePage && (
@@ -105,18 +110,18 @@ export default function SceneListCard(props: SceneListCardProp) {
           </div>
         </div>
       </div>
-      <div className="sceneDescription">
-        <h4>Description</h4>
-        <p>
-          {description
-            ? description.length > 180
-              ? description.slice(0, 180) + "..."
-              : description
-            : "-"}
-        </p>
-      </div>
+      {showDescription && (
+        <div className="sceneDescription">
+          <h4>Description</h4>
+          <p>
+            {description
+              ? description.length > 180
+                ? description.slice(0, 180) + "..."
+                : description
+              : "-"}
+          </p>
+        </div>
+      )}
     </SceneListCardStyle>
   );
 }
-
-// onClick={() => dispatch(deleteScene(id))}

@@ -72,17 +72,13 @@ export const SceneListCardStyle = styled.div<SceneListCardStyleProp>`
     width: 100%;
     padding: 0;
     border-radius: 0 0 5px 5px;
-    height: 0;
-    transition: height 0.5s ease;
-    transition: padding 0.5s ease;
+    height: 100px;
+    padding: 10px;
     overflow: hidden;
   }
 
-  .sceneSimple:hover + .sceneDescription,
-  .sceneDescription:hover {
-    height: 100px;
-    padding: 10px;
-    transition: height 0.5s ease;
+  .sceneSimple:hover {
+    cursor: pointer;
   }
 
   .delete {
