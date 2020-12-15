@@ -9,6 +9,8 @@ Make a Scene is a platform where you can create scripted conversations and turn 
 ### App demo
 
 ![App demo](https://github.com/TdWa/make-a-scene-frontend/blob/development/readme-assets/scene-demo.gif)
+Note: The gif above plays at a slower speed than the actual app.
+![Sceenshot of Scenebuilder](https://github.com/TdWa/make-a-scene-frontend/blob/development/readme-assets/make-a-scene.png)
 
 ### Used technologies and concepts
 
